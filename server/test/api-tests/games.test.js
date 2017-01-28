@@ -31,7 +31,7 @@ describe('Games CRUD routes', () => {
       .catch(done);
   });
 
-  it('Gets all games', done => {
+  it('GETs all games', done => {
     request
       .get('/api/games')
       .then(res => {
@@ -42,10 +42,22 @@ describe('Games CRUD routes', () => {
       .catch(done);
   });
 
-  it('Gets game by id', done => {
+  it('GETs game by id', done => {
     request
       .get(`/api/games/${testGame._id}`)
       .then(res => {
+        assert.deepEqual(res.body, testGame);
+        done();
+      })
+      .catch(done);
+  });
+
+  it('PUTs updates into game', done => {
+    request
+      .put(`/api/games/${testGame._id}`)
+      .send({ title: 'CHANGED TITLE' })
+      .then(res => {
+        testGame.title = 'CHANGED TITLE';
         assert.deepEqual(res.body, testGame);
         done();
       })
