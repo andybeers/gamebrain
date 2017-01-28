@@ -7,12 +7,46 @@ const request = chai.request(app);
 
 describe('Games CRUD routes', () => {
 
-  it('Starts empty', done => {
+  const testGame = {
+    title: 'Test',
+    bggId: '2067',
+    thumbnail: 'imgur.svg',
+    image: 'bigimgur.svg',
+    yearPub: 2017,
+    minPlayers: 2,
+    maxPlayers: 15,
+    playtimeMinutes: 322
+  };
+
+  it('POSTs a game', done => {
+    request
+      .post('/api/games')
+      .send(testGame)
+      .then(res => {
+        testGame._id = res.body._id;
+        testGame.__v = res.body.__v;
+        assert.deepEqual(res.body, testGame);
+        done();
+      })
+      .catch(done);
+  });
+
+  it('Gets all games', done => {
     request
       .get('/api/games')
       .then(res => {
-        assert.isArray(res.body);
-        assert.equal(res.body.length, 0);
+        assert.equal(res.body.length, 1);
+        assert.deepEqual(res.body[0], testGame);
+        done();
+      })
+      .catch(done);
+  });
+
+  it('Gets game by id', done => {
+    request
+      .get(`/api/games/${testGame._id}`)
+      .then(res => {
+        assert.deepEqual(res.body, testGame);
         done();
       })
       .catch(done);
