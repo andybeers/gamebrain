@@ -3,8 +3,12 @@ const Schema = mongoose.Schema;
 const bcrypt = require('bcryptjs');
 
 const schema = new Schema({
-  username: {type: String, required: true},
-  password: {type: String, required: true}
+  username: { type: String, required: true },
+  password: { type: String, required: true },
+  gamesColl: [{
+    type: Schema.Types.ObjectId,
+    ref: 'Game'
+  }] 
 });
 
 schema.methods.generateHash = function(password) {
