@@ -18,7 +18,7 @@
   },
   "scripts": {
     "pretest": "npm run lint",
-    "test": "mocha --recursive",
+    "test": "MONGODB_URI=mongodb://localhost/gameshelf-test mocha --recursive",
     "test:watch": "npm run test -- -w",
     "start": "node server.js",
     "lint": "eslint ."
