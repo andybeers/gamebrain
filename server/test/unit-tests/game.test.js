@@ -6,7 +6,7 @@ mongoose.Promise = Promise;
 describe('Game model', () => {
 
   it('Validates game model', done => {
-    let testGame = new Game({
+    const testGame = new Game({
       title: 'Test',
       bggId: 2067,
       thumbnail: 'imgur.svg',
