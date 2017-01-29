@@ -7,7 +7,7 @@ describe('User model', () => {
 
   it('Validates user model', done => {
     let gameId = new mongoose.Types.ObjectId();
-    let testUser = new User({
+    const testUser = new User({
       username: 'testUser',
       password: 123,
       gamesColl: [gameId]
