@@ -25,6 +25,11 @@ router
     Game.findByIdAndUpdate(req.params.id, req.body, { new: true })
       .then(updated => res.send(updated))
       .catch(next);
+  })
+  .delete('/:id', (req, res, next) => {
+    Game.findByIdAndRemove(req.params.id)
+      .then(removed => res.send(removed))
+      .catch(next);
   });
 
 module.exports = router;

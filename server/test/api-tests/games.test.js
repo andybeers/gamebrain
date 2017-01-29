@@ -64,4 +64,14 @@ describe('Games CRUD routes', () => {
       .catch(done);
   });
 
+  it('DELETEs a game', done => {
+    request
+      .delete(`/api/games/${testGame._id}`)
+      .then(res => {
+        assert.deepEqual(res.body, testGame);
+        done();
+      })
+      .catch(done);
+  });
+
 });
