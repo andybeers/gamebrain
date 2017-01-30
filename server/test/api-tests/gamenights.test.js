@@ -7,9 +7,13 @@ const request = chai.request(app);
 
 describe('Gamenights CRUD routes', () => {
 
-  const testUser = {
-    username: 'testUser',
+  const gamenightUser = {
+    username: 'gamenightUser',
     password: 'hunter2'
+  };
+  const gamenightUser2 = {
+    username: 'gamenightUser2',
+    password: 'hunter3'
   };
   const testDate = new Date();
   const testGamenight = {
@@ -19,22 +23,27 @@ describe('Gamenights CRUD routes', () => {
     invites: []
   };
 
-  before('Logs in a user', done => {
-    request
-      .post('/api/auth/signin')
-      .send(testUser)
+  before('Logs in test users', done => {
+    Promise.all([
+      request
+        .post('/api/auth/signup')
+        .send(gamenightUser),
+      request
+        .post('/api/auth/signup')
+        .send(gamenightUser2),
+    ])
       .then(res => {
-        testUser.token = res.body.token;
+        gamenightUser.token = res[0].body.token;
+        gamenightUser2.token = res[1].body.token;
         done();
       })
       .catch(done);
   });
 
-
   it('POSTs a gamenight', done => {
     request
       .post('/api/gamenights')
-      .set({ 'authorization': testUser.token })
+      .set({ 'authorization': gamenightUser.token })
       .send(testGamenight)
       .then(res => {
         testGamenight._id = res.body._id;
@@ -47,5 +56,51 @@ describe('Gamenights CRUD routes', () => {
       .catch(done);
   });
 
+  it('GETs gamenight by id', done => {
+    request
+      .get(`/api/gamenights/${testGamenight._id}`)
+      .set({ 'authorization': gamenightUser.token })
+      .then(res => {
+        assert.deepEqual(res.body, testGamenight);
+        done();
+      })
+      .catch(done);
+  });
+
+  it('Prevents non-hosts from deleting gamenight', done => {
+    request
+      .delete(`/api/gamenights/${testGamenight._id}`)
+      .set({ 'authorization': gamenightUser2.token })
+      .then(() => {
+        done('Should not be status 200');
+      })
+      .catch(err => {
+        assert.equal(err.status, 403);
+        assert.equal(err.response.body.error, 'Unauthorized user');
+        done();
+      });
+  });
+
+  it('DELETEs a gamenight', done => {
+    request
+      .delete(`/api/gamenights/${testGamenight._id}`)
+      .set({ 'authorization': gamenightUser.token })
+      .then(res => {
+        assert.deepEqual(res.body, testGamenight);
+        done();
+      })
+      .catch(done);
+  });
+
+  it('Actually removed that night', done => {
+    request
+      .get('/api/gamenights')
+      .set({ 'authorization': gamenightUser.token })
+      .then(res => {
+        assert.deepEqual(res.body, []);
+        done();
+      })
+      .catch(done);
+  });
 
 });
