@@ -7,6 +7,11 @@ const request = chai.request(app);
 
 describe('Games CRUD routes', () => {
 
+  const gamesUser = {
+    username: 'gamesUser',
+    password: 'hunter2'
+  };
+
   const testGame = {
     title: 'Test',
     bggId: '2067',
@@ -18,9 +23,35 @@ describe('Games CRUD routes', () => {
     playtimeMinutes: 322
   };
 
+  before('Create games user', done => {
+    request
+      .post('/api/auth/signup')
+      .send(gamesUser)
+      .then(res => {
+        gamesUser.token = res.body.token;
+        done();
+      })
+      .catch(done);
+  });
+
+  it('Requires valid token', done => {
+    request
+      .get('/api/games')
+      .then(() => {
+        done('Should not be status 200');
+      })
+      .catch(err => {
+        assert.equal(err.status, 403);
+        assert.equal(err.response.body.error, 'Unauthorized, no token provided');
+        done();
+      });
+      
+  });
+
   it('POSTs a game', done => {
     request
       .post('/api/games')
+      .set({ 'authorization': gamesUser.token })
       .send(testGame)
       .then(res => {
         testGame._id = res.body._id;
@@ -34,6 +65,7 @@ describe('Games CRUD routes', () => {
   it('GETs all games', done => {
     request
       .get('/api/games')
+      .set({ 'authorization': gamesUser.token })
       .then(res => {
         assert.equal(res.body.length, 1);
         assert.deepEqual(res.body[0], testGame);
@@ -45,6 +77,7 @@ describe('Games CRUD routes', () => {
   it('GETs game by id', done => {
     request
       .get(`/api/games/${testGame._id}`)
+      .set({ 'authorization': gamesUser.token })
       .then(res => {
         assert.deepEqual(res.body, testGame);
         done();
@@ -55,6 +88,7 @@ describe('Games CRUD routes', () => {
   it('PUTs updates into game', done => {
     request
       .put(`/api/games/${testGame._id}`)
+      .set({ 'authorization': gamesUser.token })
       .send({ title: 'CHANGED TITLE' })
       .then(res => {
         testGame.title = 'CHANGED TITLE';
@@ -67,6 +101,7 @@ describe('Games CRUD routes', () => {
   it('DELETEs a game', done => {
     request
       .delete(`/api/games/${testGame._id}`)
+      .set({ 'authorization': gamesUser.token })
       .then(res => {
         assert.deepEqual(res.body, testGame);
         done();
