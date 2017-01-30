@@ -110,4 +110,29 @@ describe('User authorization routes', () => {
       });
   });
 
+  it('Validates good tokens', done => {
+    request
+      .get('/api/auth/validate')
+      .set({ 'authorization': testUserToken })
+      .then(res => {
+        assert.equal(res.body.valid, true);
+        done();
+      })
+      .catch(done);
+  });
+
+  it('Invalidates bad tokens', done => {
+    request
+      .get('/api/auth/validate')
+      .set({ 'authorization': 'aslkj2141gdg' })
+      .then(() => {
+        done('Should not be status 200');
+      })
+      .catch(err => {
+        assert.equal(err.status, 403);
+        assert.equal(err.response.body.error, 'Unauthorized, bad token');
+        done();
+      });
+  });
+
 });

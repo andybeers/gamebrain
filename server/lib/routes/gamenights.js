@@ -17,6 +17,7 @@ router
       .catch(next);
   })
   .post('/', bodyParser, (req, res, next) => {
+    req.body.host = req.user.id;
     new Gamenight(req.body).save()
       .then(newGamenight => res.send(newGamenight))
       .catch(next);
@@ -27,10 +28,18 @@ router
       .catch(next);
   })
   .delete('/:id', (req, res, next) => {
-    Gamenight.findByIdAndRemove(req.params.id)
+    Gamenight.findById(req.params.id)
+      .then(gamenight => {
+        if (req.user.id != gamenight.host) {
+          throw {
+            code: 403,
+            error: 'Unauthorized user'
+          }; 
+        }
+        return Gamenight.findByIdAndRemove(req.params.id);
+      })
       .then(removed => res.send(removed))
-      .catch(next);
+      .catch(next);   
   });
-
 
 module.exports = router;

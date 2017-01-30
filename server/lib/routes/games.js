@@ -20,16 +20,18 @@ router
     new Game(req.body).save()
       .then(newGame => res.send(newGame))
       .catch(next);
-  })
-  .put('/:id', bodyParser, (req, res, next) => {
-    Game.findByIdAndUpdate(req.params.id, req.body, { new: true })
-      .then(updated => res.send(updated))
-      .catch(next);
-  })
-  .delete('/:id', (req, res, next) => {
-    Game.findByIdAndRemove(req.params.id)
-      .then(removed => res.send(removed))
-      .catch(next);
   });
+  
+  // No users should be able to edit or delete games, as of yet.
+  // .put('/:id', bodyParser, (req, res, next) => {
+  //   Game.findByIdAndUpdate(req.params.id, req.body, { new: true })
+  //     .then(updated => res.send(updated))
+  //     .catch(next);
+  // })
+  // .delete('/:id', (req, res, next) => {
+  //   Game.findByIdAndRemove(req.params.id)
+  //     .then(removed => res.send(removed))
+  //     .catch(next);
+  // });
 
 module.exports = router;

@@ -84,29 +84,30 @@ describe('Games CRUD routes', () => {
       })
       .catch(done);
   });
+  
+  // No user should be able to edit or delete games, as of yet.
+  // it('PUTs updates into game', done => {
+  //   request
+  //     .put(`/api/games/${testGame._id}`)
+  //     .set({ 'authorization': gamesUser.token })
+  //     .send({ title: 'CHANGED TITLE' })
+  //     .then(res => {
+  //       testGame.title = 'CHANGED TITLE';
+  //       assert.deepEqual(res.body, testGame);
+  //       done();
+  //     })
+  //     .catch(done);
+  // });
 
-  it('PUTs updates into game', done => {
-    request
-      .put(`/api/games/${testGame._id}`)
-      .set({ 'authorization': gamesUser.token })
-      .send({ title: 'CHANGED TITLE' })
-      .then(res => {
-        testGame.title = 'CHANGED TITLE';
-        assert.deepEqual(res.body, testGame);
-        done();
-      })
-      .catch(done);
-  });
-
-  it('DELETEs a game', done => {
-    request
-      .delete(`/api/games/${testGame._id}`)
-      .set({ 'authorization': gamesUser.token })
-      .then(res => {
-        assert.deepEqual(res.body, testGame);
-        done();
-      })
-      .catch(done);
-  });
+  // it('DELETEs a game', done => {
+  //   request
+  //     .delete(`/api/games/${testGame._id}`)
+  //     .set({ 'authorization': gamesUser.token })
+  //     .then(res => {
+  //       assert.deepEqual(res.body, testGame);
+  //       done();
+  //     })
+  //     .catch(done);
+  // });
 
 });
