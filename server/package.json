@@ -25,5 +25,5 @@
     "lint": "eslint ."
   },
   "author": "",
-  "license": "ISC"
+  "license": "MIT"
 }

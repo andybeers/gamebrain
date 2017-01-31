@@ -45,7 +45,6 @@ describe('Games CRUD routes', () => {
         assert.equal(err.response.body.error, 'Unauthorized, no token provided');
         done();
       });
-      
   });
 
   it('POSTs a game', done => {

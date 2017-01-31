@@ -40,6 +40,19 @@ describe('Gamenights CRUD routes', () => {
       .catch(done);
   });
 
+  it('Requires valid token', done => {
+    request
+      .get('/api/gamenights')
+      .then(() => {
+        done('Should not be status 200');
+      })
+      .catch(err => {
+        assert.equal(err.status, 403);
+        assert.equal(err.response.body.error, 'Unauthorized, no token provided');
+        done();
+      });
+  });
+
   it('POSTs a gamenight', done => {
     request
       .post('/api/gamenights')
@@ -87,17 +100,6 @@ describe('Gamenights CRUD routes', () => {
       .set({ 'authorization': gamenightUser.token })
       .then(res => {
         assert.deepEqual(res.body, testGamenight);
-        done();
-      })
-      .catch(done);
-  });
-
-  it('Actually removed that night', done => {
-    request
-      .get('/api/gamenights')
-      .set({ 'authorization': gamenightUser.token })
-      .then(res => {
-        assert.deepEqual(res.body, []);
         done();
       })
       .catch(done);
