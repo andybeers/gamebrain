@@ -2,26 +2,26 @@ const express = require('express');
 const router = express.Router();
 // const bodyParser = require('body-parser').json();
 const superagent = require('superagent');
-const xmlParser = require('xml2js').parseString;
+const xmlParser = require('../xml-parser');
 
 router
   .get('/search/:query', (req, res, next) => {
     const query = req.params.query;
     superagent
-      .get(`http://www.boardgamegeek.com/xmlapi/search?search=${query}`)
+      .get(`https://www.boardgamegeek.com/xmlapi/search?search=${query}`)
       .accept('xml')
-      .then(response => {
-        xmlParser(response.text, {explicitArray: false}, (err, result) => {
-          if (err) {
-            console.log('i am the err: ', err);
-            throw err;
-          }
-          console.log('i am result: ', result);
-          res.send(result);
-        });
-      })
+      .parse(xmlParser)
+      .then(bggResponse => res.send(bggResponse.body))
+      .catch(next);
+  })
+  .get('/:id', (req, res, next) => {
+    const id = req.params.id;
+    superagent
+      .get(`https://www.boardgamegeek.com/xmlapi/boardgame/${id}`)
+      .accept('xml')
+      .parse(xmlParser)
+      .then(bggResponse => res.send(bggResponse.body))
       .catch(next);
   });
-
 
 module.exports = router;
