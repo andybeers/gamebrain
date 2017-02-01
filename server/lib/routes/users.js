@@ -13,8 +13,9 @@ router
   })
   .get('/:id', (req, res, next) => {
     User.findById(req.params.id)
-      .lean()
       .select('-password')
+      .populate('gameCollection')
+      .lean()
       .then(user => res.send(user))
       .catch(next);
   })

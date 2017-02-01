@@ -7,10 +7,12 @@ describe('User model', () => {
 
   it('Validates user model', done => {
     let gameId = new mongoose.Types.ObjectId();
+    let friendId = new mongoose.Types.ObjectId();
     const testUser = new User({
       username: 'testUser',
       password: 123,
-      gamesColl: [gameId]
+      gameCollection: [gameId],
+      friends: [friendId]
     });
 
     testUser.validate(err => {
