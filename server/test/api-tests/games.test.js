@@ -20,7 +20,9 @@ describe('Games CRUD routes', () => {
     yearPub: 2017,
     minPlayers: 2,
     maxPlayers: 15,
-    playtimeMinutes: 322
+    playtimeMinutes: 322,
+    publisher: 'blippo games',
+    expansion: false
   };
 
   before('Create games user', done => {
