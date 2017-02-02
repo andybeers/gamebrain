@@ -20,6 +20,8 @@ router
       .catch(next);
   })
   .post('/', bodyParser, (req, res, next) => {
+    
+
     new Game(req.body).save()
       .then(newGame => res.send(newGame))
       .catch(next);
