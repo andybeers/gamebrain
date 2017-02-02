@@ -2,15 +2,37 @@ const express = require('express');
 const router = express.Router();
 const Game = require('../models/game');
 const bodyParser = require('body-parser').json();
+const superagent = require('superagent');
+const xmlParser = require('../xml-parser');
 
 router
   .get('/', (req, res, next) => {
     const query = {};
     if (req.query.search) query.$text = {$search: req.query.search};
-
     Game.find(query)
       .lean()
       .then(games => res.send(games))
+      .catch(next);
+  })
+  .get('/bgg/search/:query', (req, res, next) => {
+    const query = req.params.query;
+    superagent
+      .get(`https://www.boardgamegeek.com/xmlapi2/search?query=${query}&type=boardgame,boardgameexpansion`)
+      .accept('xml')
+      .parse(xmlParser.parseXML)
+      .then(bggResponse => res.send(bggResponse.body))
+      .catch(next);
+  })
+  .get('/bgg/:id', (req, res, next) => {
+    const id = req.params.id;
+    superagent
+      .get(`https://www.boardgamegeek.com/xmlapi2/thing?id=${id}`)
+      .accept('xml')
+      .parse(xmlParser.parseXML)
+      .then(bggResponse => {
+        const game = xmlParser.formatBggData(bggResponse.body);
+        res.send(game);
+      })
       .catch(next);
   })
   .get('/:id', (req, res, next) => {
@@ -20,8 +42,6 @@ router
       .catch(next);
   })
   .post('/', bodyParser, (req, res, next) => {
-    
-
     new Game(req.body).save()
       .then(newGame => res.send(newGame))
       .catch(next);
