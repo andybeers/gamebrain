@@ -20,7 +20,10 @@ router
       .get(`https://www.boardgamegeek.com/xmlapi2/search?query=${query}&type=boardgame,boardgameexpansion`)
       .accept('xml')
       .parse(xmlParser.parseXML)
-      .then(bggResponse => res.send(bggResponse.body))
+      .then(bggResponse => {
+        const results = xmlParser.formatBggSearch(bggResponse.body);
+        res.send(results);
+      })
       .catch(next);
   })
   .get('/bgg/:id', (req, res, next) => {
@@ -42,7 +45,15 @@ router
       .catch(next);
   })
   .post('/', bodyParser, (req, res, next) => {
-    new Game(req.body).save()
+    const id = req.body.bggId;
+    superagent
+      .get(`https://www.boardgamegeek.com/xmlapi2/thing?id=${id}`)
+      .accept('xml')
+      .parse(xmlParser.parseXML)
+      .then(bggResponse => {
+        const game = xmlParser.formatBggData(bggResponse.body);
+        return new Game(game).save();
+      })
       .then(newGame => res.send(newGame))
       .catch(next);
   });

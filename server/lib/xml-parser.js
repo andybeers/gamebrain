@@ -28,6 +28,17 @@ const xmlParser = {
     formatted.expansion = bggGame.items.item[0].$.type === 'boardgameexpansion' ? true : false;
     formatted.publisher = bggGame.items.item[0].link.filter(obj => obj.$.type === 'boardgamepublisher')[0].$.value;
     return formatted;
+  },
+
+  formatBggSearch(bggSearch) {
+    return bggSearch.items.item.map(result => {
+      const game = {};
+      game.bggId = result.$.id;
+      game.title = result.name[0].$.value;
+      game.yearPub = result.yearpublished[0].$.value;
+      return game;
+    });
+
   }
 
 };

@@ -22,6 +22,9 @@ export default function userService($http, apiUrl, $state, tokenService) {
   }
 
   return {
+    isAuthenticated() {
+      return !!tokenService.get();
+    },
     getCurrent() {
       return $http.get(`${apiUrl}/users/current`)
         .then(res => res.data);
@@ -29,9 +32,6 @@ export default function userService($http, apiUrl, $state, tokenService) {
     get(user) {
       return $http.get(`${apiUrl}/users/${user}`)
         .then(res => res.data);
-    },
-    isAuthenticated() {
-      return !!tokenService.get();
     },
     logout() {
       tokenService.remove();
