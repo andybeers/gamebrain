@@ -5,7 +5,10 @@ const bodyParser = require('body-parser').json();
 
 router
   .get('/', (req, res, next) => {
-    Game.find()
+    const query = {};
+    if (req.query.search) query.$text = {$search: req.query.search};
+
+    Game.find(query)
       .lean()
       .then(games => res.send(games))
       .catch(next);

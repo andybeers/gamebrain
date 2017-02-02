@@ -15,6 +15,7 @@
   "dependencies": {
     "angular": "^1.6.1",
     "angular-resource": "^1.6.1",
+    "angular-ui-router": "^1.0.0-rc.1",
     "camelcase": "^4.0.0"
   },
   "devDependencies": {

@@ -12,4 +12,6 @@ const schema = new Schema({
   playtimeMinutes: { type: Number }
 });
 
+schema.index({title: 'text'});
+
 module.exports = mongoose.model('Game', schema);
