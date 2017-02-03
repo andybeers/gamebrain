@@ -5,12 +5,9 @@ export default {
   controller
 };
 
-controller.$inject = ['userService', '$state'];
+// controller.$inject = ['userService', '$state'];
 
-function controller(userService, $state) {
+function controller() {
 
-  this.$onInit = () => {
-    if (userService.isAuthenticated()) $state.go('users');
-  };
 
 }

@@ -9,7 +9,6 @@ controller.$inject = ['userService', '$state'];
 
 function controller(userService, $state) {
   this.signin = () => {
-    console.log('in signin function');
     this.credentials = {
       username: this.username,
       password: this.password

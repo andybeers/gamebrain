@@ -1,5 +1,8 @@
 import template from './add-games.html';
 
 export default {
-  template
+  template,
+  bindings: {
+    current: '<'
+  }
 };

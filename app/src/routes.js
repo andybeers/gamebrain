@@ -5,6 +5,9 @@ export default function routes($stateProvider, $urlRouterProvider) {
   $stateProvider.state({
     name: 'welcome',
     url: '/',
+    data: {
+      public: true
+    },
     component: 'welcome'
   });
 
@@ -22,7 +25,12 @@ export default function routes($stateProvider, $urlRouterProvider) {
   $stateProvider.state({
     name: 'add',
     url: '/add',
-    component: 'add-games'
+    resolve: {
+      current: ['userService', (userService) => {
+        return userService.getCurrent();
+      }]
+    },
+    component: 'addGames'
   });
 
   $urlRouterProvider.otherwise('/');
