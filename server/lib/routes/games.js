@@ -45,6 +45,7 @@ router
       .catch(next);
   })
   .post('/', bodyParser, (req, res, next) => {
+    if(!req.body.bggId) throw { code: 400, message: 'Game ID required' };
     const id = req.body.bggId;
     superagent
       .get(`https://www.boardgamegeek.com/xmlapi2/thing?id=${id}`)
