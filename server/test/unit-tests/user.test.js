@@ -11,6 +11,7 @@ describe('User model', () => {
     const testUser = new User({
       username: 'testUser',
       password: 123,
+      email: 'test@test.com',
       gameCollection: [gameId],
       friends: [friendId]
     });
@@ -23,7 +24,8 @@ describe('User model', () => {
 
   it('Requires username', done => {
     let badUser = new User({
-      password: 123
+      password: 123,
+      email: 'test@test.com'
     });
 
     badUser.validate(err => {
@@ -35,7 +37,8 @@ describe('User model', () => {
 
   it('Requires password', done => {
     let badUser = new User({
-      username: 'testUser'
+      username: 'testUser',
+      email: 'test@test.com'
     });
 
     badUser.validate(err => {

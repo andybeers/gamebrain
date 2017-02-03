@@ -14,8 +14,9 @@ function controller(userService, $state) {
       password: this.password
     };
     userService.signin(this.credentials)
-      .then(() => {
-        $state.go('users');
+      .then(user => {
+        console.log('user in the welcome', user);
+        $state.go('users.collection', {id: user});
       })
       .catch(err => {
         this.loginError = err;
@@ -25,11 +26,12 @@ function controller(userService, $state) {
   this.signup = () => {
     this.newCredentials = {
       username: this.newUsername,
+      email: this.newEmail,
       password: this.newPassword
     };
     userService.signup(this.newCredentials)
       .then(() => {
-        $state.go('users');
+        $state.go('users.collection');
       })
       .catch(err => {
         this.signupError = err;
