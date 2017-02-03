@@ -41,10 +41,10 @@ describe('Users CRUD routes', () => {
       .get('/api/users')
       .set({ 'authorization': usersUser.token })
       .then(res => {
-        assert.equal(res.body.length, 5);
-        assert.equal(res.body[4].username, 'usersUser');
+        assert.equal(res.body.length, 4);
+        assert.equal(res.body[3].username, 'usersUser');
         assert.isNotOk(res.body[0].password);
-        usersUser._id = res.body[4]._id;
+        usersUser._id = res.body[3]._id;
         done();
       })
       .catch(done);
