@@ -6,9 +6,16 @@ const bodyParser = require('body-parser').json();
 router
   .get('/', (req, res, next) => {
     User.find()
-      .lean()
       .select('-password')
+      .lean()
       .then(users => res.send(users))
+      .catch(next);
+  })
+  .get('/current', (req, res, next) => {
+    User.findById(req.user.id)
+      .select('-password')
+      .lean()
+      .then(user => res.send(user))
       .catch(next);
   })
   .get('/:id', (req, res, next) => {

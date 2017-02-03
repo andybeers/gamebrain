@@ -9,7 +9,9 @@ const schema = new Schema({
   yearPub: { type: Number },
   minPlayers: { type: Number },
   maxPlayers: { type: Number },
-  playtimeMinutes: { type: Number }
+  playtimeMinutes: { type: Number },
+  publisher: { type: String },
+  expansion: { type: Boolean }
 });
 
 schema.index({title: 'text'});

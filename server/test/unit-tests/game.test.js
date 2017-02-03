@@ -14,7 +14,9 @@ describe('Game model', () => {
       yearPub: 2017,
       minPlayers: 2,
       maxPlayer: 15,
-      playtimeMinutes: 322
+      playtimeMinutes: 322,
+      publisher: 'Z-man Games',
+      expansion: true
     });
 
     testGame.validate(err => {

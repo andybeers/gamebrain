@@ -4,6 +4,7 @@ import services from './services';
 import uiRouter from 'angular-ui-router';
 import http from './http';
 import routes from './routes';
+import auth from './auth';
 
 const app = angular.module('myApp', [
   components,
@@ -17,3 +18,7 @@ app.value('apiUrl', url);
 
 app.config(http);
 app.config(routes);
+app.run(auth);
+app.run($state => {
+  $state.defaultErrorHandler(() => {});
+});
