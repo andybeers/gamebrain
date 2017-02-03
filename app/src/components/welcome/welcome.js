@@ -19,15 +19,22 @@ function controller(userService, $state) {
         $state.go('users');
       })
       .catch(err => {
-        this.error = err;
+        this.loginError = err;
       });
   };
 
   this.signup = () => {
-
+    this.newCredentials = {
+      username: this.newUsername,
+      password: this.newPassword
+    };
+    userService.signup(this.newCredentials)
+      .then(() => {
+        $state.go('users');
+      })
+      .catch(err => {
+        this.signupError = err;
+      });
   };
 
-  this.logout = () => {
-
-  };
 }

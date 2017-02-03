@@ -3,7 +3,7 @@ routes.$inject = ['$stateProvider', '$urlRouterProvider'];
 export default function routes($stateProvider, $urlRouterProvider) {
 
   $stateProvider.state({
-    name: 'home',
+    name: 'welcome',
     url: '/',
     component: 'welcome'
   });
@@ -11,6 +11,11 @@ export default function routes($stateProvider, $urlRouterProvider) {
   $stateProvider.state({
     name: 'users',
     url: '/users',
+    resolve: {
+      current: ['userService', (userService) => {
+        return userService.getCurrent();
+      }]
+    },
     component: 'users'
   });
 
