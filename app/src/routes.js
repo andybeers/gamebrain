@@ -28,13 +28,6 @@ export default function routes($stateProvider, $urlRouterProvider) {
       current: ['userService', (userService) => {
         return userService.getCurrent();
       }]
-      // user: ['userService', '$transition$', 'current', (userService, t, current) => {
-      //   if(t.params().id === current._id) {
-      //     return current;
-      //   } else {
-      //     return userService.get(t.params().id);
-      //   }
-      // }]
     },
     component: 'home'
   });
@@ -43,6 +36,12 @@ export default function routes($stateProvider, $urlRouterProvider) {
     name: 'home.collection',
     url: '/collection',
     component: 'collection'
+  });
+
+  $stateProvider.state({
+    name: 'home.add-game',
+    url: '/add-game',
+    component: 'addGame'
   });
 
   $stateProvider.state({
@@ -55,17 +54,6 @@ export default function routes($stateProvider, $urlRouterProvider) {
     name: 'home.gamenights',
     url: '/gamenights',
     component: 'gamenights'
-  });
-
-  $stateProvider.state({
-    name: 'add',
-    url: '/add',
-    resolve: {
-      current: ['userService', (userService) => {
-        return userService.getCurrent();
-      }]
-    },
-    component: 'addGames'
   });
 
   $urlRouterProvider.when('/home', '/home/collection');
