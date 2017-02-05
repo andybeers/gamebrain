@@ -8,9 +8,9 @@ export default {
   controller
 };
 
-controller.$inject = ['userService', 'gameService', '$state'];
+controller.$inject = ['userService', 'gameService'];
 
-function controller(userService, gameService, $state) {
+function controller(userService, gameService) {
 
   this.searchResults = false;
 
@@ -21,6 +21,16 @@ function controller(userService, gameService, $state) {
         console.log('results: ', results);
         this.results = results;
         this.searchResults = true;
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
+  this.addGame = game => {
+    userService.update(this.current._id, {$push: {gameCollection: game}})
+      .then(() => {
+        this.current.gameCollection.push(game);
       })
       .catch(err => {
         console.log(err);

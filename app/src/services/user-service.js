@@ -33,6 +33,10 @@ export default function userService($http, apiUrl, $state, tokenService) {
       return $http.get(`${apiUrl}/users/${user}`)
         .then(res => res.data);
     },
+    update(user, data) {
+      return $http.put(`${apiUrl}/users/${user}`, data)
+        .then(res => res.data);
+    },
     logout() {
       tokenService.remove();
     },

@@ -11,6 +11,7 @@ describe('Game model', () => {
       bggId: 2067,
       thumbnail: 'imgur.svg',
       image: 'bigimgur.svg',
+      description: 'once upon a time',
       yearPub: 2017,
       minPlayers: 2,
       maxPlayer: 15,

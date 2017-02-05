@@ -6,6 +6,7 @@ const schema = new Schema({
   bggId: { type: String },
   thumbnail: { type: String },
   image: { type: String },
+  description: { type: String },
   yearPub: { type: Number },
   minPlayers: { type: Number },
   maxPlayers: { type: Number },

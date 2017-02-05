@@ -9,11 +9,13 @@ describe('Gamenights CRUD routes', () => {
 
   const gamenightUser = {
     username: 'gamenightUser',
-    password: 'hunter2'
+    password: 'hunter2',
+    email: 'billy@yahoo.com'
   };
   const gamenightUser2 = {
     username: 'gamenightUser2',
-    password: 'hunter3'
+    password: 'hunter3',
+    email: 'billy@yahoo.com'
   };
   const testDate = new Date();
   const testGamenight = {

@@ -5,6 +5,7 @@ import uiRouter from 'angular-ui-router';
 import http from './http';
 import routes from './routes';
 import auth from './auth';
+import './scss/main.scss';
 
 const app = angular.module('myApp', [
   components,

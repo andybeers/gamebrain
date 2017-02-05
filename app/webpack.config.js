@@ -1,9 +1,9 @@
+const path = require('path');
 const HtmlWebpackPlugin = require( 'html-webpack-plugin' );
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
-const cssExtract = new ExtractTextPlugin('main.css');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
-  target: 'web', 
+  target: 'web',
   entry: './src/main.js',
   output: {
     path: '../server/public',
@@ -14,7 +14,7 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: './src/index.html'
     }),
-    cssExtract
+    new ExtractTextPlugin('main.css')
   ],
   module: {
     rules: [
@@ -35,9 +35,23 @@ module.exports = {
       },
       {
         test: /\.scss$/,
-        loader: cssExtract.extract({
+        loader: ExtractTextPlugin.extract({
           fallbackLoader: 'style-loader',
-          loader: 'css-loader?sourceMap!sass-loader?sourceMap'
+          loader: [
+            {
+              loader: 'css-loader',
+              options: {
+                sourceMap: true
+              }
+            },
+            {
+              loader: 'sass-loader',
+              options: {
+                sourceMap: true,
+                includePaths: './src/scss/partials'
+              }
+            }
+          ]
         })
       },
       {
@@ -45,8 +59,5 @@ module.exports = {
         loader: 'html-loader'	
       }
     ]
-  },
-  // sassLoader: {
-  //   includePaths: ['./src/scss/partials']
-  // }
+  }
 };
