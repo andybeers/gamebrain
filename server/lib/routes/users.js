@@ -14,6 +14,7 @@ router
   .get('/current', (req, res, next) => {
     User.findById(req.user.id)
       .select('-password')
+      .populate('gameCollection')
       .lean()
       .then(user => res.send(user))
       .catch(next);
@@ -35,6 +36,7 @@ router
     } 
     User.findByIdAndUpdate(req.params.id, req.body, { new: true })
       .select('-password')
+      .populate('gameCollection')
       .then(updated => res.send(updated))
       .catch(next);
   })
