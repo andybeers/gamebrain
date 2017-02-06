@@ -1,0 +1,14 @@
+<p>Add games to your collection.</p>
+<input type="search" placeholder="Search for games" ng-model="$ctrl.searchInput">
+<button ng-click="$ctrl.search()">Search</button> 
+<ul ng-if="$ctrl.searchResults">
+  <li>{{$ctrl.results.length}} results:</li>
+  <li ng-repeat="result in $ctrl.results">
+    <h4>{{result.title}}</h4>
+    <p>{{result.yearPub}} -- {{result.publisher}}</p>
+    <p>{{result.thumbnail}}</p>
+    <img ng-src="https://{{result.thumbnail}}">
+    <p>{{result.description}}</p>
+    <button ng-click="$ctrl.addGame(result._id)">Add</button>
+  </li>
+</ul>

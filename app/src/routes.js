@@ -12,27 +12,51 @@ export default function routes($stateProvider, $urlRouterProvider) {
   });
 
   $stateProvider.state({
-    name: 'users',
-    url: '/users',
-    resolve: {
-      current: ['userService', (userService) => {
-        return userService.getCurrent();
-      }]
+    name: 'login',
+    url: '/login',
+    data: {
+      public: true
     },
-    component: 'users'
+    component: 'login'
   });
 
   $stateProvider.state({
-    name: 'add',
-    url: '/add',
+    name: 'home',
+    url: '/home',
+    abstract: true,
     resolve: {
       current: ['userService', (userService) => {
         return userService.getCurrent();
       }]
     },
-    component: 'addGames'
+    component: 'home'
   });
 
+  $stateProvider.state({
+    name: 'home.collection',
+    url: '/collection',
+    component: 'collection'
+  });
+
+  $stateProvider.state({
+    name: 'home.add-game',
+    url: '/add-game',
+    component: 'addGame'
+  });
+
+  $stateProvider.state({
+    name: 'home.friends',
+    url: '/friends',
+    component: 'friends'
+  });
+
+  $stateProvider.state({
+    name: 'home.gamenights',
+    url: '/gamenights',
+    component: 'gamenights'
+  });
+
+  $urlRouterProvider.when('/home', '/home/collection');
   $urlRouterProvider.otherwise('/');
 
 }

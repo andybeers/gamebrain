@@ -19,6 +19,7 @@ const xmlParser = {
     const formatted = {};
     formatted.bggId = bggGame.items.item[0].$.id;
     formatted.title = bggGame.items.item[0].name[0].$.value;
+    formatted.description = bggGame.items.item[0].description[0];
     formatted.thumbnail = bggGame.items.item[0].thumbnail[0].slice(2);
     formatted.image = bggGame.items.item[0].image[0].slice(2);
     formatted.yearPub = bggGame.items.item[0].yearpublished[0].$.value;
@@ -38,7 +39,6 @@ const xmlParser = {
       game.yearPub = result.yearpublished[0].$.value;
       return game;
     });
-
   }
 
 };

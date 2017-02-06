@@ -1,8 +1,7 @@
-<h1>Gameshelf</h1>
-<nav>
-  <a ui-sref="welcome">Home</a>
-  <a ui-sref="add">Add</a>
-  <a ui-sref="users">Users</a>
-</nav>
-<p>{{$ctrl.current.username}}</p>
-<button ng-click="$ctrl.logout()">Logout</button>
+<section ng-class="$ctrl.styles.header">
+  <header>
+    <h1>Gameshelf</h1>
+    <p>{{$ctrl.current.username}}</p>
+    <button ng-click="$ctrl.logout()">Logout</button>
+  </header>
+</section>

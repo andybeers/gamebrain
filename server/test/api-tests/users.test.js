@@ -9,7 +9,8 @@ describe('Users CRUD routes', () => {
 
   const usersUser = {
     username: 'usersUser',
-    password: 'hunter2'
+    password: 'hunter2',
+    email: 'billy@yahoo.com'
   };
 
   before('Create users user', done => {
