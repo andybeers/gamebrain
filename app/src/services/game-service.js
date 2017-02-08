@@ -8,10 +8,7 @@ export default function gameService($http, apiUrl) {
     },
     searchBgg(query) {
       return $http.get(`${apiUrl}/games/bgg/search/${query}`)
-        .then(res => {
-          console.log('service response', res.data);
-          return res.data;
-        });
+        .then(res => res.data);
     },
     add(bggId) {
       return $http.post(`${apiUrl}/games`, { bggId })

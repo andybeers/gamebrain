@@ -52,7 +52,6 @@ function controller(userService, gameService, $state) {
   this.addBggGame = bggId => {
     gameService.add(bggId)
       .then(game => {
-        console.log('game service add response', game);
         this.addGame(game._id);
         $state.go('home.collection');
       })
