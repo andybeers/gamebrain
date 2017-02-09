@@ -1,9 +1,11 @@
-<p>COLLECTION</p>
-<button ui-sref="home.add-game">Add game</button>
-<li ng-repeat="game in $ctrl.current.gameCollection">
-  <h4>{{game.title}}</h4>
-  <p>{{game.yearPub}} -- {{game.publisher}}</p>
-  <p>{{game.thumbnail}}</p>
-  <img ng-src="https://{{game.thumbnail}}">
-  <p>{{game.description}}</p>
-</li>
+<section ng-class="$ctrl.styles.collection">
+  <button ui-sref="home.add-game">Add game</button>
+  <ul>
+    <li ng-repeat="game in $ctrl.current.gameCollection">
+      <h4>{{game.title}}</h4>
+      <p>{{game.yearPub}} -- {{game.publisher}}</p>
+      <img ng-src="https://{{game.thumbnail}}">
+      <p>{{game.description}}</p>
+    </li>
+  </ul>
+</section>

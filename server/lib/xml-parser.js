@@ -1,4 +1,6 @@
 const parseString = require('xml2js').parseString;
+const htmlEntities = require('html-entities').XmlEntities;
+const entities = new htmlEntities();
 
 const xmlParser = {
 
@@ -19,7 +21,10 @@ const xmlParser = {
     const formatted = {};
     formatted.bggId = bggGame.items.item[0].$.id;
     formatted.title = bggGame.items.item[0].name[0].$.value;
-    if (bggGame.items.item[0].description) formatted.description = bggGame.items.item[0].description[0];
+    if (bggGame.items.item[0].description) {
+      const description = bggGame.items.item[0].description[0];
+      formatted.description = entities.decode(description);
+    }
     if (bggGame.items.item[0].thumbnail) formatted.thumbnail = bggGame.items.item[0].thumbnail[0].slice(2);
     if (bggGame.items.item[0].image) formatted.image = bggGame.items.item[0].image[0].slice(2);
     if (bggGame.items.item[0].yearpublished) formatted.yearPub = bggGame.items.item[0].yearpublished[0].$.value;

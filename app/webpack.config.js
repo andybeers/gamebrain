@@ -56,6 +56,14 @@ module.exports = {
       {
         test: /\.html$/,
         loader: 'html-loader'	
+      },
+      {
+        test: /\.svg/,
+        loader: 'raw-loader'
+      },
+      {
+        test: /\.png/,
+        loader: 'url-loader'
       }
     ]
   }

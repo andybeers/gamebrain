@@ -21,7 +21,6 @@ router
       .accept('xml')
       .parse(xmlParser.parseXML)
       .then(bggResponse => {
-        console.log('bggResponse in server', bggResponse.body);
         const results = xmlParser.formatBggSearch(bggResponse.body);
         res.send(results);
       })
