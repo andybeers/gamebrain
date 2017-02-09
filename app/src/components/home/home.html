@@ -1,7 +1,9 @@
 <app-header current="$ctrl.current"></app-header>
-<nav>
-  <a ui-sref="home.collection">Collection</a>
-  <a ui-sref="home.friends">Friends</a>
-  <a ui-sref="home.gamenights">Gamenights</a>
-</nav>
+<section ng-class="$ctrl.styles.home">
+  <ul>
+    <a ui-sref="home.collection"><li>Collection</li></a>
+    <a ui-sref="home.friends"><li>Friends</li></a>
+    <a ui-sref="home.gamenights"><li>Gamenights</li></a>
+  </ul>
+</section>
 <ui-view></ui-view>

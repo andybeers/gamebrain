@@ -1,0 +1,12 @@
+@import 'colors';
+
+:local(.collection) {
+  background-color: white;
+  max-width: 80%;
+  margin: 0 auto;
+
+  ul {
+    list-style: none;
+  }
+
+}
