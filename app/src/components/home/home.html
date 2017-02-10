@@ -1,9 +1,9 @@
 <app-header current="$ctrl.current"></app-header>
 <section ng-class="$ctrl.styles.home">
   <ul>
-    <a ui-sref="home.collection"><li>Collection</li></a>
-    <a ui-sref="home.friends"><li>Friends</li></a>
-    <a ui-sref="home.gamenights"><li>Gamenights</li></a>
+    <a ui-sref="home.collection" ng-class="{selected: $ctrl.tab === 'collection'}"><li>COLLECTION</li></a>
+    <a ui-sref="home.friends" ng-class="{selected: $ctrl.tab === 'friends'}"><li>FRIENDS</li></a>
+    <a ui-sref="home.gamenights" ng-class="{selected: $ctrl.tab === 'gamenights'}"><li>GAMENIGHTS</li></a>
   </ul>
 </section>
 <ui-view></ui-view>

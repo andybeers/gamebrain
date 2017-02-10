@@ -21,5 +21,10 @@
     &:hover {
       background-color: $accent;
     }
+
+    &.selected {
+      border-top: 3px solid $accent;
+      margin-top: -3px;
+    }
   }
 }

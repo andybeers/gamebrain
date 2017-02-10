@@ -12,6 +12,8 @@ export default {
 function controller() {
   this.styles = styles;
 
+  this.tab = 'collection';
+
   this.$onInit = () => {
     console.log('current: ', this.current);
   };

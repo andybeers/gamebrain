@@ -1,0 +1,12 @@
+<div ng-class="$ctrl.styles.game">
+  <h4>{{$ctrl.game.title}}</h4>
+  <p>{{$ctrl.game.publisher}} -- {{$ctrl.game.yearPub}}</p>
+  <p>Expansion: {{$ctrl.game.expansion}}</p>
+  <ul>
+    <li>Minimum players: {{$ctrl.game.minPlayers}}</li>
+    <li>Maximum players: {{$ctrl.game.maxPlayers}}</li>
+    <li>Average playtime: {{$ctrl.game.playtimeMinutes}} minutes</li>
+  </ul>
+  <img ng-src="https://{{$ctrl.game.thumbnail}}">
+  <p>{{$ctrl.game.description}}</p> 
+</div>

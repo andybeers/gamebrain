@@ -1,10 +1,10 @@
-import template from './collection.html';
-import styles from './collection.scss';
+import template from './game.html';
+import styles from './game.scss';
 
 export default {
   template,
   bindings: {
-    current: '<'
+    game: '<'
   },
   controller
 };
