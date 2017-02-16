@@ -3,11 +3,18 @@
 :local(.header) {
   header {
     background-color: $dark-blue;
-    display: flex;
-    justify-content: space-between;
     align-items: center;
     padding: 1em;
     margin: 0;
+  }
+
+  div {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  #header-nav {
+    display: none;
   }
 
   h1 {
@@ -24,9 +31,36 @@
     padding: 0 .3em
   }
 
-  div {
+  #user {
     display: flex;
     flex-direction: column;
+  }
+
+  ul {
+    list-style: none;
+    display: flex;
+    align-content: center;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  a {
+    text-align: center;
+    flex-grow: 1;
+    text-decoration: none;
+    padding: .5em;
+    color: $text;
+    background-color: $light-blue;
+
+    &:hover {
+      background-color: $accent;
+    }
+
+    &.selected {
+      border-top: 3px solid $accent;
+      margin-top: -3px;
+    }
   }
 
 }
