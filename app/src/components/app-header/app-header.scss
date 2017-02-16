@@ -1,20 +1,15 @@
 @import 'colors';
 
 :local(.header) {
+  font-size: 12px;
+
   header {
     background-color: $dark-blue;
     align-items: center;
-    padding: 1em;
+    padding: .5em;
     margin: 0;
-  }
-
-  div {
     display: flex;
-    justify-content: space-between;
-  }
-
-  #header-nav {
-    display: none;
+    justify-content: space-around;
   }
 
   h1 {
@@ -36,16 +31,38 @@
     flex-direction: column;
   }
 
-  ul {
+  nav {
     list-style: none;
-    display: flex;
-    align-content: center;
-    width: 100%;
     margin: 0;
     padding: 0;
   }
 
-  a {
+  #header-nav {
+    display: none;
+  }
+
+  #header-nav a {
+    color: floralwhite;
+    text-decoration: none;
+    margin: 0 .5em;
+    padding: .25em;
+
+    &:hover {
+      color: lightgray;
+    }
+
+    &.selected {
+      border-bottom: 2px solid $accent;
+      margin-bottom: -2px;
+    }
+  }
+
+  #under-nav nav {
+    display: flex;
+    // width: 100%;
+  }
+
+  #under-nav a {
     text-align: center;
     flex-grow: 1;
     text-decoration: none;
@@ -61,6 +78,21 @@
       border-top: 3px solid $accent;
       margin-top: -3px;
     }
+  }
+
+  @media screen and (min-width: 580px) {
+    header {
+      font-size: 16px;
+    }
+
+    #header-nav {
+      display: flex;
+    }
+
+    #under-nav {
+      display: none;
+    }
+
   }
 
 }
