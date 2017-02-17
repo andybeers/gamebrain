@@ -1,7 +1,8 @@
 @import 'colors';
 
 :local(.header) {
-  font-size: 12px;
+  font-size: 10px;
+  margin-bottom: .5em;
 
   header {
     background-color: $dark-blue;
@@ -10,6 +11,7 @@
     margin: 0;
     display: flex;
     justify-content: space-around;
+    box-shadow: 0px 2px 5px rgba(0,0,0,.26);
   }
 
   h1 {
@@ -28,7 +30,7 @@
 
   #user {
     display: flex;
-    flex-direction: column;
+    align-items: center;
   }
 
   nav {
@@ -59,7 +61,7 @@
 
   #under-nav nav {
     display: flex;
-    // width: 100%;
+    box-shadow: 0px 1px 3px #8c8c8c;
   }
 
   #under-nav a {
@@ -69,14 +71,14 @@
     padding: .5em;
     color: $text;
     background-color: $light-blue;
+    font-size: 12px;
 
     &:hover {
       background-color: $accent;
     }
 
     &.selected {
-      border-top: 3px solid $accent;
-      margin-top: -3px;
+      background-color: $accent;
     }
   }
 

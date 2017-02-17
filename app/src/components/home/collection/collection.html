@@ -1,4 +1,5 @@
 <section ng-class="$ctrl.styles.collection">
-  <button ui-sref="home.add-game">Add game</button>
+  <h1>{{$ctrl.current.username}}'s collection</h1>
+  <a ui-sref="home.add-game" class="add-button-sm">+</a>
   <game game="game" ng-repeat="game in $ctrl.current.gameCollection"></game>
 </section>
