@@ -1,8 +1,11 @@
+@import 'colors';
+
 :local(.game) {
   font-size: 16px;
 
-  h4 {
+  h3 {
     margin: .25em;
+    font-size: 16px;
   }
 
   p, li {
@@ -13,6 +16,10 @@
   ul {
     list-style: none;
     padding: 0;
+  }
+
+  .expansion {
+    color: $green;
   }
 
 }
