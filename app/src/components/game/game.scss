@@ -1,17 +1,17 @@
 @import 'colors';
 
 :local(.game) {
-  border-bottom: 1px solid $blue;
+  border-bottom: 1px solid $light-blue;
   cursor: pointer;
 
   h3 {
-    margin: .5em .25em;
+    margin: .75em .25em;
     font-size: 14px;
-    font-weight: 400;
+    color: $text;
   }
 
   p, li {
-    font-size: 14px;
+    font-size: 10px;
     margin: .25em;
   }
 
@@ -21,15 +21,45 @@
   }
 
   .game-stats {
+    margin: 0 0 .5em;
     display: flex;
   }
 
-  .expansion {
-    color: $green;
+  .players {
+    padding: .3em;
+    color: $medium-blue;
+    border: 1px solid $medium-blue;
+    border-radius: 3px;
   }
 
-  @media screen and (min-width: 800px) {
-   
+  .minutes {
+    padding: .3em;
+    color: $medium-blue;
+    border: 1px solid $medium-blue;
+    border-radius: 3px;
+  }
+
+  .expansion {
+    padding: .3em;
+    color: $green;
+    border: 1px solid $green;
+    border-radius: 3px;
+  }
+
+  @media screen and (min-width: 550px) {
+    .game-stats {
+      margin: 0;
+    }
+
+    .players, .minutes, .expansion {
+      padding: .5em;
+    }
+
+    .game-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
   }
 
 }
