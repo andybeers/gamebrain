@@ -2,11 +2,13 @@
 
 :local(.collection) {
   background-color: white;
-  max-width: 90%;
+  width: 85%;
+  max-width: 600px;
   margin: 0 auto;
 
   h1 {
     font-size: 14px;
+    margin: 1em .25em;
     // font-weight: 400;
   }
 

@@ -1,7 +1,7 @@
 @import 'colors';
 
 :local(.header) {
-  font-size: 10px;
+  font-size: 12px;
   margin-bottom: .5em;
 
   header {
@@ -71,7 +71,7 @@
     padding: .5em;
     color: $text;
     background-color: $light-blue;
-    font-size: 12px;
+    font-size: 14px;
 
     &:hover {
       background-color: $accent;
@@ -82,7 +82,7 @@
     }
   }
 
-  @media screen and (min-width: 580px) {
+  @media screen and (min-width: 600px) {
     header {
       font-size: 16px;
     }
