@@ -1,0 +1,20 @@
+<div ng-class="$ctrl.styles.game" ng-click="$ctrl.expand = !$ctrl.expand">
+  <h3>{{$ctrl.game.title}}</h3>
+  <ul class="game-stats">
+    <li>{{$ctrl.game.minPlayers}} - {{$ctrl.game.maxPlayers}} players</li>
+    <li>{{$ctrl.game.playtimeMinutes}} minutes average</li>
+    <li class="expansion" ng-if="$ctrl.game.expansion">Expansion</li>
+  </ul>
+  <div ng-show="$ctrl.expand">
+    <p>{{$ctrl.game.yearPub}}</p>
+    <p class="expansion" ng-if="$ctrl.game.expansion">Expansion</p>
+    <ul>
+      <li>Minimum players: {{$ctrl.game.minPlayers}}</li>
+      <li>Maximum players: {{$ctrl.game.maxPlayers}}</li>
+      <li>Average playtime: {{$ctrl.game.playtimeMinutes}} minutes</li>
+    </ul>
+    <p>{{$ctrl.game.publisher}}</p>
+    <img ng-src="https://{{$ctrl.game.thumbnail}}">
+    <p>{{$ctrl.game.description}}</p> 
+  </div>
+</div>

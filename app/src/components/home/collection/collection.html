@@ -1,11 +1,5 @@
 <section ng-class="$ctrl.styles.collection">
-  <button ui-sref="home.add-game">Add game</button>
-  <ul>
-    <li ng-repeat="game in $ctrl.current.gameCollection">
-      <h4>{{game.title}}</h4>
-      <p>{{game.yearPub}} -- {{game.publisher}}</p>
-      <img ng-src="https://{{game.thumbnail}}">
-      <p>{{game.description}}</p>
-    </li>
-  </ul>
+  <h1>{{$ctrl.current.username}}'s collection</h1>
+  <a ui-sref="home.add-game" class="add-button-sm">+</a>
+  <game game="game" ng-repeat="game in $ctrl.current.gameCollection | orderBy: 'title'"></game>
 </section>

@@ -1,17 +1,21 @@
 @import 'colors';
 
 :local(.header) {
+  font-size: 12px;
+  margin-bottom: .5em;
+
   header {
     background-color: $dark-blue;
-    display: flex;
-    justify-content: space-between;
     align-items: center;
-    padding: 1em;
+    padding: .5em;
     margin: 0;
+    display: flex;
+    justify-content: space-around;
+    box-shadow: 0px 2px 5px rgba(0,0,0,.26);
   }
 
   h1 {
-    font-size: 2.25em;
+    font-size: 2em;
     font-family: 'Cabin Sketch', 'Helvetica', sans-serif;
     margin: 0;
     color: floralwhite;
@@ -19,13 +23,78 @@
 
   p {
     color: white;
-    font-size: 14px;
+    font-size: 12px;
     margin: 0 .5em;
     padding: 0 .3em
   }
 
-  div {
+  #user {
     display: flex;
+    align-items: center;
+  }
+
+  nav {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  #header-nav {
+    display: none;
+  }
+
+  #header-nav a {
+    color: floralwhite;
+    text-decoration: none;
+    margin: 0 .5em;
+    padding: .25em;
+
+    &:hover {
+      color: lightgray;
+    }
+
+    &.selected {
+      border-bottom: 2px solid $accent;
+      margin-bottom: -2px;
+    }
+  }
+
+  #under-nav nav {
+    display: flex;
+    box-shadow: 0px 1px 3px #8c8c8c;
+  }
+
+  #under-nav a {
+    text-align: center;
+    flex-grow: 1;
+    text-decoration: none;
+    padding: .5em;
+    color: $text;
+    background-color: $light-blue;
+    font-size: 14px;
+
+    &:hover {
+      background-color: $accent;
+    }
+
+    &.selected {
+      background-color: $accent;
+    }
+  }
+
+  @media screen and (min-width: 600px) {
+    header {
+      font-size: 16px;
+    }
+
+    #header-nav {
+      display: flex;
+    }
+
+    #under-nav {
+      display: none;
+    }
+
   }
 
 }

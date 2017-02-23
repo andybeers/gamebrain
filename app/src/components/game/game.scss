@@ -1,0 +1,35 @@
+@import 'colors';
+
+:local(.game) {
+  border-bottom: 1px solid $blue;
+  cursor: pointer;
+
+  h3 {
+    margin: .5em .25em;
+    font-size: 14px;
+    font-weight: 400;
+  }
+
+  p, li {
+    font-size: 14px;
+    margin: .25em;
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  .game-stats {
+    display: flex;
+  }
+
+  .expansion {
+    color: $green;
+  }
+
+  @media screen and (min-width: 800px) {
+   
+  }
+
+}

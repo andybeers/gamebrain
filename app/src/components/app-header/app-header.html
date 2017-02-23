@@ -1,9 +1,21 @@
 <section ng-class="$ctrl.styles.header">
   <header>
-    <h1>GAMENIGHTER</h1>
+    <h1>GAMEBRAIN</h1>
+    <nav id="header-nav">
+      <a ui-sref="home.collection" ng-class="{selected: $ctrl.tab === 'collection'}"><li>MY GAMES</li></a>
+      <a ui-sref="home.friends" ng-class="{selected: $ctrl.tab === 'friends'}"><li>FRIENDS</li></a>
+      <a ui-sref="home.gamenights" ng-class="{selected: $ctrl.tab === 'gamenights'}"><li>GAMENIGHTS</li></a>
+    </nav>
     <div id="user">
       <p>{{$ctrl.current.username}}</p>
       <button ng-click="$ctrl.logout()">Logout</button>
     </div>
   </header>
+  <div id="under-nav">
+    <nav>
+      <a ui-sref="home.collection" ng-class="{selected: $ctrl.tab === 'collection'}"><li>MY GAMES</li></a>
+      <a ui-sref="home.friends" ng-class="{selected: $ctrl.tab === 'friends'}"><li>FRIENDS</li></a>
+      <a ui-sref="home.gamenights" ng-class="{selected: $ctrl.tab === 'gamenights'}"><li>GAMENIGHTS</li></a>
+    </nav>
+  </div>
 </section>
