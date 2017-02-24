@@ -1,5 +1,5 @@
-<div ng-class="$ctrl.styles.game" ng-click="$ctrl.expand = !$ctrl.expand">
-  <div class="game-header">
+<div ng-class="$ctrl.styles.game">
+  <div class="game-header" ng-click="$ctrl.expand = !$ctrl.expand">
     <h3>{{$ctrl.game.title}}</h3>
     <ul class="game-stats">
       <li class="players">{{$ctrl.game.minPlayers}} - {{$ctrl.game.maxPlayers}} players</li>
@@ -10,6 +10,6 @@
   <div class="game-content" ng-show="$ctrl.expand">
     <img ng-if="$ctrl.game.thumbnail" ng-src="https://{{$ctrl.game.thumbnail}}">
     <p><i>{{$ctrl.game.yearPub}} - {{$ctrl.game.publisher}}</i></p>
-    <p>{{$ctrl.game.description}}</p> 
+    <p class="description">{{$ctrl.game.description}}</p> 
   </div>
 </div>
