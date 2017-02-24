@@ -1,7 +1,7 @@
 <section ng-class="$ctrl.styles.collection">
-  <h1>{{$ctrl.current.username}}'s collection</h1>
-  <button>ADD GAME</button>
-  <a ui-sref="home.add-game" class="add-button">ADD GAME</a>
-  <a ui-sref="home.add-game" class="add-button-sm">+</a>
-  <game game="game" ng-repeat="game in $ctrl.current.gameCollection | orderBy: 'title'"></game>
+  <div class="heading">
+    <h1>{{$ctrl.current.username}}'s collection</h1>
+    <button ui-sref="home.add-game">ADD GAME</button>
+  </div>
+  <game game="game" ng-repeat="game in $ctrl.current.gameCollection | limitTo: 25 | orderBy: 'title'"></game>
 </section>

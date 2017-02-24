@@ -7,10 +7,9 @@
       <li class="expansion" ng-if="$ctrl.game.expansion">Expansion</li>
     </ul>
   </div>
-  <div ng-show="$ctrl.expand">
-    <img ng-src="https://{{$ctrl.game.thumbnail}}">
-    <p>{{$ctrl.game.yearPub}}</p>
-    <p>{{$ctrl.game.publisher}}</p>
+  <div class="game-content" ng-show="$ctrl.expand">
+    <img ng-if="$ctrl.game.thumbnail" ng-src="https://{{$ctrl.game.thumbnail}}">
+    <p><i>{{$ctrl.game.yearPub}} - {{$ctrl.game.publisher}}</i></p>
     <p>{{$ctrl.game.description}}</p> 
   </div>
 </div>
