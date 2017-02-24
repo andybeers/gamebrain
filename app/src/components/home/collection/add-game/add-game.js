@@ -32,6 +32,7 @@ function controller(userService, gameService, $state) {
     userService.update(this.current._id, {$push: {gameCollection: gameId}})
       .then(user => {
         this.current.gameCollection = user.gameCollection;
+        $state.go('home.collection');
       })
       .catch(err => {
         console.log(err);

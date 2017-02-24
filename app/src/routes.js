@@ -56,6 +56,12 @@ export default function routes($stateProvider, $urlRouterProvider) {
     component: 'gamenights'
   });
 
+  $stateProvider.state({
+    name: 'home.add-friend',
+    url: '/add-friend',
+    component: 'addFriend'
+  });
+
   $urlRouterProvider.when('/home', '/home/collection');
   $urlRouterProvider.otherwise('/');
 
