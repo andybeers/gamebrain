@@ -1,4 +1,16 @@
-<p>Find your friends</p>
-<input type="search" placeholder="Search by username" ng-model="$ctrl.searchInput">
-<button ng-click="$ctrl.search()">Search</button>
-<div>{{$ctrl.results}}</div>
+<section ng-class="$ctrl.styles.friend">
+  <h1>Find your friends</h1>
+  <div class="search">
+    <input type="text" placeholder="Search by username" ng-model="$ctrl.searchInput">
+    <button class="search-button" ng-click="$ctrl.search()">GO</button>
+  </div>
+  <div ng-if="$ctrl.emptyResults">
+    <p>No users found. Try refining your search.</p>
+  </div>
+  <div class="results" ng-if="$ctrl.showResults" ng-repeat="result in $ctrl.results">
+    <h3>{{result.username}}</h3>
+    <button ng-show="$ctrl.validFriend" class="flat-button" ng-click="$ctrl.add(result._id)">ADD FRIEND</button>
+  </div>
+  <p ng-if="$ctrl.myself">IT ME DUMMY</p>
+  <p ng-if="$ctrl.friended">Already friended</p>
+</section>

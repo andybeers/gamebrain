@@ -29,7 +29,7 @@ function controller(userService, gameService, $state) {
   };
 
   this.addGame = gameId => {
-    userService.update(this.current._id, {$push: {gameCollection: gameId}})
+    userService.update(this.current._id, {$addToSet: {gameCollection: gameId}})
       .then(user => {
         this.current.gameCollection = user.gameCollection;
         $state.go('home.collection');

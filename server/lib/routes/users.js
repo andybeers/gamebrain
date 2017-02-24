@@ -16,7 +16,8 @@ router
   .get('/current', (req, res, next) => {
     User.findById(req.user.id)
       .select('-password')
-      .populate('gameCollection friends')
+      .populate('gameCollection')
+      .populate('friends', 'username')
       .lean()
       .then(user => res.send(user))
       .catch(next);
@@ -24,7 +25,8 @@ router
   .get('/:id', (req, res, next) => {
     User.findById(req.params.id)
       .select('-password')
-      .populate('gameCollection friends')
+      .populate('gameCollection')
+      .populate('friends', 'username')
       .lean()
       .then(user => res.send(user))
       .catch(next);
@@ -38,7 +40,8 @@ router
     } 
     User.findByIdAndUpdate(req.params.id, req.body, { new: true })
       .select('-password')
-      .populate('gameCollection friends')
+      .populate('gameCollection')
+      .populate('friends', 'username')
       .then(updated => res.send(updated))
       .catch(next);
   })
