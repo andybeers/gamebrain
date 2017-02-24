@@ -1,4 +1,5 @@
 import template from './friends.html';
+import styles from './friends.scss';
 
 export default {
   template,
@@ -9,6 +10,5 @@ export default {
 };
 
 function controller() {
-
-
+  this.styles = styles;
 }

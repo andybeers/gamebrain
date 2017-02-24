@@ -2,9 +2,9 @@
   <header>
     <h1>GAMEBRAIN</h1>
     <nav id="header-nav">
-      <a ui-sref="home.collection" ng-class="{selected: $ctrl.tab === 'collection'}"><li>MY GAMES</li></a>
-      <a ui-sref="home.friends" ng-class="{selected: $ctrl.tab === 'friends'}"><li>FRIENDS</li></a>
-      <a ui-sref="home.gamenights" ng-class="{selected: $ctrl.tab === 'gamenights'}"><li>GAMENIGHTS</li></a>
+      <a ui-sref="home.collection" ng-click="$ctrl.tab = 'collection'" ng-class="{selected: $ctrl.tab === 'collection'}"><li>MY GAMES</li></a>
+      <a ui-sref="home.friends" ng-click="$ctrl.tab = 'friends'" ng-class="{selected: $ctrl.tab === 'friends'}"><li>FRIENDS</li></a>
+      <a ui-sref="home.gamenights" ng-click="$ctrl.tab = 'gamenights'" ng-class="{selected: $ctrl.tab === 'gamenights'}"><li>GAMENIGHTS</li></a>
     </nav>
     <div id="user">
       <p>{{$ctrl.current.username}}</p>
@@ -13,9 +13,9 @@
   </header>
   <div id="under-nav">
     <nav>
-      <a ui-sref="home.collection" ng-class="{selected: $ctrl.tab === 'collection'}"><li>MY GAMES</li></a>
-      <a ui-sref="home.friends" ng-class="{selected: $ctrl.tab === 'friends'}"><li>FRIENDS</li></a>
-      <a ui-sref="home.gamenights" ng-class="{selected: $ctrl.tab === 'gamenights'}"><li>GAMENIGHTS</li></a>
+      <a ui-sref="home.collection" ng-click="$ctrl.tab = 'collection'" ng-class="{selected: $ctrl.tab === 'collection'}"><li>MY GAMES</li></a>
+      <a ui-sref="home.friends" ng-click="$ctrl.tab = 'friends'" ng-class="{selected: $ctrl.tab === 'friends'}"><li>FRIENDS</li></a>
+      <a ui-sref="home.gamenights" ng-click="$ctrl.tab = 'gamenights'" ng-class="{selected: $ctrl.tab === 'gamenights'}"><li>GAMENIGHTS</li></a>
     </nav>
   </div>
 </section>
