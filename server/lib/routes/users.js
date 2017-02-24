@@ -6,7 +6,7 @@ const bodyParser = require('body-parser').json();
 router
   .get('/', (req, res, next) => {
     User.find()
-      .select('-password -email')
+      .select('-password')
       .lean()
       .then(users => res.send(users))
       .catch(next);
@@ -21,7 +21,7 @@ router
   })
   .get('/:id', (req, res, next) => {
     User.findById(req.params.id)
-      .select('-password -email')
+      .select('-password')
       .populate('gameCollection')
       .lean()
       .then(user => res.send(user))

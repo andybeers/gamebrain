@@ -25,7 +25,6 @@ function controller(userService, $state) {
   this.signup = () => {
     this.newCredentials = {
       username: this.newUsername,
-      email: this.newEmail,
       password: this.newPassword
     };
     userService.signup(this.newCredentials)

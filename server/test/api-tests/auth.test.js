@@ -9,8 +9,7 @@ describe('User authorization routes', () => {
 
   const testUser = {
     username: 'testUser',
-    password: 'hunter2',
-    email: 'billy@yahoo.com'
+    password: 'hunter2'
   };
 
   let testUserToken = '';
@@ -29,19 +28,19 @@ describe('User authorization routes', () => {
   }
 
   it('Requires username for signup', done => {
-    badRequest('/api/auth/signup', { password: 'hunter2', email: 'billy@yahoo.com' }, 'Username and password required', done); 
+    badRequest('/api/auth/signup', { password: 'hunter2'}, 'Username and password required', done); 
   });
 
   it('Requires password for signup', done => {
-    badRequest('/api/auth/signup', { username: 'badUser', email: 'billy@yahoo.com' }, 'Username and password required', done); 
+    badRequest('/api/auth/signup', { username: 'badUser'}, 'Username and password required', done); 
   });
 
   it('Requires username for signin', done => {
-    badRequest('/api/auth/signin', { password: 'hunter2', email: 'billy@yahoo.com' }, 'Invalid username or password', done); 
+    badRequest('/api/auth/signin', { password: 'hunter2'}, 'Invalid username or password', done); 
   });
 
   it('Requires password for signin', done => {
-    badRequest('/api/auth/signin', { username: 'badUser', email: 'billy@yahoo.com' }, 'Invalid username or password', done); 
+    badRequest('/api/auth/signin', { username: 'badUser'}, 'Invalid username or password', done); 
   });
 
   it('Signs a user up', done => {
@@ -72,7 +71,7 @@ describe('User authorization routes', () => {
   it('Rejects bad password', done => {
     request
       .post('/api/auth/signin')
-      .send({ username: 'testUser', password: 'wrongPW', email: 'billy@yahoo.com' })
+      .send({ username: 'testUser', password: 'wrongPW'})
       .then(() => {
         done('Should not be status 200');
       })
@@ -86,7 +85,7 @@ describe('User authorization routes', () => {
   it('Rejects bad username in signin', done => {
     request
       .post('/api/auth/signin')
-      .send({ username: 'does not exist', password: 'hunter2', email: 'billy@yahoo.com' })
+      .send({ username: 'does not exist', password: 'hunter2'})
       .then(() => {
         done('Should not be status 200');
       })
