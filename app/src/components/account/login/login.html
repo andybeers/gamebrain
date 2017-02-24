@@ -8,7 +8,6 @@
 <form>
   <h3>Sign up</h3>
   <input type="text" placeholder="Username" ng-model="$ctrl.newUsername">
-  <input type="email" placeholder="Email" ng-model="$ctrl.newEmail">
   <input type="password" placeholder="Password" ng-model="$ctrl.newPassword">
   <button ng-click="$ctrl.signup()">Sign up</button>
   <div ng-if="$ctrl.signupError">{{$ctrl.signupError.error}}</div>

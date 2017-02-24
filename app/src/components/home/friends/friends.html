@@ -1,1 +1,8 @@
-<p>FRIENDS</p>
+<section ng-class="$ctrl.styles.friends">
+  <div class="heading">
+    <h1>{{$ctrl.current.username}}'s friends</h1>
+    <button ui-sref="home.add-friend">ADD FRIEND</button>
+  </div>
+  Friends go here.
+  <h3 ng-repeat="friend in $ctrl.current.friends">{{friend.username}}</h3>
+</section>

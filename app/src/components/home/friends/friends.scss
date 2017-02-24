@@ -1,6 +1,6 @@
 @import 'colors';
 
-:local(.collection) {
+:local(.friends) {
   width: 85%;
   max-width: 500px;
   margin: 0 auto;
@@ -35,7 +35,7 @@
     justify-content: space-between;
     align-items: center;
   }
-
+  
   @media screen and (min-width: 550px) {
     h1 {
       font-size: 18px;

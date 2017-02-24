@@ -1,18 +1,27 @@
 @import 'colors';
 
 :local(.game) {
-  border-bottom: 1px solid $blue;
-  cursor: pointer;
+  border-bottom: 1px solid $light-blue;
 
   h3 {
-    margin: .5em .25em;
+    margin: .75em .25em;
     font-size: 14px;
-    font-weight: 400;
+    color: $gray;
+    font-weight: 500;
   }
 
-  p, li {
-    font-size: 14px;
+  li {
+    font-size: 10px;
     margin: .25em;
+  }
+
+  p {
+    font-size: 12px;
+  }
+
+  h4 {
+    font-size: 12px;
+    margin: 0;
   }
 
   ul {
@@ -20,16 +29,80 @@
     padding: 0;
   }
 
+  img {
+    padding: 1px;
+    border: 1px solid dimgray;
+    border-radius: 3px;
+  }
+
   .game-stats {
+    margin: 0 0 .5em;
     display: flex;
   }
 
-  .expansion {
-    color: $green;
+  .players {
+    padding: .3em;
+    color: $medium-blue;
+    border: 1px solid $medium-blue;
+    border-radius: 3px;
   }
 
-  @media screen and (min-width: 800px) {
-   
+  .minutes {
+    padding: .3em;
+    color: $medium-blue;
+    border: 1px solid $medium-blue;
+    border-radius: 3px;
+  }
+
+  .expansion {
+    padding: .3em;
+    color: $green;
+    border: 1px solid $green;
+    border-radius: 3px;
+  }
+
+  .game-content {
+    margin: .5em 0;
+  }
+
+  .game-header {
+    cursor: pointer;
+
+    &:hover {
+      background-color: $light-gray;
+    }
+  }
+
+  @media screen and (min-width: 550px) {
+    h3 {
+      font-size: 15px;
+    }
+
+    p, h4 {
+      font-size: 14px;
+    }
+
+    .game-stats {
+      margin: 0;
+      
+      li:first-child {
+        order: 2;
+      }
+
+      li:nth-child(2) {
+        order: 3; 
+      }
+    }
+
+    .players, .minutes, .expansion {
+      padding: .5em;
+    }
+
+    .game-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
   }
 
 }

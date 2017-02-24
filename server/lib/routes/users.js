@@ -5,8 +5,10 @@ const bodyParser = require('body-parser').json();
 
 router
   .get('/', (req, res, next) => {
-    User.find()
-      .select('-password -email')
+    const query = {};
+    if (req.query.username) query.username = req.query.username;
+    User.find(query)
+      .select('-password')
       .lean()
       .then(users => res.send(users))
       .catch(next);
@@ -14,15 +16,15 @@ router
   .get('/current', (req, res, next) => {
     User.findById(req.user.id)
       .select('-password')
-      .populate('gameCollection')
+      .populate('gameCollection friends')
       .lean()
       .then(user => res.send(user))
       .catch(next);
   })
   .get('/:id', (req, res, next) => {
     User.findById(req.params.id)
-      .select('-password -email')
-      .populate('gameCollection')
+      .select('-password')
+      .populate('gameCollection friends')
       .lean()
       .then(user => res.send(user))
       .catch(next);
@@ -36,7 +38,7 @@ router
     } 
     User.findByIdAndUpdate(req.params.id, req.body, { new: true })
       .select('-password')
-      .populate('gameCollection')
+      .populate('gameCollection friends')
       .then(updated => res.send(updated))
       .catch(next);
   })

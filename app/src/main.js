@@ -20,6 +20,6 @@ app.value('apiUrl', url);
 app.config(http);
 app.config(routes);
 app.run(auth);
-app.run($state => {
-  $state.defaultErrorHandler(() => {});
-});
+// app.run($state => {
+//   $state.defaultErrorHandler(() => {});
+// });

@@ -5,7 +5,6 @@ const bcrypt = require('bcryptjs');
 const schema = new Schema({
   username: { type: String, required: true },
   password: { type: String, required: true },
-  email: { type: String, required: true },
   gameCollection: [{
     type: Schema.Types.ObjectId,
     ref: 'Game'
