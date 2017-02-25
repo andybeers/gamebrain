@@ -11,23 +11,26 @@
     color: $header;
   }
 
-  button {
-    margin: .25em;
-    border: none;
-    min-width: 64px;
-    padding: 0 16px;
-    background-color: $accent;
-    height: 32px;
+  h4 {
     font-size: 13px;
     font-weight: 500;
+    color: $green;
+  }
+
+  .flat-button {
+    font-size: 13px;
+    font-weight: 500;
+    height: 32px;
+    color: $accent;
+    padding: 0 16px;
+    border: none;
     border-radius: 2px;
-    box-shadow: 0 2px 4px rgba(0,0,0,.25);
-    color: white;
+    background-color: white;
+    outline: none;
     cursor: pointer;
 
     &:hover {
-      outline: none;
-      box-shadow: 0 2px 6px rgba(0,0,0,.5);
+      color: $green;
     }
   }
 
@@ -50,7 +53,11 @@
       font-size: 18px;
     }
 
-    button {
+    h4 {
+      font-size: 14px;
+    }
+
+    .flat-button {
       font-size: 14px;
       height: 36px;
     }

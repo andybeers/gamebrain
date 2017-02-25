@@ -77,7 +77,7 @@ export default function routes($stateProvider, $urlRouterProvider) {
         return current._id === user._id ? true : false;
       }],
       friended: ['current', 'user', (current, user) => {
-        return current.friends.filter(friend => friend._id === user._id).length !== -1 ? true : false;
+        return current.friends.filter(friend => friend._id === user._id).length !== 0 ? true : false;
       }]
     },
     component: 'user'
