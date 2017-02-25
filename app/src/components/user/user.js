@@ -5,7 +5,9 @@ export default {
   template,
   bindings: {
     current: '<',
-    user: '<'
+    user: '<',
+    myself: '<',
+    friended: '<'
   },
   controller
 };
@@ -13,4 +15,5 @@ export default {
 function controller() {
   this.styles = styles;
 
+  this.tab = 'friends';
 }

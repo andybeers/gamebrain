@@ -4,7 +4,8 @@ import styles from './app-header.scss';
 export default {
   template,
   bindings: {
-    current: '<'
+    current: '<',
+    tab: '<'
   },
   controller
 };

@@ -1,9 +1,12 @@
 <section ng-class="$ctrl.styles.collection">
   <div class="heading">
-    <h1>{{$ctrl.user.username}}'s collection</h1>
+    <h2>{{$ctrl.user.username}}'s collection</h2>
+    <button ng-show="$ctrl.validFriend" class="flat-button" ng-click="$ctrl.add(result._id)">ADD FRIEND</button>
+    <h4 ng-show="$ctrl.myself">MYSELF</h4>
+    <h4 ng-show="$ctrl.friended">FRIENDS</h4>
   </div>
   <div class="legend">
-    
+    GREEN MEANS I OWN IT
   </div>
-  <game compare="$ctrl.compare" game="game" ng-repeat="game in $ctrl.user.gameCollection | limitTo: 25 | orderBy: 'title'"></game>
+  <game owned="$ctrl.ownedHash" compare="$ctrl.compare" game="game" ng-repeat="game in $ctrl.user.gameCollection | limitTo: 25 | orderBy: 'title'"></game>
 </section>

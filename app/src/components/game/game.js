@@ -5,7 +5,8 @@ export default {
   template,
   bindings: {
     game: '<',
-    compare: '<'
+    compare: '<',
+    owned: '<'
   },
   controller
 };

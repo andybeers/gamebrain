@@ -72,6 +72,12 @@ export default function routes($stateProvider, $urlRouterProvider) {
       }],
       user: ['current', 'userService', '$transition$', (current, userService, t) => {
         return userService.get(t.params().id);
+      }],
+      myself: ['current', 'user', (current, user) => {
+        return current._id === user._id ? true : false;
+      }],
+      friended: ['current', 'user', (current, user) => {
+        return current.friends.filter(friend => friend._id === user._id).length !== -1 ? true : false;
       }]
     },
     component: 'user'
