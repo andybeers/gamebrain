@@ -3,6 +3,5 @@
     <h1>{{$ctrl.current.username}}'s friends</h1>
     <button ui-sref="home.add-friend">ADD FRIEND</button>
   </div>
-  Friends go here.
-  <h3 ng-repeat="friend in $ctrl.current.friends">{{friend.username}}</h3>
+  <h3 ng-repeat="friend in $ctrl.current.friends"><a ui-sref="user.collection({id: friend._id})">{{friend.username}}</a></h3>
 </section>

@@ -4,7 +4,8 @@ import styles from './game.scss';
 export default {
   template,
   bindings: {
-    game: '<'
+    game: '<',
+    compare: '<'
   },
   controller
 };

@@ -1,6 +1,6 @@
 @import 'colors';
 
-:local(.friends) {
+:local(.collection) {
   width: 85%;
   max-width: 500px;
   margin: 0 auto;
@@ -9,20 +9,6 @@
     font-size: 16px;
     margin: .25em;
     color: $header;
-  }
-
-  h3 {
-    font-weight: 500;
-    font-size: 16px;
-    
-    a {
-      text-decoration: none;
-      color: $text;
-      
-      &:hover {
-        color: $accent;
-      }
-    }
   }
 
   button {
@@ -37,6 +23,7 @@
     border-radius: 2px;
     box-shadow: 0 2px 4px rgba(0,0,0,.25);
     color: white;
+    cursor: pointer;
 
     &:hover {
       outline: none;
@@ -49,7 +36,7 @@
     justify-content: space-between;
     align-items: center;
   }
-  
+
   @media screen and (min-width: 550px) {
     h1 {
       font-size: 18px;
@@ -58,7 +45,6 @@
     button {
       font-size: 14px;
       height: 36px;
-      cursor: pointer;
     }
 
     .heading {

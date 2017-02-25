@@ -1,0 +1,9 @@
+<section ng-class="$ctrl.styles.collection">
+  <div class="heading">
+    <h1>{{$ctrl.user.username}}'s collection</h1>
+  </div>
+  <div class="legend">
+    
+  </div>
+  <game compare="$ctrl.compare" game="game" ng-repeat="game in $ctrl.user.gameCollection | limitTo: 25 | orderBy: 'title'"></game>
+</section>

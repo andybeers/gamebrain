@@ -7,7 +7,7 @@
       <a ui-sref="home.gamenights" ng-click="$ctrl.tab = 'gamenights'" ng-class="{selected: $ctrl.tab === 'gamenights'}"><li>GAMENIGHTS</li></a>
     </nav>
     <div id="user">
-      <p>{{$ctrl.current.username}}</p>
+      <a ui-sref="user.collection({id: $ctrl.current._id})"><p>{{$ctrl.current.username}}</p></a>
       <button ng-click="$ctrl.logout()">Logout</button>
     </div>
   </header>
