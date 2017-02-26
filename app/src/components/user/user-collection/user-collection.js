@@ -14,7 +14,6 @@ export default {
 
 function controller() {
   this.styles = styles;
-
   this.toggleFilter = false;
 
   this.setFilter = () => {

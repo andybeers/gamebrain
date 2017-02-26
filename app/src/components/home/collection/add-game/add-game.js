@@ -11,9 +11,9 @@ export default {
 controller.$inject = ['userService', 'gameService', '$state'];
 
 function controller(userService, gameService, $state) {
-
   this.searchResults = false;
   this.bggShow = false;
+  this.tab = 'collection';
 
   this.search = () => {
     const query = this.searchInput;
