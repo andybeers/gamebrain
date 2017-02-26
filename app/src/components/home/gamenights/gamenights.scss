@@ -1,0 +1,54 @@
+@import 'colors';
+
+:local(.nights) {
+  width: 85%;
+  max-width: 500px;
+  margin: 0 auto;
+
+  h1 {
+    font-size: 16px;
+    margin: .25em;
+    color: $header;
+  }
+
+  button {
+    margin: .25em;
+    border: none;
+    min-width: 64px;
+    padding: 0 16px;
+    background-color: $accent;
+    height: 32px;
+    font-size: 13px;
+    font-weight: 500;
+    border-radius: 2px;
+    box-shadow: 0 2px 4px rgba(0,0,0,.25);
+    color: white;
+
+    &:hover {
+      outline: none;
+      box-shadow: 0 2px 6px rgba(0,0,0,.5);
+    }
+  }
+
+  .heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  @media screen and (min-width: 550px) {
+    h1 {
+      font-size: 18px;
+    }
+
+    button {
+      font-size: 14px;
+      height: 36px;
+      cursor: pointer;
+    }
+
+    .heading {
+      margin: .75em 0;
+    }
+  }
+}

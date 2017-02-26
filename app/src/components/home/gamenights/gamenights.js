@@ -1,4 +1,5 @@
 import template from './gamenights.html';
+import styles from './gamenights.scss';
 
 export default {
   template,
@@ -9,5 +10,6 @@ export default {
 };
 
 function controller() {
+  this.styles = styles;
   this.tab = 'gamenights';
 }

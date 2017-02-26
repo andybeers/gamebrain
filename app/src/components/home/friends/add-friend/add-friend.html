@@ -1,10 +1,10 @@
 <app-header current="$ctrl.current" tab="$ctrl.tab"></app-header>
 <section ng-class="$ctrl.styles.friend">
   <h1>Find your friends</h1>
-  <div class="search">
-    <input type="text" placeholder="Search by username" ng-model="$ctrl.searchInput">
-    <button class="search-button" ng-click="$ctrl.search()">GO</button>
-  </div>
+  <form class="search">
+    <input type="search" placeholder="Search by username" ng-model="$ctrl.searchInput" required>
+    <button type="submit" class="search-button" ng-click="$ctrl.search()">GO</button>
+  </form>
   <div ng-if="$ctrl.emptyResults">
     <p>No users found. Try refining your search.</p>
   </div>

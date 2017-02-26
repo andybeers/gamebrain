@@ -26,6 +26,7 @@ function controller(userService, $state) {
     this.friended = false;
 
     const query = this.searchInput;
+    if (!query) return;
 
     userService.search(query)
       .then(results => {
@@ -40,6 +41,8 @@ function controller(userService, $state) {
           } else if (this.current.friends.filter(item => item._id === results[0]._id).length !== 0) {
             this.validFriend = false;
             this.friended = true;
+          } else {
+            this.validFriend = true;
           }
         }
       })
