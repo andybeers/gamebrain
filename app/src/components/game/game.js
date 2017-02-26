@@ -4,7 +4,8 @@ import styles from './game.scss';
 export default {
   template,
   bindings: {
-    game: '<'
+    game: '<',
+    owned: '<'
   },
   controller
 };
@@ -12,5 +13,14 @@ export default {
 function controller() {
   this.styles = styles;
 
+  this.overlap = () => {
+    return this.owned[this.game._id];
+  };
+
   this.expand = false;
+
+  this.$onInit = () => {
+    if(this.owned) this.overlap = this.owned[this.game._id] ? true : false;
+  };
+
 }

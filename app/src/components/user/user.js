@@ -1,15 +1,19 @@
-import template from './friends.html';
-import styles from './friends.scss';
+import template from './user.html';
+import styles from './user.scss';
 
 export default {
   template,
   bindings: {
-    current: '<'
+    current: '<',
+    user: '<',
+    myself: '<',
+    friended: '<'
   },
   controller
 };
 
 function controller() {
   this.styles = styles;
+
   this.tab = 'friends';
 }

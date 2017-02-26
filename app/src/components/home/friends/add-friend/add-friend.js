@@ -13,7 +13,7 @@ controller.$inject = ['userService', '$state'];
 
 function controller(userService, $state) {
   this.styles = styles;
-
+  this.tab = 'friends';
   this.showResults = false;
   this.emptyResults = false;
   this.validFriend = true;

@@ -1,0 +1,78 @@
+@import 'colors';
+
+:local(.collection) {
+  width: 85%;
+  max-width: 500px;
+  margin: 0 auto;
+
+  h1, h2 {
+    font-size: 16px;
+    margin: .25em;
+    color: $header;
+  }
+
+  h4 {
+    font-size: 13px;
+    font-weight: 500;
+    color: $green;
+    margin: .25em;
+  }
+
+  label {
+    font-size: 14px;
+  }
+
+  .flat-button {
+    font-size: 13px;
+    font-weight: 500;
+    height: 32px;
+    color: $accent;
+    padding: 0 16px;
+    border: none;
+    border-radius: 2px;
+    background-color: white;
+    outline: none;
+    cursor: pointer;
+
+    &:hover {
+      color: $green;
+    }
+  }
+
+  .heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .owned {
+    background-color: $light-green;
+
+    &:hover {
+      background-color: $greenish;
+    }
+  }
+
+  .controls {
+    margin: 1em .25em;
+  }
+
+  @media screen and (min-width: 550px) {
+    h1, h2 {
+      font-size: 18px;
+    }
+
+    h4 {
+      font-size: 14px;
+    }
+
+    .flat-button {
+      font-size: 14px;
+      height: 36px;
+    }
+
+    .heading {
+      margin: .75em 0;
+    }
+  }
+}

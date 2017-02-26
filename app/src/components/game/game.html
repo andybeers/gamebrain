@@ -1,5 +1,5 @@
 <div ng-class="$ctrl.styles.game">
-  <div class="game-header" ng-click="$ctrl.expand = !$ctrl.expand">
+  <div ng-class="{owned: $ctrl.overlap}" class="game-header" ng-click="$ctrl.expand = !$ctrl.expand">
     <h3>{{$ctrl.game.title}}</h3>
     <ul class="game-stats">
       <li class="players">{{$ctrl.game.minPlayers}} - {{$ctrl.game.maxPlayers}} players</li>

@@ -9,6 +9,5 @@ export default {
 };
 
 function controller() {
-
-
+  this.tab = 'gamenights';
 }

@@ -4,7 +4,8 @@ import styles from './app-header.scss';
 export default {
   template,
   bindings: {
-    current: '<'
+    current: '<',
+    tab: '<'
   },
   controller
 };
@@ -13,8 +14,6 @@ controller.$inject = ['userService', '$state'];
 
 function controller(userService, $state) {
   this.styles = styles;
-
-  this.tab = 'collection';
   
   this.logout = () => {
     userService.logout();
