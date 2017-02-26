@@ -11,7 +11,9 @@ describe('Gamenight model', () => {
     name: 'testing',
     host: testHost,
     description: 'test test test',
-    date: testDate
+    date: testDate,
+    rsvps: [{ gameId: '1274y4645', userId: '48284746162' }, { gameId: '1274y4645', userId: '48284746162' }],
+    requests: ['123u23ugy', '92hfhhg838892']
   });
 
   it('Validates game model', done => {

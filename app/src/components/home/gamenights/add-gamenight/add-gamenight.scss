@@ -1,0 +1,15 @@
+@import 'colors';
+
+:local(.add) {
+  width: 85%;
+  max-width: 500px;
+  margin: 1em auto;
+
+  h1 {
+    font-size: 16px;
+    margin: 1em;
+    color: $header;
+    text-align: center;
+  }
+
+}
