@@ -15,7 +15,11 @@ export default {
 function controller() {
   this.styles = styles;
 
-  this.compare = true;
+  this.toggleFilter = false;
+
+  this.setFilter = () => {
+    this.filter = this.toggleFilter ? item => this.ownedHash[item._id] : false;
+  };
 
   this.$onInit = () => {
     this.myGameHash = this.current.gameCollection.reduce((acc, curr) => {
@@ -29,4 +33,5 @@ function controller() {
     }, {});
 
   };
+
 }

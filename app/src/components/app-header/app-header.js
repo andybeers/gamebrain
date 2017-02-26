@@ -14,8 +14,6 @@ controller.$inject = ['userService', '$state'];
 
 function controller(userService, $state) {
   this.styles = styles;
-
-  this.tab = 'collection';
   
   this.logout = () => {
     userService.logout();

@@ -15,6 +15,11 @@
     font-size: 13px;
     font-weight: 500;
     color: $green;
+    margin: .25em;
+  }
+
+  label {
+    font-size: 14px;
   }
 
   .flat-button {
@@ -46,6 +51,10 @@
     &:hover {
       background-color: $greenish;
     }
+  }
+
+  .controls {
+    margin: 1em .25em;
   }
 
   @media screen and (min-width: 550px) {

@@ -1,20 +1,16 @@
 <section ng-class="$ctrl.styles.collection">
   <div class="heading">
-    <h2>{{$ctrl.user.username}}'s collection</h2>
+    <h2>Comparing {{$ctrl.user.username}}'s collection</h2>
     <button ng-hide="$ctrl.myself || $ctrl.friended" class="flat-button" ng-click="$ctrl.add(result._id)">ADD FRIEND</button>
     <h4 ng-show="$ctrl.myself">MYSELF</h4>
     <h4 ng-show="$ctrl.friended && !$ctrl.myself">FRIENDS</h4>
   </div>
   <div class="controls">
     <form>
-      <h5>Show games that:</h5>
-      <label>we both own</label>
-      <input type="radio">
-      <label>I own and {{$ctrl.user.username}} doesn't</label>
-      <input type="radio">
-      <label>{{$ctrl.user.username}} owns and I don't</label>
-      <input type="radio">
+      <label>Overlap:
+        <input type="checkbox" ng-model="$ctrl.toggleFilter" ng-change="$ctrl.setFilter()">
+      </label>
     </form>
   </div>
-  <game owned="$ctrl.ownedHash" compare="$ctrl.compare" game="game" ng-repeat="game in $ctrl.user.gameCollection | limitTo: 25 | orderBy: 'title'"></game>
+  <game owned="$ctrl.ownedHash" game="game" ng-repeat="game in $ctrl.user.gameCollection | filter:$ctrl.filter | limitTo: 25 | orderBy: 'title'"></game>
 </section>

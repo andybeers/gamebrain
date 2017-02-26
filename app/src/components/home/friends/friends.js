@@ -4,11 +4,13 @@ import styles from './friends.scss';
 export default {
   template,
   bindings: {
-    current: '<'
+    current: '<',
+    setTab: '<'
   },
   controller
 };
 
 function controller() {
   this.styles = styles;
+
 }
