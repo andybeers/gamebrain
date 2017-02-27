@@ -2,14 +2,19 @@
 <section ng-class="$ctrl.styles.add">
   <h1>Create a gamenight</h1>
   <form>
-    <label>Event name:
-      <input type="text" required>
-    </label>
-    <label>Pick a date:
-      <input type="text" required>
-    </label>
-    <label>Add a description:
-      <input type="text">
-    </label>
+    <label>Event name:<br>
+      <input type="text" placeholder="Enter name" required ng-model="$ctrl.name">
+    </label><br>
+    <label>Pick a date:<br>
+      <i>(mm/dd/yyyy, hh:mm am/pm)</i><br>
+      <input type="datetime-local" ng-model="$ctrl.date" min="$ctrl.today">
+    </label><br>
+    <label>Add a description:<br>
+      <textarea placeholder="Event details, location, etc..." ng-model="$ctrl.description"></textarea>
+    </label><br>
+    <div class="submit-div">
+      <button class="flat-button" ui-sref="home.gamenights">CANCEL</button>
+      <button class="button" type="submit">CREATE</button>
+    </div>
   </form>
 </section>

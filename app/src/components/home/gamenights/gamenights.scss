@@ -32,10 +32,11 @@
 
   .heading {
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
     align-items: center;
   }
-  
+
   @media screen and (min-width: 550px) {
     h1 {
       font-size: 18px;
@@ -48,6 +49,7 @@
     }
 
     .heading {
+      flex-direction: row;
       margin: .75em 0;
     }
   }

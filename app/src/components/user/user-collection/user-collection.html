@@ -1,13 +1,13 @@
 <section ng-class="$ctrl.styles.collection">
   <div class="heading">
-    <h2>Comparing {{$ctrl.user.username}}'s collection</h2>
+    <h2>{{$ctrl.user.username}}'s collection</h2>
     <button ng-hide="$ctrl.myself || $ctrl.friended" class="flat-button" ng-click="$ctrl.add(result._id)">ADD FRIEND</button>
     <h4 ng-show="$ctrl.myself">MYSELF</h4>
     <h4 ng-show="$ctrl.friended && !$ctrl.myself">FRIENDS</h4>
   </div>
   <div class="controls">
     <form>
-      <label>Overlap:
+      <label>Show games I also own:
         <input type="checkbox" ng-model="$ctrl.toggleFilter" ng-change="$ctrl.setFilter()">
       </label>
     </form>
