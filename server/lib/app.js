@@ -12,6 +12,14 @@ const ensureAuth = require('./auth/ensure-auth')();
 app.use(morgan('dev'));
 app.use(cors);
 
+if(process.env.NODE_ENV === 'production') {
+  app.use((req, res, next) => {
+    if(req.headers['x-forwarded-proto'] === 'https') next();
+    else res.redirect(`https://${req.hostname}${req.url}`);
+  });
+}
+
+app.use(express.static('./public'));
 app.use('/api/auth', auth);
 app.use('/api/gamenights', ensureAuth, gamenights);
 app.use('/api/games', ensureAuth, games);
