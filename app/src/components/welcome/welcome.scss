@@ -19,7 +19,8 @@
   }
 
   h2 {
-    margin: .5em;
+    margin: 0;
+    padding: 1em 1em 1.25em;
     font-weight: 100;
     color: white;
     font-size: 20px;
@@ -27,27 +28,36 @@
 
   h3 {
     margin: 0;
-    padding: 1em;
+    padding: 1em 1em 1.25em;
     font-weight: 100;
     color: white;
     font-size: 20px;
   }
 
+
   .panel {
     text-align: center;
-    height: 30vh;
+    height: 15em;
+    padding: 0;
   }
 
-  .second {
-    background-color: $green; 
-  };
+  .sub {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  } 
 
-  .third {
+  .second {
     background-color: $highlight; 
   };
 
+  .third {
+    background-color: $wine; 
+  };
+
   .fourth {
-    background-color: $green; 
+    background-color: $dark-blue; 
   };
 
   .heading {
@@ -55,6 +65,36 @@
     justify-content: space-between;
     align-items: center;
     margin-bottom: 1em;
+  }
+
+  .img-box1 {
+    width: 50px;
+    height: 35px;
+    padding: .5em;
+    background-image: url('../../imgs/list.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+  }
+
+  .img-box2 {
+    width: 50px;
+    height: 50px;
+    background-image: url('../../imgs/friends.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+  }
+
+  .img-box3 {
+    width: 50px;
+    height: 50px;
+    background-image: url('../../imgs/plan.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+  }
+
+  .panel-container {
+    display: flex;
+    flex-direction: column;
   }
 
   .button {
@@ -105,6 +145,10 @@
       margin: 1em;
     }
 
+    h3 {
+      font-size: 24px;
+    }
+
     .heading {
       margin-bottom: 4em; 
     };
@@ -113,6 +157,12 @@
       font-size: 14px;
       height: 36px;
     }
+  }
+
+  @media screen and (min-width: 700px) {
+      .sub {
+        flex-direction: row;
+      }
   }
 
 }
