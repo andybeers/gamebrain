@@ -25,7 +25,7 @@
     }
   }
 
-  button {
+  .button {
     margin: .25em;
     border: none;
     min-width: 64px;
@@ -44,11 +44,35 @@
     }
   }
 
+  .flat-button {
+    font-size: 13px;
+    font-weight: 500;
+    height: 32px;
+    color: $accent;
+    padding: 0 16px;
+    border: none;
+    border-radius: 2px;
+    background-color: white;
+    outline: none;
+    cursor: pointer;
+
+    &:hover {
+      color: $text;
+    }
+  }
+
   .heading {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
+  }
+
+  .friend-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid $light-blue;
   }
   
   @media screen and (min-width: 550px) {
@@ -56,7 +80,7 @@
       font-size: 18px;
     }
 
-    button {
+    .button, .flat-button {
       font-size: 14px;
       height: 36px;
       cursor: pointer;
@@ -64,7 +88,7 @@
 
     .heading {
       flex-direction: row;
-      margin: .75em 0;
+      margin: 1em 0;
     }
   }
 }

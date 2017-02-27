@@ -1,7 +1,14 @@
-<form>
-  <h3>Login</h3>
-  <input type="text" placeholder="Username" ng-model="$ctrl.username">
-  <input type="password" placeholder="Password" ng-model="$ctrl.password">
-  <button ng-click="$ctrl.signin()">Sign in</button>
-  <div ng-if="$ctrl.loginError">{{$ctrl.loginError.error}}</div>
-</form>
+<section ng-class="$ctrl.styles.login">
+  <div class="wrapper">
+    <form>
+      <h3>Login:</h3>
+      <input type="text" placeholder="Username" ng-model="$ctrl.username"><br>
+      <input type="password" placeholder="Password" ng-model="$ctrl.password"><br>
+      <div class="buttons">
+        <button type="button" class="flat-button" ui-sref="welcome">CANCEL</button>
+        <button class="button" type="submit" ng-click="$ctrl.signin()">SIGN IN</button>
+      </div>
+      <div class="error" ng-if="$ctrl.loginError">&#9888; {{$ctrl.loginError.error}}</div>
+    </form>
+  </div>
+</section>

@@ -2,7 +2,10 @@
 <section ng-class="$ctrl.styles.friends">
   <div class="heading">
     <h1>My Friends</h1>
-    <button ui-sref="home.add-friend">ADD FRIEND</button>
+    <button class="button" ui-sref="home.add-friend">ADD FRIEND</button>
   </div>
-  <h3 ng-repeat="friend in $ctrl.current.friends"><a ui-sref="user.collection({id: friend._id})">{{friend.username}}</a></h3>
+  <div class="friend-container" ng-repeat="friend in $ctrl.current.friends">
+    <h3><a ui-sref="user.collection({id: friend._id})">{{friend.username}}</a></h3>
+    <button type="button" class="flat-button" ng-click="$ctrl.remove(friend._id)">REMOVE</button>
+  </div>
 </section>
