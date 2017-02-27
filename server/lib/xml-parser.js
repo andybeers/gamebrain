@@ -1,5 +1,5 @@
 const parseString = require('xml2js').parseString;
-const htmlEntities = require('html-entities').XmlEntities;
+const htmlEntities = require('html-entities').AllHtmlEntities;
 const entities = new htmlEntities();
 
 const xmlParser = {

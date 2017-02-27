@@ -21,6 +21,15 @@ export default function routes($stateProvider, $urlRouterProvider) {
   });
 
   $stateProvider.state({
+    name: 'signup',
+    url: '/signup',
+    data: {
+      public: true
+    },
+    component: 'signup'
+  });
+
+  $stateProvider.state({
     name: 'home',
     url: '/home',
     abstract: true,
@@ -51,15 +60,21 @@ export default function routes($stateProvider, $urlRouterProvider) {
   });
 
   $stateProvider.state({
+    name: 'home.add-friend',
+    url: '/add-friend',
+    component: 'addFriend'
+  });
+
+  $stateProvider.state({
     name: 'home.gamenights',
     url: '/gamenights',
     component: 'gamenights'
   });
 
   $stateProvider.state({
-    name: 'home.add-friend',
-    url: '/add-friend',
-    component: 'addFriend'
+    name: 'home.add-gamenight',
+    url: '/create-gamenight',
+    component: 'addGamenight'
   });
 
   $stateProvider.state({

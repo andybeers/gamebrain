@@ -33,6 +33,7 @@
 
   .heading {
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
     align-items: center;
   }
@@ -49,6 +50,7 @@
 
     .heading {
       margin: .75em 0;
+      flex-direction: row;
     }
   }
 }

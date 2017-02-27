@@ -1,0 +1,108 @@
+@import 'colors';
+
+:local(.add) {
+  width: 85%;
+  max-width: 500px;
+  margin: 1em auto;
+
+  h1 {
+    font-size: 16px;
+    margin: 1em;
+    color: $header; 
+    text-align: center;
+  }
+
+  label {
+    font-size: 14px;
+  }
+
+  textarea {
+    width: 100%;
+    resize: none;
+    font-size: 12px;
+    color: $text;
+    height: 8em;
+    border: 1px solid $light-blue;
+    border-radius: 2px;
+    box-sizing: border-box;
+    padding: 8px;
+    margin: .5em 0;
+  }
+
+  input {
+    box-sizing: border-box;
+    font-size: 14px;
+    height: 32px;
+    width: 100%;
+    border: 1px solid $light-blue;
+    border-radius: 2px;
+    padding: 0 8px;
+    color: $text;
+    margin: .5em 0 1em;
+  }
+
+  .button {
+    margin: .25em;
+    border: none;
+    min-width: 64px;
+    padding: 0 16px;
+    background-color: $accent;
+    height: 32px;
+    font-size: 13px;
+    font-weight: 500;
+    border-radius: 2px;
+    box-shadow: 0 2px 4px rgba(0,0,0,.25);
+    color: white;
+    cursor: pointer;
+
+    &:hover {
+      outline: none;
+      box-shadow: 0 2px 6px rgba(0,0,0,.5);
+    }
+  }
+
+  .flat-button {
+    font-size: 13px;
+    font-weight: 500;
+    height: 32px;
+    color: $accent;
+    padding: 0 16px;
+    border: none;
+    border-radius: 2px;
+    background-color: white;
+    outline: none;
+    cursor: pointer;
+
+    &:hover {
+      color: $text;
+    }
+  }
+
+  .submit-div {
+    text-align: right;
+  }
+
+  @media screen and (min-width: 550px) {
+    h1 {
+      font-size: 18px;
+    }
+
+    textarea {
+      font-size: 14px;
+    }
+
+    .button, .flat-button {
+      font-size: 14px;
+      height: 36px;
+    }
+
+    label {
+      font-size: 16px;
+    }
+
+    input: {
+      font-size: 16px;
+    }
+  }
+
+}

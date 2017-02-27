@@ -13,7 +13,13 @@ const schema = new Schema({
   invites: [{
     type: Schema.Types.ObjectId,
     ref: 'User'
-  }]
+  }],
+  rsvps: [{
+    _id: false,
+    gameId: { type: String },
+    userId: { type: String }
+  }],
+  requests: { type: Array }
 });
 
 module.exports = mongoose.model('Gamenight', schema);

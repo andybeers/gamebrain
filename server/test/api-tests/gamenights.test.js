@@ -20,7 +20,9 @@ describe('Gamenights CRUD routes', () => {
     name: 'testing',
     description: 'test test test',
     date: testDate,
-    invites: []
+    invites: [],
+    rsvps: [{ gameId: '1274y4645', userId: '48284746162' }, { gameId: '1274y4645', userId: '48284746162' }],
+    requests: ['123u23ugy', '92hfhhg838892']
   };
 
   before('Logs in test users', done => {
@@ -59,6 +61,7 @@ describe('Gamenights CRUD routes', () => {
       .set({ 'authorization': gamenightUser.token })
       .send(testGamenight)
       .then(res => {
+        console.log('post reply:', res.body);
         testGamenight._id = res.body._id;
         testGamenight.__v = res.body.__v;
         testGamenight.host = res.body.host;
