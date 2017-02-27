@@ -3,8 +3,7 @@
   "version": "1.0.0",
   "description": "Games on games",
   "scripts": {
-    "test": "cd server && npm i && npm test",
-    "start": "cd server && npm start"
+    "test": "cd server && npm i && npm test"
   },
   "repository": {
     "type": "git",
