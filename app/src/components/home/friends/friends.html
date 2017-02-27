@@ -1,7 +1,7 @@
 <app-header current="$ctrl.current" tab="$ctrl.tab"></app-header>
 <section ng-class="$ctrl.styles.friends">
   <div class="heading">
-    <h1>{{$ctrl.current.username}}'s friends</h1>
+    <h1>My Friends</h1>
     <button ui-sref="home.add-friend">ADD FRIEND</button>
   </div>
   <h3 ng-repeat="friend in $ctrl.current.friends"><a ui-sref="user.collection({id: friend._id})">{{friend.username}}</a></h3>

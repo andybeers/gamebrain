@@ -21,6 +21,15 @@ export default function routes($stateProvider, $urlRouterProvider) {
   });
 
   $stateProvider.state({
+    name: 'signup',
+    url: '/signup',
+    data: {
+      public: true
+    },
+    component: 'signup'
+  });
+
+  $stateProvider.state({
     name: 'home',
     url: '/home',
     abstract: true,

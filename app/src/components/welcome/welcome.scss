@@ -1,0 +1,118 @@
+@import 'colors';
+
+:local(.welcome) {
+  height: 100vh;
+  background-color: $blue;
+
+  .wrapper {
+    width: 90%;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  h1 {
+    margin: 0;
+    font-size: 24px;
+    font-family: 'Cabin Sketch', 'Helvetica', sans-serif;
+    padding: 20px;
+    color: floralwhite;
+  }
+
+  h2 {
+    margin: .5em;
+    font-weight: 100;
+    color: white;
+    font-size: 20px;
+  }
+
+  h3 {
+    margin: 0;
+    padding: 1em;
+    font-weight: 100;
+    color: white;
+    font-size: 20px;
+  }
+
+  .panel {
+    text-align: center;
+    height: 30vh;
+  }
+
+  .second {
+    background-color: $green; 
+  };
+
+  .third {
+    background-color: $highlight; 
+  };
+
+  .fourth {
+    background-color: $green; 
+  };
+
+  .heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1em;
+  }
+
+  .button {
+    margin: .25em;
+    border: none;
+    min-width: 64px;
+    padding: 0 16px;
+    background-color: $accent;
+    height: 32px;
+    font-size: 13px;
+    font-weight: 500;
+    border-radius: 2px;
+    box-shadow: 0 2px 4px rgba(0,0,0,.25);
+    color: white;
+    cursor: pointer;
+
+    &:hover {
+      outline: none;
+      color: $text;
+      box-shadow: 0 2px 6px rgba(0,0,0,.5);
+    }
+  }
+
+  .flat-button {
+    margin: 16px;
+    font-size: 13px;
+    font-weight: 500;
+    height: 32px;
+    color: $accent;
+    padding: 0 16px;
+    border: none;
+    border-radius: 2px;
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0,0,0,.25);
+    outline: none;
+    cursor: pointer;
+
+    &:hover {
+      color: $text;
+      box-shadow: 0 2px 6px rgba(0,0,0,.5);
+    }
+  }
+
+  @media screen and (min-width: 550px) {
+
+    h2 {
+      font-size: 26px;
+      margin: 1em;
+    }
+
+    .heading {
+      margin-bottom: 4em; 
+    };
+
+    .button, .flat-button {
+      font-size: 14px;
+      height: 36px;
+    }
+  }
+
+}

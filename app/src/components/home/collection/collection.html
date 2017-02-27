@@ -1,7 +1,7 @@
 <app-header current="$ctrl.current" tab="$ctrl.tab"></app-header>
 <section ng-class="$ctrl.styles.collection">
   <div class="heading">
-    <h1>{{$ctrl.current.username}}'s collection</h1>
+    <h1>My Collection</h1>
     <button ui-sref="home.add-game">ADD GAME</button>
   </div>
   <game game="game" ng-repeat="game in $ctrl.current.gameCollection | limitTo: 25 | orderBy: 'title'"></game>

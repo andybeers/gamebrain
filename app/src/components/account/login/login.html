@@ -5,11 +5,3 @@
   <button ng-click="$ctrl.signin()">Sign in</button>
   <div ng-if="$ctrl.loginError">{{$ctrl.loginError.error}}</div>
 </form>
-<form>
-  <h3>Sign up</h3>
-  <input type="text" placeholder="Username" ng-model="$ctrl.newUsername">
-  <input type="password" placeholder="Password" ng-model="$ctrl.newPassword">
-  <button ng-click="$ctrl.signup()">Sign up</button>
-  <div ng-if="$ctrl.signupError">{{$ctrl.signupError.error}}</div>
-</form>
-<button ui-sref="welcome">Cancel</button>

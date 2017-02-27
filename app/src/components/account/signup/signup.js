@@ -1,5 +1,5 @@
-import template from './login.html';
-import styles from './login.scss';
+import template from './signup.html';
+import styles from './signup.scss';
 
 export default {
   template,
@@ -11,18 +11,17 @@ controller.$inject = ['userService', '$state'];
 function controller(userService, $state) {
   this.styles = styles;
 
-  this.signin = () => {
+  this.signup = () => {
     this.credentials = {
       username: this.username,
       password: this.password
     };
-    userService.signin(this.credentials)
+    userService.signup(this.credentials)
       .then(() => {
         $state.go('home.collection');
       })
       .catch(err => {
-        this.loginError = err;
+        this.signupError = err;
       });
   };
-
 }
