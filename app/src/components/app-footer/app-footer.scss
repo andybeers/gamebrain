@@ -1,0 +1,11 @@
+@import 'colors';
+
+:local(.footer) {
+  font-size: 12px;
+  background-color: $blue;
+
+  a {
+    text-decoration: none;
+    color: white;
+  }
+}
