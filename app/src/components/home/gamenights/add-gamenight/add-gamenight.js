@@ -94,5 +94,4 @@ function controller(gamenightService) {
   this.month = this.months[this.today.getMonth()];
   this.day = this.days[this.today.getDate()];
   this.year = this.years[0];
-  console.log('day', this.month);
 }
