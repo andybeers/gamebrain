@@ -5,45 +5,17 @@
     <label>Event name:<br>
       <input type="text" placeholder="Enter name" required ng-model="$ctrl.name">
     </label><br>
-    <label>Add date and time:<br>
+    <label>Select date:<br>
       <select ng-model="$ctrl.month" ng-options="month.name for month in $ctrl.months"></select>
       <select ng-model="$ctrl.day" ng-options="day.name for day in $ctrl.days"></select>
       <select ng-model="$ctrl.year" ng-options="year.name for year in $ctrl.years"></select>
-      <select ng-model="$ctrl.hour">
-        <option value="01">1</option>
-        <option value="02">2</option>
-        <option value="03">3</option>
-        <option value="04">4</option>
-        <option value="05">5</option>
-        <option value="06">6</option>
-        <option value="07">7</option>
-        <option value="08">8</option>
-        <option value="09">9</option>
-        <option value="10">10</option>
-        <option value="11">11</option>
-        <option value="12">12</option>
-      </select>
-      <select ng-model="$ctrl.minute">
-        <option value="00">00</option>
-        <option value="15">15</option>
-        <option value="30">30</option>
-        <option value="45">45</option>
-      </select>
-      <select ng-model="$ctrl.ampm">
-        <option value="am">AM</option>
-        <option value="pm">PM</option>
-      </select>
-      Date: {{$ctrl.month}}-{{$ctrl.day}}-{{$ctrl.year}} Time: {{$ctrl.hour}}:{{$ctrl.minute}}{{$ctrl.ampm}}
-      <input type="datetime-local" ng-model="$ctrl.date">
-    </label><br>
+    </label><br><br>
     <label>Add a description:<br>
-      <textarea placeholder="Event details, location, etc..." ng-model="$ctrl.description"></textarea>
+      <textarea placeholder="Event details, time, location, etc..." ng-model="$ctrl.description" required></textarea>
     </label><br>
     <div class="submit-div">
-      <button class="flat-button" ui-sref="home.gamenights">CANCEL</button>
-      <button class="button">CREATE</button>
+      <button type="button" class="flat-button" ui-sref="home.gamenights">CANCEL</button>
+      <button type="submit" class="button" ng-click="$ctrl.create()" ui-sref="home.gamenights">CREATE</button>
     </div>
   </form>
-  {{$ctrl.gamenight1}}
-  {{$ctrl.date}}
 </section>

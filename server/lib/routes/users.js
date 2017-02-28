@@ -26,7 +26,6 @@ router
     User.findById(req.params.id)
       .select('-password')
       .populate('gameCollection')
-      .populate('friends', 'username')
       .lean()
       .then(user => res.send(user))
       .catch(next);

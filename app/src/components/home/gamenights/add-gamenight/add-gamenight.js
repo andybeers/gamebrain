@@ -18,11 +18,10 @@ function controller(gamenightService) {
   this.next = this.year + 1;
   
   this.create = () => {
-    if (!this.date || isNaN(this.date.getTime())) this.date = '';
-
     const gamenight = {
       name: this.name,
       description: this.description,
+      date: new Date(this.year.value, this.month.value, this.day.value)
     };
 
     gamenightService.add(gamenight)

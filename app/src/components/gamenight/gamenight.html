@@ -1,0 +1,12 @@
+<app-header current="$ctrl.current" tab="$ctrl.tab"></app-header>
+<section ng-class="$ctrl.styles.gamenight">
+  <h1>{{$ctrl.gamenight.name}}</h1>
+  <h3>{{$ctrl.gamenight.date}}</h3>
+  <p>{{$ctrl.gamenight.description}}</p>
+  <ul>
+    <li ng-repeat="user in $ctrl.gamenight.invites">{{user.username}}</li>
+  </ul>
+  <div ng-repeat="friend in $ctrl.current.friends">
+    <a ng-click="$ctrl.invite(friend._id)"><h3>{{friend.username}}</h3></a>
+  </div>
+</section>

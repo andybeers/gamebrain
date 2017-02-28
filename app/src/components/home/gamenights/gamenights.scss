@@ -11,6 +11,32 @@
     color: $header;
   }
 
+  h2 {
+    text-align: center;
+    color: $header;
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: .25em;
+  }
+
+  h3 {
+    font-size: 14px;
+    font-weight: 500;
+    color: $gray;
+  }
+
+  h4 {
+    font-size: 14px;
+    font-weight: 400;
+    color: $green;
+    margin: 0;
+  }
+
+  a {
+    text-decoration: none;
+    color: $text;
+  }
+
   button {
     margin: .25em;
     border: none;
@@ -32,14 +58,24 @@
 
   .heading {
     display: flex;
-    flex-direction: column;
     justify-content: space-between;
     align-items: center;
+  }
+
+  .night-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid $light-blue;
   }
 
   @media screen and (min-width: 550px) {
     h1 {
       font-size: 18px;
+    }
+
+    h4 {
+      font-size: 15px;
     }
 
     button {
@@ -49,7 +85,6 @@
     }
 
     .heading {
-      flex-direction: row;
       margin: .75em 0;
     }
   }

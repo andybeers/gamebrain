@@ -16,6 +16,15 @@
     margin: .5em;
   }
 
+  a {
+    text-decoration: none;
+    color: $text;
+
+    &:hover {
+        color: $accent;
+      }
+  }
+
   input {
     box-sizing: border-box;
     font-size: 14px;
@@ -71,6 +80,7 @@
 
   .results {
     margin-top: 1.5em;
+    border-bottom: 1px solid $light-blue;
   }
 
   .back {

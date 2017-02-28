@@ -2,7 +2,7 @@
 <section ng-class="$ctrl.styles.collection">
   <div class="heading">
     <h1>My Collection</h1>
-    <button ui-sref="home.add-game">ADD GAME</button>
+    <button type="submit" ui-sref="home.add-game">ADD GAME</button>
   </div>
   <game game="game" ng-repeat="game in $ctrl.current.gameCollection | limitTo: 25 | orderBy: 'title'"></game>
 </section>

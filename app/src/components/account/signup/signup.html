@@ -1,8 +1,14 @@
-<form>
-  <h3>Sign up</h3>
-  <input type="text" placeholder="Username" ng-model="$ctrl.username">
-  <input type="password" placeholder="Password" ng-model="$ctrl.password">
-  <button ng-click="$ctrl.signup()">Sign up</button>
-  <div ng-if="$ctrl.signupError">{{$ctrl.signupError.error}}</div>
-</form>
-<button ui-sref="welcome">Cancel</button>
+<section ng-class="$ctrl.styles.signup">
+  <div class="wrapper">
+    <form>
+      <h3>Create an account:</h3>
+      <input type="text" placeholder="Username" ng-model="$ctrl.username"><br>
+      <input type="password" placeholder="Password" ng-model="$ctrl.password"><br>
+      <div class="buttons">
+        <button type="button" class="flat-button" ui-sref="welcome">CANCEL</button>
+        <button class="button" type="submit" ng-click="$ctrl.signup()">GO</button>
+      </div>
+      <div class="error" ng-if="$ctrl.signupError">&#9888; {{$ctrl.signupError.error}}</div>
+    </form>
+  </div>
+</section>

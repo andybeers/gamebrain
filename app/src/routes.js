@@ -68,6 +68,14 @@ export default function routes($stateProvider, $urlRouterProvider) {
   $stateProvider.state({
     name: 'home.gamenights',
     url: '/gamenights',
+    resolve: {
+      hosted: ['gamenightService', gamenightService => {
+        return gamenightService.hosted();
+      }],
+      invited: ['gamenightService', gamenightService => {
+        return gamenightService.invited();
+      }]
+    },
     component: 'gamenights'
   });
 
@@ -108,6 +116,20 @@ export default function routes($stateProvider, $urlRouterProvider) {
     name: 'user.friends',
     url: '/friends',
     component: 'userFriends'
+  });
+
+  $stateProvider.state({
+    name: 'gamenight',
+    url: '/gamenight/:id',
+    resolve: {
+      current: ['userService', userService => {
+        return userService.getCurrent();
+      }],
+      gamenight: ['gamenightService', '$transition$', (gamenightService, t) => {
+        return gamenightService.getById(t.params().id);
+      }]
+    },
+    component: 'gamenight'
   });
 
   $urlRouterProvider.when('/home', '/home/collection');
