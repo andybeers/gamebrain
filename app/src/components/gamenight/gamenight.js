@@ -16,17 +16,27 @@ controller.$inject = ['gamenightService'];
 function controller(gamenightService) {
   this.styles = styles;
   this.tab = 'gamenights';
-  this.toggle = false;
+  this.showFriends = false;
 
   this.$onInit = () => {
-    console.log(this.host);
+    console.log('full night:', this.gamenight);
     this.datestring = new Date(this.gamenight.date).toDateString();
+    this.invitedHash = this.gamenight.invites.reduce((acc, curr) => {
+      acc[curr._id] = true;
+      return acc;
+    }, {});
+    this.filter = friend => !this.invitedHash[friend._id];
+  };
+
+
+  this.toggle = () => {
+    this.showFriends = !this.showFriends;
   };
 
   this.invite = friend => {
-    console.log('inviting: ', friend);
     gamenightService.update(this.gamenight._id, {$addToSet: {invites: friend}})
       .then(gamenight => {
+        this.invitedHash[friend._id] = true;
         this.gamenight.invites = gamenight.invites;
       })
       .catch(err => {

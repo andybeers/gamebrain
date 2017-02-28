@@ -16,7 +16,7 @@ const schema = new Schema({
   }],
   rsvps: [{
     _id: false,
-    gameId: { type: String },
+    game: { type: Object },
     userId: { type: String }
   }],
   requests: { type: Array }

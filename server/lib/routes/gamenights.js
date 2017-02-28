@@ -9,28 +9,30 @@ router
     if (req.query.host) query.host = req.user.id;
     if (req.query.invited) query.invites = req.user.id;
     Gamenight.find(query)
-      .populate('invites', 'username gameCollection')
+      .populate('invites', 'username')
+      .populate('host', 'username')
       .lean()
       .then(gamenights => res.send(gamenights))
       .catch(next);
   })
   .get('/:id', (req, res, next) => {
     Gamenight.findById(req.params.id)
-      .populate('invites', 'username gameCollection')
+      .populate('invites', 'username')
+      .populate('host', 'username')
       .lean()
       .then(gamenight => res.send(gamenight))
       .catch(next);
   })
   .post('/', bodyParser, (req, res, next) => {
     req.body.host = req.user.id;
-    req.body.invites.push(req.user.id);
     new Gamenight(req.body).save()
       .then(newGamenight => res.send(newGamenight))
       .catch(next);
   })
   .put('/:id', bodyParser, (req, res, next) => {
     Gamenight.findByIdAndUpdate(req.params.id, req.body, { new: true })
-      .populate('invites', 'username gameCollection')
+      .populate('invites', 'username')
+      .populate('host', 'username')
       .lean()
       .then(updated => res.send(updated))
       .catch(next);
