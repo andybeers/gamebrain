@@ -32,7 +32,6 @@
 
   .heading {
     display: flex;
-    flex-direction: column;
     justify-content: space-between;
     align-items: center;
   }
@@ -49,7 +48,6 @@
     }
 
     .heading {
-      flex-direction: row;
       margin: .75em 0;
     }
   }
