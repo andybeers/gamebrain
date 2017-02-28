@@ -127,6 +127,9 @@ export default function routes($stateProvider, $urlRouterProvider) {
       }],
       gamenight: ['gamenightService', '$transition$', (gamenightService, t) => {
         return gamenightService.getById(t.params().id);
+      }],
+      host: ['current', 'gamenight', (current, gamenight) => {
+        return current._id === gamenight.host ? true : false;
       }]
     },
     component: 'gamenight'

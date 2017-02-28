@@ -40,14 +40,7 @@
     display: flex;
   }
 
-  .players {
-    padding: .3em;
-    color: $medium-blue;
-    border: 1px solid $medium-blue;
-    border-radius: 3px;
-  }
-
-  .minutes {
+  .players, .minutes {
     padding: .3em;
     color: $medium-blue;
     border: 1px solid $medium-blue;
