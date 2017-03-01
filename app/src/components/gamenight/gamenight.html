@@ -20,5 +20,5 @@
     <li ng-repeat="user in $ctrl.gamenight.invites">{{user.username}}</li>
   </ul>
   <h4>Available games:</h4>
-  <game owned="$ctrl.ownedHash" game="game" buttons="true" ng-repeat="game in $ctrl.allGames | orderBy: 'title'"></game>
+  <game owned="$ctrl.ownedHash" game="game" buttons="true" ng-repeat="game in $ctrl.uniques | orderBy: 'title'"></game>
 </section>

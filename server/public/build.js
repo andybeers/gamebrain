@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 137);
+/******/ 	return __webpack_require__(__webpack_require__.s = 140);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -1017,17 +1017,17 @@ exports.services = services;
 function __export(m) {
     for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
 }
-__export(__webpack_require__(121));
-__export(__webpack_require__(128));
-__export(__webpack_require__(129));
-__export(__webpack_require__(130));
+__export(__webpack_require__(124));
 __export(__webpack_require__(131));
 __export(__webpack_require__(132));
 __export(__webpack_require__(133));
 __export(__webpack_require__(134));
+__export(__webpack_require__(135));
+__export(__webpack_require__(136));
+__export(__webpack_require__(137));
 __export(__webpack_require__(31));
 __export(__webpack_require__(36));
-__export(__webpack_require__(127));
+__export(__webpack_require__(130));
 //# sourceMappingURL=index.js.map
 
 /***/ }),
@@ -4434,11 +4434,11 @@ exports.Transition = Transition;
 var interface_1 = __webpack_require__(12);
 var transition_1 = __webpack_require__(26);
 var hookRegistry_1 = __webpack_require__(25);
-var resolve_1 = __webpack_require__(124);
-var views_1 = __webpack_require__(126);
-var url_1 = __webpack_require__(125);
-var redirectTo_1 = __webpack_require__(123);
-var onEnterExitRetain_1 = __webpack_require__(122);
+var resolve_1 = __webpack_require__(127);
+var views_1 = __webpack_require__(129);
+var url_1 = __webpack_require__(128);
+var redirectTo_1 = __webpack_require__(126);
+var onEnterExitRetain_1 = __webpack_require__(125);
 var lazyLoad_1 = __webpack_require__(32);
 var transitionEventType_1 = __webpack_require__(43);
 var transitionHook_1 = __webpack_require__(14);
@@ -5100,7 +5100,7 @@ var substr = 'ab'.substr(-1) === 'b'
     }
 ;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(120)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(123)))
 
 /***/ }),
 /* 31 */
@@ -7959,7 +7959,7 @@ var _path2 = _interopRequireDefault(_path);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var context = __webpack_require__(135);
+var context = __webpack_require__(138);
 
 var _module = _angular2.default.module('components', []);
 
@@ -8091,6 +8091,14 @@ function routes($stateProvider, $urlRouterProvider) {
   $stateProvider.state({
     name: 'home.gamenights',
     url: '/gamenights',
+    resolve: {
+      hosted: ['gamenightService', function (gamenightService) {
+        return gamenightService.hosted();
+      }],
+      invited: ['gamenightService', function (gamenightService) {
+        return gamenightService.invited();
+      }]
+    },
     component: 'gamenights'
   });
 
@@ -8135,6 +8143,32 @@ function routes($stateProvider, $urlRouterProvider) {
     component: 'userFriends'
   });
 
+  $stateProvider.state({
+    name: 'gamenight',
+    url: '/gamenight/:id',
+    resolve: {
+      current: ['userService', function (userService) {
+        return userService.getCurrent();
+      }],
+      gamenight: ['gamenightService', '$transition$', function (gamenightService, t) {
+        return gamenightService.getById(t.params().id);
+      }],
+      host: ['current', 'gamenight', function (current, gamenight) {
+        return current._id === gamenight.host._id ? true : false;
+      }],
+      allGames: ['gamenight', function (gamenight) {
+        var invitedGames = gamenight.invites.reduce(function (acc, curr) {
+          if (curr.gameCollection.length > 0) return acc.concat(curr.gameCollection);
+          return acc;
+        }, []);
+        var plusHostGames = gamenight.host.gameCollection.length > 0 ? invitedGames.concat(gamenight.host.gameCollection) : invitedGames;
+        return plusHostGames;
+      }]
+      //   const uniques = Array.from(new Set(allIds));
+    },
+    component: 'gamenight'
+  });
+
   $urlRouterProvider.when('/home', '/home/collection');
   $urlRouterProvider.when('/user', '/home/friends');
   $urlRouterProvider.otherwise('/');
@@ -8165,7 +8199,7 @@ var _path2 = _interopRequireDefault(_path);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var context = __webpack_require__(136);
+var context = __webpack_require__(139);
 
 var _module = _angular2.default.module('services', []);
 
@@ -43068,11 +43102,11 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _login = __webpack_require__(103);
+var _login = __webpack_require__(105);
 
 var _login2 = _interopRequireDefault(_login);
 
-var _login3 = __webpack_require__(87);
+var _login3 = __webpack_require__(88);
 
 var _login4 = _interopRequireDefault(_login3);
 
@@ -43115,11 +43149,11 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _signup = __webpack_require__(104);
+var _signup = __webpack_require__(106);
 
 var _signup2 = _interopRequireDefault(_signup);
 
-var _signup3 = __webpack_require__(88);
+var _signup3 = __webpack_require__(89);
 
 var _signup4 = _interopRequireDefault(_signup3);
 
@@ -43162,11 +43196,11 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _appFooter = __webpack_require__(105);
+var _appFooter = __webpack_require__(107);
 
 var _appFooter2 = _interopRequireDefault(_appFooter);
 
-var _appFooter3 = __webpack_require__(89);
+var _appFooter3 = __webpack_require__(90);
 
 var _appFooter4 = _interopRequireDefault(_appFooter3);
 
@@ -43193,11 +43227,11 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _appHeader = __webpack_require__(106);
+var _appHeader = __webpack_require__(108);
 
 var _appHeader2 = _interopRequireDefault(_appHeader);
 
-var _appHeader3 = __webpack_require__(90);
+var _appHeader3 = __webpack_require__(91);
 
 var _appHeader4 = _interopRequireDefault(_appHeader3);
 
@@ -43235,7 +43269,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _app = __webpack_require__(107);
+var _app = __webpack_require__(109);
 
 var _app2 = _interopRequireDefault(_app);
 
@@ -43261,11 +43295,11 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _game = __webpack_require__(108);
+var _game = __webpack_require__(110);
 
 var _game2 = _interopRequireDefault(_game);
 
-var _game3 = __webpack_require__(91);
+var _game3 = __webpack_require__(92);
 
 var _game4 = _interopRequireDefault(_game3);
 
@@ -43275,7 +43309,8 @@ exports.default = {
   template: _game2.default,
   bindings: {
     game: '<',
-    owned: '<'
+    owned: '<',
+    buttons: '<'
   },
   controller: controller
 };
@@ -43285,12 +43320,8 @@ function controller() {
   var _this = this;
 
   this.styles = _game4.default;
-
-  this.overlap = function () {
-    return _this.owned[_this.game._id];
-  };
-
   this.expand = false;
+  this.overlap = false;
 
   this.$onInit = function () {
     if (_this.owned) _this.overlap = _this.owned[_this.game._id] ? true : false;
@@ -43308,11 +43339,107 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _addGame = __webpack_require__(109);
+var _gamenight = __webpack_require__(111);
+
+var _gamenight2 = _interopRequireDefault(_gamenight);
+
+var _gamenight3 = __webpack_require__(93);
+
+var _gamenight4 = _interopRequireDefault(_gamenight3);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = {
+  template: _gamenight2.default,
+  bindings: {
+    current: '<',
+    gamenight: '<',
+    host: '<',
+    allGames: '<'
+  },
+  controller: controller
+};
+
+
+controller.$inject = ['gamenightService'];
+
+function controller(gamenightService) {
+  var _this = this;
+
+  this.styles = _gamenight4.default;
+  this.tab = 'gamenights';
+  this.showFriends = false;
+
+  this.$onInit = function () {
+    console.log('full night:', _this.gamenight);
+    console.log('allgames: ', _this.allGames);
+
+    _this.datestring = new Date(_this.gamenight.date).toDateString();
+
+    _this.myGameHash = _this.current.gameCollection.reduce(function (acc, curr) {
+      acc[curr._id] = true;
+      return acc;
+    }, {});
+
+    _this.invitedHash = _this.gamenight.invites.reduce(function (acc, curr) {
+      acc[curr._id] = true;
+      return acc;
+    }, {});
+
+    _this.filter = function (friend) {
+      return !_this.invitedHash[friend._id];
+    };
+
+    _this.checkOwned();
+    _this.removeDupes();
+    console.log(_this.uniques);
+  };
+
+  this.checkOwned = function () {
+    _this.ownedHash = _this.allGames.reduce(function (acc, curr) {
+      if (_this.myGameHash[curr._id]) acc[curr._id] = true;
+      return acc;
+    }, {});
+  };
+
+  this.removeDupes = function () {
+    _this.uniques = _this.allGames.filter(function (obj, pos, arr) {
+      return arr.map(function (mapObj) {
+        return mapObj._id;
+      }).indexOf(obj._id) === pos;
+    });
+  };
+
+  this.toggle = function () {
+    _this.showFriends = !_this.showFriends;
+  };
+
+  this.invite = function (friend) {
+    gamenightService.update(_this.gamenight._id, { $addToSet: { invites: friend } }).then(function (gamenight) {
+      _this.invitedHash[friend._id] = true;
+      _this.gamenight.invites = gamenight.invites;
+    }).catch(function (err) {
+      console.log(err);
+    });
+  };
+}
+
+/***/ }),
+/* 73 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _addGame = __webpack_require__(112);
 
 var _addGame2 = _interopRequireDefault(_addGame);
 
-var _addGame3 = __webpack_require__(92);
+var _addGame3 = __webpack_require__(94);
 
 var _addGame4 = _interopRequireDefault(_addGame3);
 
@@ -43379,7 +43506,7 @@ function controller(userService, gameService, $state) {
 }
 
 /***/ }),
-/* 73 */
+/* 74 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -43389,11 +43516,11 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _collection = __webpack_require__(110);
+var _collection = __webpack_require__(113);
 
 var _collection2 = _interopRequireDefault(_collection);
 
-var _collection3 = __webpack_require__(93);
+var _collection3 = __webpack_require__(95);
 
 var _collection4 = _interopRequireDefault(_collection3);
 
@@ -43414,7 +43541,7 @@ function controller() {
 }
 
 /***/ }),
-/* 74 */
+/* 75 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -43424,11 +43551,11 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _addFriend = __webpack_require__(111);
+var _addFriend = __webpack_require__(114);
 
 var _addFriend2 = _interopRequireDefault(_addFriend);
 
-var _addFriend3 = __webpack_require__(94);
+var _addFriend3 = __webpack_require__(96);
 
 var _addFriend4 = _interopRequireDefault(_addFriend3);
 
@@ -43498,7 +43625,7 @@ function controller(userService, $state) {
 }
 
 /***/ }),
-/* 75 */
+/* 76 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -43508,11 +43635,11 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _friends = __webpack_require__(112);
+var _friends = __webpack_require__(115);
 
 var _friends2 = _interopRequireDefault(_friends);
 
-var _friends3 = __webpack_require__(95);
+var _friends3 = __webpack_require__(97);
 
 var _friends4 = _interopRequireDefault(_friends3);
 
@@ -43533,7 +43660,7 @@ function controller() {
 }
 
 /***/ }),
-/* 76 */
+/* 77 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -43543,11 +43670,11 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _addGamenight = __webpack_require__(113);
+var _addGamenight = __webpack_require__(116);
 
 var _addGamenight2 = _interopRequireDefault(_addGamenight);
 
-var _addGamenight3 = __webpack_require__(96);
+var _addGamenight3 = __webpack_require__(98);
 
 var _addGamenight4 = _interopRequireDefault(_addGamenight3);
 
@@ -43573,14 +43700,14 @@ function controller(gamenightService) {
   this.next = this.year + 1;
 
   this.create = function () {
-    if (!_this.date || isNaN(_this.date.getTime())) _this.date = '';
-
     var gamenight = {
       name: _this.name,
-      description: _this.description
+      description: _this.description,
+      date: new Date(_this.year.value, _this.month.value, _this.day.value)
     };
 
     gamenightService.add(gamenight).then(function (res) {
+      console.log('add: ', res);
       _this.gamenight1 = res;
     }).catch(function (err) {
       console.log(err);
@@ -43602,41 +43729,6 @@ function controller(gamenightService) {
 }
 
 /***/ }),
-/* 77 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _gamenights = __webpack_require__(114);
-
-var _gamenights2 = _interopRequireDefault(_gamenights);
-
-var _gamenights3 = __webpack_require__(97);
-
-var _gamenights4 = _interopRequireDefault(_gamenights3);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-exports.default = {
-  template: _gamenights2.default,
-  bindings: {
-    current: '<'
-  },
-  controller: controller
-};
-
-
-function controller() {
-  this.styles = _gamenights4.default;
-  this.tab = 'gamenights';
-}
-
-/***/ }),
 /* 78 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -43647,11 +43739,59 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _home = __webpack_require__(115);
+var _gamenights = __webpack_require__(117);
+
+var _gamenights2 = _interopRequireDefault(_gamenights);
+
+var _gamenights3 = __webpack_require__(99);
+
+var _gamenights4 = _interopRequireDefault(_gamenights3);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = {
+  template: _gamenights2.default,
+  bindings: {
+    current: '<',
+    hosted: '<',
+    invited: '<'
+  },
+  controller: controller
+};
+
+
+function controller() {
+  var _this = this;
+
+  this.styles = _gamenights4.default;
+  this.tab = 'gamenights';
+
+  this.$onInit = function () {
+    console.log('invited: ', _this.invited);
+    console.log('hosted', _this.hosted);
+
+    _this.hosted.forEach(function (night) {
+      night.datestring = new Date(night.date).toDateString();
+    });
+  };
+}
+
+/***/ }),
+/* 79 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _home = __webpack_require__(118);
 
 var _home2 = _interopRequireDefault(_home);
 
-var _home3 = __webpack_require__(98);
+var _home3 = __webpack_require__(100);
 
 var _home4 = _interopRequireDefault(_home3);
 
@@ -43677,7 +43817,7 @@ function controller() {
 }
 
 /***/ }),
-/* 79 */
+/* 80 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -43687,11 +43827,11 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _userCollection = __webpack_require__(116);
+var _userCollection = __webpack_require__(119);
 
 var _userCollection2 = _interopRequireDefault(_userCollection);
 
-var _userCollection3 = __webpack_require__(99);
+var _userCollection3 = __webpack_require__(101);
 
 var _userCollection4 = _interopRequireDefault(_userCollection3);
 
@@ -43735,7 +43875,7 @@ function controller() {
 }
 
 /***/ }),
-/* 80 */
+/* 81 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -43745,11 +43885,11 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _userFriends = __webpack_require__(117);
+var _userFriends = __webpack_require__(120);
 
 var _userFriends2 = _interopRequireDefault(_userFriends);
 
-var _userFriends3 = __webpack_require__(100);
+var _userFriends3 = __webpack_require__(102);
 
 var _userFriends4 = _interopRequireDefault(_userFriends3);
 
@@ -43770,7 +43910,7 @@ function controller() {
 }
 
 /***/ }),
-/* 81 */
+/* 82 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -43780,11 +43920,11 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _user = __webpack_require__(118);
+var _user = __webpack_require__(121);
 
 var _user2 = _interopRequireDefault(_user);
 
-var _user3 = __webpack_require__(101);
+var _user3 = __webpack_require__(103);
 
 var _user4 = _interopRequireDefault(_user3);
 
@@ -43809,7 +43949,7 @@ function controller() {
 }
 
 /***/ }),
-/* 82 */
+/* 83 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -43819,11 +43959,11 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _welcome = __webpack_require__(119);
+var _welcome = __webpack_require__(122);
 
 var _welcome2 = _interopRequireDefault(_welcome);
 
-var _welcome3 = __webpack_require__(102);
+var _welcome3 = __webpack_require__(104);
 
 var _welcome4 = _interopRequireDefault(_welcome3);
 
@@ -43840,7 +43980,7 @@ function controller() {
 }
 
 /***/ }),
-/* 83 */
+/* 84 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -43854,6 +43994,11 @@ gameService.$inject = ['$http', 'apiUrl'];
 
 function gameService($http, apiUrl) {
   return {
+    get: function get(game) {
+      return $http.get(apiUrl + '/games/' + game).then(function (res) {
+        return res.data;
+      });
+    },
     search: function search(query) {
       return $http.get(apiUrl + '/games?search=' + query).then(function (res) {
         return res.data;
@@ -43873,7 +44018,7 @@ function gameService($http, apiUrl) {
 }
 
 /***/ }),
-/* 84 */
+/* 85 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -43891,12 +44036,32 @@ function gamenightService($http, apiUrl) {
       return $http.post(apiUrl + '/gamenights', gamenight).then(function (res) {
         return res.data;
       });
+    },
+    hosted: function hosted() {
+      return $http.get(apiUrl + '/gamenights?host=true').then(function (res) {
+        return res.data;
+      });
+    },
+    invited: function invited() {
+      return $http.get(apiUrl + '/gamenights?invited=true').then(function (res) {
+        return res.data;
+      });
+    },
+    getById: function getById(gamenightId) {
+      return $http.get(apiUrl + '/gamenights/' + gamenightId).then(function (res) {
+        return res.data;
+      });
+    },
+    update: function update(gamenightId, data) {
+      return $http.put(apiUrl + '/gamenights/' + gamenightId, data).then(function (res) {
+        return res.data;
+      });
     }
   };
 }
 
 /***/ }),
-/* 85 */
+/* 86 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -43925,7 +44090,7 @@ function tokenService($window) {
 }
 
 /***/ }),
-/* 86 */
+/* 87 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -43990,92 +44155,88 @@ function userService($http, apiUrl, $state, tokenService) {
 }
 
 /***/ }),
-/* 87 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
 /* 88 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+module.exports = {"login":"HoPpFqssAfo6weUro0xMF"};
 
 /***/ }),
 /* 89 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
-module.exports = {"footer":"_1zfPX2sAI5XFPVY_8nw5W5"};
+module.exports = {"signup":"_2FgLAKlzI6_uND6eI_tRmk"};
 
 /***/ }),
 /* 90 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
-module.exports = {"header":"_1HGC6kkTzKw7_vtrNtniAA"};
+module.exports = {"footer":"_1zfPX2sAI5XFPVY_8nw5W5"};
 
 /***/ }),
 /* 91 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
-module.exports = {"game":"_3ME1LT96UM66-W3UCjjf5g"};
+module.exports = {"header":"_1HGC6kkTzKw7_vtrNtniAA"};
 
 /***/ }),
 /* 92 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
-module.exports = {"add":"_2ElIazXfSVUX5_GKJClQoX"};
+module.exports = {"game":"_3ME1LT96UM66-W3UCjjf5g"};
 
 /***/ }),
 /* 93 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
-module.exports = {"collection":"_3PTmyH3Fo3W-EGkWM4miEE"};
+module.exports = {"gamenight":"_2Z2MNcjGAvce9F4ikrWbMt"};
 
 /***/ }),
 /* 94 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
-module.exports = {"friend":"aXdWQB1Vh51tJ8kS0aVCN"};
+module.exports = {"add":"_2ElIazXfSVUX5_GKJClQoX"};
 
 /***/ }),
 /* 95 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
-module.exports = {"friends":"bGer0DaL9gmhHtOewrFOR"};
+module.exports = {"collection":"_3PTmyH3Fo3W-EGkWM4miEE"};
 
 /***/ }),
 /* 96 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
-module.exports = {"add":"_3H_9OfNOwwoltg87Nte_65"};
+module.exports = {"friend":"aXdWQB1Vh51tJ8kS0aVCN"};
 
 /***/ }),
 /* 97 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
-module.exports = {"nights":"_2k26MxKTJ1Yj_d_JTJL-J1"};
+module.exports = {"friends":"bGer0DaL9gmhHtOewrFOR"};
 
 /***/ }),
 /* 98 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+module.exports = {"add":"_3H_9OfNOwwoltg87Nte_65"};
 
 /***/ }),
 /* 99 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
-module.exports = {"collection":"_34QbxkiMGU9Aqfa9MO4Sjz"};
+module.exports = {"nights":"_2k26MxKTJ1Yj_d_JTJL-J1"};
 
 /***/ }),
 /* 100 */
@@ -44088,118 +44249,137 @@ module.exports = {"collection":"_34QbxkiMGU9Aqfa9MO4Sjz"};
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+module.exports = {"collection":"_34QbxkiMGU9Aqfa9MO4Sjz"};
 
 /***/ }),
 /* 102 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
-module.exports = {"welcome":"_23XnJNGIuxwbbctNa1oBpu"};
 
 /***/ }),
 /* 103 */
 /***/ (function(module, exports) {
 
-module.exports = "<form>\n  <h3>Login</h3>\n  <input type=\"text\" placeholder=\"Username\" ng-model=\"$ctrl.username\">\n  <input type=\"password\" placeholder=\"Password\" ng-model=\"$ctrl.password\">\n  <button ng-click=\"$ctrl.signin()\">Sign in</button>\n  <div ng-if=\"$ctrl.loginError\">{{$ctrl.loginError.error}}</div>\n</form>";
+// removed by extract-text-webpack-plugin
 
 /***/ }),
 /* 104 */
 /***/ (function(module, exports) {
 
-module.exports = "<form>\n  <h3>Sign up</h3>\n  <input type=\"text\" placeholder=\"Username\" ng-model=\"$ctrl.username\">\n  <input type=\"password\" placeholder=\"Password\" ng-model=\"$ctrl.password\">\n  <button ng-click=\"$ctrl.signup()\">Sign up</button>\n  <div ng-if=\"$ctrl.signupError\">{{$ctrl.signupError.error}}</div>\n</form>\n<button ui-sref=\"welcome\">Cancel</button>";
+// removed by extract-text-webpack-plugin
+module.exports = {"welcome":"_23XnJNGIuxwbbctNa1oBpu"};
 
 /***/ }),
 /* 105 */
 /***/ (function(module, exports) {
 
-module.exports = "<footer ng-class=\"$ctrl.styles.footer\">\n  <p>&copy; Andy Beers 2017</p>\n  <p>Github</p>\n  <div>\n    Stack graphic by <a href=\"http://www.flaticon.com/authors/hanan\">Hanan</a> from <a href=\"http://www.flaticon.com/\">Flaticon</a> is licensed under <a href=\"http://creativecommons.org/licenses/by/3.0/\" title=\"Creative Commons BY 3.0\">CC BY 3.0</a>. Made with <a href=\"http://logomakr.com\" title=\"Logo Maker\">Logo Maker</a>\nInterface graphic by <a href=\"http://www.flaticon.com/authors/freepik\">Freepik</a> from <a href=\"http://www.flaticon.com/\">Flaticon</a> is licensed under <a href=\"http://creativecommons.org/licenses/by/3.0/\" title=\"Creative Commons BY 3.0\">CC BY 3.0</a>. Made with <a href=\"http://logomakr.com\" title=\"Logo Maker\">Logo Maker</a>\nSocial graphic by <a href=\"http://www.flaticon.com/authors/zurb\">Zurb</a> from <a href=\"http://www.flaticon.com/\">Flaticon</a> is licensed under <a href=\"http://creativecommons.org/licenses/by/3.0/\" title=\"Creative Commons BY 3.0\">CC BY 3.0</a>. Made with <a href=\"http://logomakr.com\" title=\"Logo Maker\">Logo Maker</a>\nBusiness graphic by <a href=\"http://www.flaticon.com/authors/freepik\">Freepik</a> from <a href=\"http://www.flaticon.com/\">Flaticon</a> is licensed under <a href=\"http://creativecommons.org/licenses/by/3.0/\" title=\"Creative Commons BY 3.0\">CC BY 3.0</a>. Made with <a href=\"http://logomakr.com\" title=\"Logo Maker\">Logo Maker</a>\n  </div>\n</footer>";
+module.exports = "<section ng-class=\"$ctrl.styles.login\">\n  <div class=\"wrapper\">\n    <form>\n      <h3>Login:</h3>\n      <input type=\"text\" placeholder=\"Username\" ng-model=\"$ctrl.username\"><br>\n      <input type=\"password\" placeholder=\"Password\" ng-model=\"$ctrl.password\"><br>\n      <div class=\"buttons\">\n        <button type=\"button\" class=\"flat-button\" ui-sref=\"welcome\">CANCEL</button>\n        <button class=\"button\" type=\"submit\" ng-click=\"$ctrl.signin()\">SIGN IN</button>\n      </div>\n      <div class=\"error\" ng-if=\"$ctrl.loginError\">&#9888; {{$ctrl.loginError.error}}</div>\n    </form>\n  </div>\n</section>";
 
 /***/ }),
 /* 106 */
 /***/ (function(module, exports) {
 
-module.exports = "<section ng-class=\"$ctrl.styles.header\">\n  <header>\n    <h1>GAMEBRAIN</h1>\n    <nav id=\"header-nav\">\n      <a ui-sref=\"home.collection\" ng-click=\"$ctrl.tab = 'collection'\" ng-class=\"{selected: $ctrl.tab === 'collection'}\"><li>MY GAMES</li></a>\n      <a ui-sref=\"home.friends\" ng-click=\"$ctrl.tab = 'friends'\" ng-class=\"{selected: $ctrl.tab === 'friends'}\"><li>FRIENDS</li></a>\n      <a ui-sref=\"home.gamenights\" ng-click=\"$ctrl.tab = 'gamenights'\" ng-class=\"{selected: $ctrl.tab === 'gamenights'}\"><li>GAMENIGHTS</li></a>\n    </nav>\n    <div id=\"user\">\n      <a ui-sref=\"user.collection({id: $ctrl.current._id})\"><p>{{$ctrl.current.username}}</p></a>\n      <button ng-click=\"$ctrl.logout()\">Logout</button>\n    </div>\n  </header>\n  <div id=\"under-nav\">\n    <nav>\n      <a ui-sref=\"home.collection\" ng-click=\"$ctrl.tab = 'collection'\" ng-class=\"{selected: $ctrl.tab === 'collection'}\"><li>MY GAMES</li></a>\n      <a ui-sref=\"home.friends\" ng-click=\"$ctrl.tab = 'friends'\" ng-class=\"{selected: $ctrl.tab === 'friends'}\"><li>FRIENDS</li></a>\n      <a ui-sref=\"home.gamenights\" ng-click=\"$ctrl.tab = 'gamenights'\" ng-class=\"{selected: $ctrl.tab === 'gamenights'}\"><li>GAMENIGHTS</li></a>\n    </nav>\n  </div>\n</section>";
+module.exports = "<section ng-class=\"$ctrl.styles.signup\">\n  <div class=\"wrapper\">\n    <form>\n      <h3>Create an account:</h3>\n      <input type=\"text\" placeholder=\"Username\" ng-model=\"$ctrl.username\"><br>\n      <input type=\"password\" placeholder=\"Password\" ng-model=\"$ctrl.password\"><br>\n      <div class=\"buttons\">\n        <button type=\"button\" class=\"flat-button\" ui-sref=\"welcome\">CANCEL</button>\n        <button class=\"button\" type=\"submit\" ng-click=\"$ctrl.signup()\">GO</button>\n      </div>\n      <div class=\"error\" ng-if=\"$ctrl.signupError\">&#9888; {{$ctrl.signupError.error}}</div>\n    </form>\n  </div>\n</section>";
 
 /***/ }),
 /* 107 */
 /***/ (function(module, exports) {
 
-module.exports = "<ui-view></ui-view>\n";
+module.exports = "<footer ng-class=\"$ctrl.styles.footer\">\n  <p>&copy; Andy Beers 2017</p>\n  <p>Github</p>\n  <div>\n    Stack graphic by <a href=\"http://www.flaticon.com/authors/hanan\">Hanan</a> from <a href=\"http://www.flaticon.com/\">Flaticon</a> is licensed under <a href=\"http://creativecommons.org/licenses/by/3.0/\" title=\"Creative Commons BY 3.0\">CC BY 3.0</a>. Made with <a href=\"http://logomakr.com\" title=\"Logo Maker\">Logo Maker</a>\nInterface graphic by <a href=\"http://www.flaticon.com/authors/freepik\">Freepik</a> from <a href=\"http://www.flaticon.com/\">Flaticon</a> is licensed under <a href=\"http://creativecommons.org/licenses/by/3.0/\" title=\"Creative Commons BY 3.0\">CC BY 3.0</a>. Made with <a href=\"http://logomakr.com\" title=\"Logo Maker\">Logo Maker</a>\nSocial graphic by <a href=\"http://www.flaticon.com/authors/zurb\">Zurb</a> from <a href=\"http://www.flaticon.com/\">Flaticon</a> is licensed under <a href=\"http://creativecommons.org/licenses/by/3.0/\" title=\"Creative Commons BY 3.0\">CC BY 3.0</a>. Made with <a href=\"http://logomakr.com\" title=\"Logo Maker\">Logo Maker</a>\nBusiness graphic by <a href=\"http://www.flaticon.com/authors/freepik\">Freepik</a> from <a href=\"http://www.flaticon.com/\">Flaticon</a> is licensed under <a href=\"http://creativecommons.org/licenses/by/3.0/\" title=\"Creative Commons BY 3.0\">CC BY 3.0</a>. Made with <a href=\"http://logomakr.com\" title=\"Logo Maker\">Logo Maker</a>\n  </div>\n</footer>";
 
 /***/ }),
 /* 108 */
 /***/ (function(module, exports) {
 
-module.exports = "<div ng-class=\"$ctrl.styles.game\">\n  <div ng-class=\"{owned: $ctrl.overlap}\" class=\"game-header\" ng-click=\"$ctrl.expand = !$ctrl.expand\">\n    <h3>{{$ctrl.game.title}}</h3>\n    <ul class=\"game-stats\">\n      <li class=\"players\">{{$ctrl.game.minPlayers}} - {{$ctrl.game.maxPlayers}} players</li>\n      <li class=\"minutes\">{{$ctrl.game.playtimeMinutes}} minutes</li>\n      <li class=\"expansion\" ng-if=\"$ctrl.game.expansion\">Expansion</li>\n    </ul>\n  </div>\n  <div class=\"game-content\" ng-show=\"$ctrl.expand\">\n    <img ng-if=\"$ctrl.game.thumbnail\" ng-src=\"https://{{$ctrl.game.thumbnail}}\">\n    <p><i>{{$ctrl.game.yearPub}} - {{$ctrl.game.publisher}}</i></p>\n    <p class=\"description\">{{$ctrl.game.description}}</p> \n  </div>\n</div>";
+module.exports = "<section ng-class=\"$ctrl.styles.header\">\n  <header>\n    <h1>GAMEBRAIN</h1>\n    <nav id=\"header-nav\">\n      <a ui-sref=\"home.collection\" ng-click=\"$ctrl.tab = 'collection'\" ng-class=\"{selected: $ctrl.tab === 'collection'}\"><li>MY GAMES</li></a>\n      <a ui-sref=\"home.friends\" ng-click=\"$ctrl.tab = 'friends'\" ng-class=\"{selected: $ctrl.tab === 'friends'}\"><li>FRIENDS</li></a>\n      <a ui-sref=\"home.gamenights\" ng-click=\"$ctrl.tab = 'gamenights'\" ng-class=\"{selected: $ctrl.tab === 'gamenights'}\"><li>GAMENIGHTS</li></a>\n    </nav>\n    <div id=\"user\">\n      <a ui-sref=\"user.collection({id: $ctrl.current._id})\"><p>{{$ctrl.current.username}}</p></a>\n      <button ng-click=\"$ctrl.logout()\">Logout</button>\n    </div>\n  </header>\n  <div id=\"under-nav\">\n    <nav>\n      <a ui-sref=\"home.collection\" ng-click=\"$ctrl.tab = 'collection'\" ng-class=\"{selected: $ctrl.tab === 'collection'}\"><li>MY GAMES</li></a>\n      <a ui-sref=\"home.friends\" ng-click=\"$ctrl.tab = 'friends'\" ng-class=\"{selected: $ctrl.tab === 'friends'}\"><li>FRIENDS</li></a>\n      <a ui-sref=\"home.gamenights\" ng-click=\"$ctrl.tab = 'gamenights'\" ng-class=\"{selected: $ctrl.tab === 'gamenights'}\"><li>GAMENIGHTS</li></a>\n    </nav>\n  </div>\n</section>";
 
 /***/ }),
 /* 109 */
 /***/ (function(module, exports) {
 
-module.exports = "<app-header current=\"$ctrl.current\" tab=\"$ctrl.tab\"></app-header>\n<section ng-class=\"$ctrl.styles.add\">\n  <h1>Add games to your collection</h1>\n  <form class=\"search\">\n    <input type=\"search\" placeholder=\"Search for games\" ng-model=\"$ctrl.searchInput\" required>\n    <button type=\"submit\" class=\"search-button\" ng-click=\"$ctrl.search()\">GO</button> \n  </form>\n  <ul ng-if=\"$ctrl.searchResults\">\n    <li>{{$ctrl.results.length}} results:</li>\n    <li ng-repeat=\"result in $ctrl.results\">\n      <h4>{{result.title}}</h4>\n      <p>{{result.yearPub}} -- {{result.publisher}} -- Expansion: {{result.expansion}}</p>\n      <p>{{result.thumbnail}}</p>\n      <img ng-src=\"https://{{result.thumbnail}}\">\n      <p>{{result.description}}</p>\n      <button ng-click=\"$ctrl.addGame(result._id)\">Add</button>\n    </li>\n  </ul>\n  <div ng-if=\"$ctrl.bggShow\">\n    <p>Not finding anything? You might be the first to add it! Either refine search parameters or</p>\n    <button ng-click=\"$ctrl.bggSearch()\">Search the Board Game Geek Database</button>\n    <li ng-repeat=\"bggResult in $ctrl.bggResults\">\n      <h4>{{bggResult.title}}</h4>\n      <p>{{bggResult.yearPub}} -- Expansion: {{bggResult.expansion}}</p>\n      <button ng-click=\"$ctrl.addBggGame(bggResult.bggId)\">Add</button>\n    </li>\n  </div>\n  <div class=\"back\">\n    <button class=\"flat-button back-button\" ui-sref=\"home.collection\">BACK</button>\n  </div>\n</section>";
+module.exports = "<ui-view></ui-view>\n";
 
 /***/ }),
 /* 110 */
 /***/ (function(module, exports) {
 
-module.exports = "<app-header current=\"$ctrl.current\" tab=\"$ctrl.tab\"></app-header>\n<section ng-class=\"$ctrl.styles.collection\">\n  <div class=\"heading\">\n    <h1>My Collection</h1>\n    <button ui-sref=\"home.add-game\">ADD GAME</button>\n  </div>\n  <game game=\"game\" ng-repeat=\"game in $ctrl.current.gameCollection | limitTo: 25 | orderBy: 'title'\"></game>\n</section>";
+module.exports = "<div ng-class=\"$ctrl.styles.game\">\n  <div ng-class=\"{owned: $ctrl.overlap}\" class=\"game-header\" ng-click=\"$ctrl.expand = !$ctrl.expand\">\n    <h3>{{$ctrl.game.title}}</h3>\n    <ul class=\"game-stats\">\n      <li class=\"players\">{{$ctrl.game.minPlayers}} - {{$ctrl.game.maxPlayers}} players</li>\n      <li class=\"minutes\">{{$ctrl.game.playtimeMinutes}} minutes</li>\n      <li class=\"expansion\" ng-if=\"$ctrl.game.expansion\">Expansion</li>\n    </ul>\n  </div>\n  <div class=\"game-content\" ng-show=\"$ctrl.expand\">\n    <div class=\"buttons\" ng-if=\"$ctrl.buttons\">\n      <button class=\"flat-button\">BRING</button>\n      <button class=\"flat-button\">REQUEST</button>\n    </div>\n    <img ng-if=\"$ctrl.game.thumbnail\" ng-src=\"https://{{$ctrl.game.thumbnail}}\">\n    <p><i>{{$ctrl.game.yearPub}} - {{$ctrl.game.publisher}}</i></p>\n    <p class=\"description\">{{$ctrl.game.description}}</p> \n  </div>\n</div>";
 
 /***/ }),
 /* 111 */
 /***/ (function(module, exports) {
 
-module.exports = "<app-header current=\"$ctrl.current\" tab=\"$ctrl.tab\"></app-header>\n<section ng-class=\"$ctrl.styles.friend\">\n  <h1>Find your friends</h1>\n  <form class=\"search\">\n    <input type=\"search\" placeholder=\"Search by username\" ng-model=\"$ctrl.searchInput\" required>\n    <button type=\"submit\" class=\"search-button\" ng-click=\"$ctrl.search()\">GO</button>\n  </form>\n  <div ng-if=\"$ctrl.emptyResults\">\n    <p>No users found. Try refining your search.</p>\n  </div>\n  <div class=\"results\" ng-if=\"$ctrl.showResults\" ng-repeat=\"result in $ctrl.results\">\n    <h3>{{result.username}}</h3>\n    <button ng-show=\"$ctrl.validFriend\" class=\"flat-button\" ng-click=\"$ctrl.add(result._id)\">ADD FRIEND</button>\n  </div>\n  <p ng-if=\"$ctrl.myself\">IT ME DUMMY</p>\n  <p ng-if=\"$ctrl.friended\">Already friended</p>\n  <div class=\"back\">\n    <button class=\"flat-button back-button\" ui-sref=\"home.friends\">BACK</button>\n  </div>\n</section>";
+module.exports = "<app-header current=\"$ctrl.current\" tab=\"$ctrl.tab\"></app-header>\n<section ng-class=\"$ctrl.styles.gamenight\">\n  <h1>{{$ctrl.gamenight.name}}</h1>\n  <h3 class=\"dateheader\">{{$ctrl.datestring}}</h3>\n  <p>{{$ctrl.gamenight.description}}</p>\n  <div class=\"hostbox\">\n    <h4>Host:</h4>\n    <ul class=\"invites host\">\n      <li>{{$ctrl.gamenight.host.username}}</li>  \n    </ul>\n  </div>\n  <button class=\"button\" ng-click=\"$ctrl.toggle()\" ng-if=\"$ctrl.host\">INVITE <span ng-hide=\"$ctrl.showFriends\">&#9654;</span><span ng-show=\"$ctrl.showFriends\">&#9660;</span></button>\n  <div ng-show=\"$ctrl.showFriends\">\n    <ul class=\"friends\">\n      <li ng-repeat=\"friend in $ctrl.current.friends | filter:$ctrl.filter\"><a ng-click=$ctrl.invite(friend._id)>{{friend.username}}</a></li>\n    </ul>\n  </div>\n  <h4>Invited:</h4>\n  <ul class=\"invites\">\n    <li ng-repeat=\"user in $ctrl.gamenight.invites\">{{user.username}}</li>\n  </ul>\n  <h4>Available games:</h4>\n  <game owned=\"$ctrl.ownedHash\" game=\"game\" buttons=\"true\" ng-repeat=\"game in $ctrl.uniques | orderBy: 'title'\"></game>\n</section>";
 
 /***/ }),
 /* 112 */
 /***/ (function(module, exports) {
 
-module.exports = "<app-header current=\"$ctrl.current\" tab=\"$ctrl.tab\"></app-header>\n<section ng-class=\"$ctrl.styles.friends\">\n  <div class=\"heading\">\n    <h1>My Friends</h1>\n    <button ui-sref=\"home.add-friend\">ADD FRIEND</button>\n  </div>\n  <h3 ng-repeat=\"friend in $ctrl.current.friends\"><a ui-sref=\"user.collection({id: friend._id})\">{{friend.username}}</a></h3>\n</section>\n";
+module.exports = "<app-header current=\"$ctrl.current\" tab=\"$ctrl.tab\"></app-header>\n<section ng-class=\"$ctrl.styles.add\">\n  <h1>Add games to your collection</h1>\n  <form class=\"search\">\n    <input type=\"search\" placeholder=\"Search for games\" ng-model=\"$ctrl.searchInput\" required>\n    <button type=\"submit\" class=\"search-button\" ng-click=\"$ctrl.search()\">GO</button> \n  </form>\n  <ul ng-if=\"$ctrl.searchResults\">\n    <li>{{$ctrl.results.length}} results:</li>\n    <li ng-repeat=\"result in $ctrl.results\">\n      <h4>{{result.title}}</h4>\n      <p>{{result.yearPub}} -- {{result.publisher}} -- Expansion: {{result.expansion}}</p>\n      <p>{{result.thumbnail}}</p>\n      <img ng-src=\"https://{{result.thumbnail}}\">\n      <p>{{result.description}}</p>\n      <button ng-click=\"$ctrl.addGame(result._id)\">Add</button>\n    </li>\n  </ul>\n  <div ng-if=\"$ctrl.bggShow\">\n    <p>Not finding anything? You might be the first to add it! Either refine search parameters or</p>\n    <button ng-click=\"$ctrl.bggSearch()\">Search the Board Game Geek Database</button>\n    <li ng-repeat=\"bggResult in $ctrl.bggResults\">\n      <h4>{{bggResult.title}}</h4>\n      <p>{{bggResult.yearPub}} -- Expansion: {{bggResult.expansion}}</p>\n      <button ng-click=\"$ctrl.addBggGame(bggResult.bggId)\">Add</button>\n    </li>\n  </div>\n  <div class=\"back\">\n    <button type=\"button\" class=\"flat-button back-button\" ui-sref=\"home.collection\">BACK</button>\n  </div>\n</section>";
 
 /***/ }),
 /* 113 */
 /***/ (function(module, exports) {
 
-module.exports = "<app-header current=\"$ctrl.current\" tab=\"$ctrl.tab\"></app-header>\n<section ng-class=\"$ctrl.styles.add\">\n  <h1>Create a gamenight</h1>\n  <form>\n    <label>Event name:<br>\n      <input type=\"text\" placeholder=\"Enter name\" required ng-model=\"$ctrl.name\">\n    </label><br>\n    <label>Add date and time:<br>\n      <select ng-model=\"$ctrl.month\" ng-options=\"month.name for month in $ctrl.months\"></select>\n      <select ng-model=\"$ctrl.day\" ng-options=\"day.name for day in $ctrl.days\"></select>\n      <select ng-model=\"$ctrl.year\" ng-options=\"year.name for year in $ctrl.years\"></select>\n      <select ng-model=\"$ctrl.hour\">\n        <option value=\"01\">1</option>\n        <option value=\"02\">2</option>\n        <option value=\"03\">3</option>\n        <option value=\"04\">4</option>\n        <option value=\"05\">5</option>\n        <option value=\"06\">6</option>\n        <option value=\"07\">7</option>\n        <option value=\"08\">8</option>\n        <option value=\"09\">9</option>\n        <option value=\"10\">10</option>\n        <option value=\"11\">11</option>\n        <option value=\"12\">12</option>\n      </select>\n      <select ng-model=\"$ctrl.minute\">\n        <option value=\"00\">00</option>\n        <option value=\"15\">15</option>\n        <option value=\"30\">30</option>\n        <option value=\"45\">45</option>\n      </select>\n      <select ng-model=\"$ctrl.ampm\">\n        <option value=\"am\">AM</option>\n        <option value=\"pm\">PM</option>\n      </select>\n      Date: {{$ctrl.month}}-{{$ctrl.day}}-{{$ctrl.year}} Time: {{$ctrl.hour}}:{{$ctrl.minute}}{{$ctrl.ampm}}\n      <input type=\"datetime-local\" ng-model=\"$ctrl.date\">\n    </label><br>\n    <label>Add a description:<br>\n      <textarea placeholder=\"Event details, location, etc...\" ng-model=\"$ctrl.description\"></textarea>\n    </label><br>\n    <div class=\"submit-div\">\n      <button class=\"flat-button\" ui-sref=\"home.gamenights\">CANCEL</button>\n      <button class=\"button\">CREATE</button>\n    </div>\n  </form>\n  {{$ctrl.gamenight1}}\n  {{$ctrl.date}}\n</section>";
+module.exports = "<app-header current=\"$ctrl.current\" tab=\"$ctrl.tab\"></app-header>\n<section ng-class=\"$ctrl.styles.collection\">\n  <div class=\"heading\">\n    <h1>My Collection</h1>\n    <button type=\"submit\" ui-sref=\"home.add-game\">ADD GAME</button>\n  </div>\n  <game game=\"game\" ng-repeat=\"game in $ctrl.current.gameCollection | limitTo: 25 | orderBy: 'title'\"></game>\n</section>";
 
 /***/ }),
 /* 114 */
 /***/ (function(module, exports) {
 
-module.exports = "<app-header current=\"$ctrl.current\" tab=\"$ctrl.tab\"></app-header>\n<section ng-class=\"$ctrl.styles.nights\">\n  <div class=\"heading\">\n    <h1>My Gamenights</h1>\n    <button ui-sref=\"home.add-gamenight\">CREATE GAMENIGHT</button>\n  </div>\n</section>";
+module.exports = "<app-header current=\"$ctrl.current\" tab=\"$ctrl.tab\"></app-header>\n<section ng-class=\"$ctrl.styles.friend\">\n  <h1>Find your friends</h1>\n  <form class=\"search\">\n    <input type=\"search\" placeholder=\"Search by username\" ng-model=\"$ctrl.searchInput\" required>\n    <button type=\"submit\" class=\"search-button\" ng-click=\"$ctrl.search()\">GO</button>\n  </form>\n  <div ng-if=\"$ctrl.emptyResults\">\n    <p>No users found. Try refining your search.</p>\n  </div>\n  <div class=\"results\" ng-if=\"$ctrl.showResults\" ng-repeat=\"result in $ctrl.results\">\n    <a ui-sref=\"user.collection({id: result._id})\"><h3>{{result.username}}</h3></a>\n    <button ng-show=\"$ctrl.validFriend\" class=\"flat-button\" ng-click=\"$ctrl.add(result._id)\">ADD FRIEND</button>\n  </div>\n  <p ng-if=\"$ctrl.myself\">IT ME DUMMY</p>\n  <p ng-if=\"$ctrl.friended\">Already friended</p>\n  <div class=\"back\">\n    <button type=\"button\" class=\"flat-button back-button\" ui-sref=\"home.friends\">BACK</button>\n  </div>\n</section>";
 
 /***/ }),
 /* 115 */
 /***/ (function(module, exports) {
 
-module.exports = "<ui-view></ui-view>";
+module.exports = "<app-header current=\"$ctrl.current\" tab=\"$ctrl.tab\"></app-header>\n<section ng-class=\"$ctrl.styles.friends\">\n  <div class=\"heading\">\n    <h1>My Friends</h1>\n    <button class=\"button\" ui-sref=\"home.add-friend\">ADD FRIEND</button>\n  </div>\n  <div class=\"friend-container\" ng-repeat=\"friend in $ctrl.current.friends\">\n    <h3><a ui-sref=\"user.collection({id: friend._id})\">{{friend.username}}</a></h3>\n    <button type=\"button\" class=\"flat-button\" ng-click=\"$ctrl.remove(friend._id)\">REMOVE</button>\n  </div>\n</section>\n";
 
 /***/ }),
 /* 116 */
 /***/ (function(module, exports) {
 
-module.exports = "<section ng-class=\"$ctrl.styles.collection\">\n  <div class=\"heading\">\n    <h2>{{$ctrl.user.username}}'s collection</h2>\n    <button ng-hide=\"$ctrl.myself || $ctrl.friended\" class=\"flat-button\" ng-click=\"$ctrl.add(result._id)\">ADD FRIEND</button>\n    <h4 ng-show=\"$ctrl.myself\">MYSELF</h4>\n    <h4 ng-show=\"$ctrl.friended && !$ctrl.myself\">FRIENDS</h4>\n  </div>\n  <div class=\"controls\">\n    <form>\n      <label>Show games I also own:\n        <input type=\"checkbox\" ng-model=\"$ctrl.toggleFilter\" ng-change=\"$ctrl.setFilter()\">\n      </label>\n    </form>\n  </div>\n  <game owned=\"$ctrl.ownedHash\" game=\"game\" ng-repeat=\"game in $ctrl.user.gameCollection | filter:$ctrl.filter | limitTo: 25 | orderBy: 'title'\"></game>\n</section>";
+module.exports = "<app-header current=\"$ctrl.current\" tab=\"$ctrl.tab\"></app-header>\n<section ng-class=\"$ctrl.styles.add\">\n  <h1>Create a gamenight</h1>\n  <form>\n    <label>Event name:<br>\n      <input type=\"text\" placeholder=\"Enter name\" required ng-model=\"$ctrl.name\">\n    </label><br>\n    <label>Select date:<br>\n      <select ng-model=\"$ctrl.month\" ng-options=\"month.name for month in $ctrl.months\"></select>\n      <select ng-model=\"$ctrl.day\" ng-options=\"day.name for day in $ctrl.days\"></select>\n      <select ng-model=\"$ctrl.year\" ng-options=\"year.name for year in $ctrl.years\"></select>\n    </label><br><br>\n    <label>Add a description:<br>\n      <textarea placeholder=\"Event details, time, location, etc...\" ng-model=\"$ctrl.description\" required></textarea>\n    </label><br>\n    <div class=\"submit-div\">\n      <button type=\"button\" class=\"flat-button\" ui-sref=\"home.gamenights\">CANCEL</button>\n      <button type=\"submit\" class=\"button\" ng-click=\"$ctrl.create()\" ui-sref=\"home.gamenights\">CREATE</button>\n    </div>\n  </form>\n</section>";
 
 /***/ }),
 /* 117 */
 /***/ (function(module, exports) {
 
-module.exports = "USER FRIENDS";
+module.exports = "<app-header current=\"$ctrl.current\" tab=\"$ctrl.tab\"></app-header>\n<section ng-class=\"$ctrl.styles.nights\">\n  <div class=\"heading\">\n    <h1>My Gamenights</h1>\n    <button type=\"submit\" ui-sref=\"home.add-gamenight\">CREATE</button>\n  </div>\n  <h2>Hosting:</h2> \n  <div class=\"night-container\" ng-repeat=\"hosting in $ctrl.hosted\">\n    <a ui-sref=\"gamenight({id: hosting._id})\"><h3>{{hosting.name}}</h3></a>\n    <h4>{{hosting.datestring}}</h4>\n  </div>\n  <h2>Invited:</h2> \n  <div class=\"night-container\" ng-repeat=\"invited in $ctrl.invited\">\n    <a ui-sref=\"gamenight({id: invited._id})\"><h3>{{invited.name}}</h3></a>\n    <h4>{{invited.datestring}}</h4>\n  </div>\n</section>";
 
 /***/ }),
 /* 118 */
 /***/ (function(module, exports) {
 
-module.exports = "<app-header current=\"$ctrl.current\" tab=\"$ctrl.tab\"></app-header>\n<ui-view></ui-view>";
+module.exports = "<ui-view></ui-view>";
 
 /***/ }),
 /* 119 */
 /***/ (function(module, exports) {
 
-module.exports = "<section ng-class=\"$ctrl.styles.welcome\">\n  <div class=\"wrapper\">\n    <div class=\"heading\">\n      <h1>GAMEBRAIN</h1>\n      <button class=\"flat-button\" ui-sref=\"login\">SIGN IN</button>\n    </div>\n  </div>\n  <div class=\"panel first\">\n    <h2>Plan your friends' favorite boardgame night.</h2>\n    <button class=\"button\" ui-sref=\"signup\">GET STARTED</button>\n  </div>\n  <div class=\"panel-container\">\n    <div class=\"panel sub second\">\n      <h3>Track your game collection.</h3>\n      <div class=\"img-box1\"></div>\n    </div>\n    <div class=\"panel sub third\">\n      <h3>Invite your friends to gamenights.</h3>\n      <div class=\"img-box2\"></div>\n    </div>\n    <div class=\"panel sub fourth\">\n      <h3>See your friends' available games and make requests.</h3>\n      <div class=\"img-box3\"></div>\n    </div>\n  </div>\n</section>";
+module.exports = "<section ng-class=\"$ctrl.styles.collection\">\n  <div class=\"heading\">\n    <h2>{{$ctrl.user.username}}'s collection</h2>\n    <button ng-hide=\"$ctrl.myself || $ctrl.friended\" class=\"flat-button\" ng-click=\"$ctrl.add(result._id)\">ADD FRIEND</button>\n    <h4 ng-show=\"$ctrl.myself\">MYSELF</h4>\n    <h4 ng-show=\"$ctrl.friended && !$ctrl.myself\">FRIENDS</h4>\n  </div>\n  <div class=\"controls\">\n    <form>\n      <label>Show games I also own:\n        <input type=\"checkbox\" ng-model=\"$ctrl.toggleFilter\" ng-change=\"$ctrl.setFilter()\">\n      </label>\n    </form>\n  </div>\n  <game owned=\"$ctrl.ownedHash\" game=\"game\" ng-repeat=\"game in $ctrl.user.gameCollection | filter:$ctrl.filter | limitTo: 25 | orderBy: 'title'\"></game>\n</section>";
 
 /***/ }),
 /* 120 */
+/***/ (function(module, exports) {
+
+module.exports = "USER FRIENDS";
+
+/***/ }),
+/* 121 */
+/***/ (function(module, exports) {
+
+module.exports = "<app-header current=\"$ctrl.current\" tab=\"$ctrl.tab\"></app-header>\n<ui-view></ui-view>";
+
+/***/ }),
+/* 122 */
+/***/ (function(module, exports) {
+
+module.exports = "<section ng-class=\"$ctrl.styles.welcome\">\n  <div class=\"wrapper\">\n    <div class=\"heading\">\n      <h1>GAMEBRAIN</h1>\n      <button class=\"flat-button\" ui-sref=\"login\">SIGN IN</button>\n    </div>\n  </div>\n  <div class=\"panel first\">\n    <h2>Plan your friends' favorite boardgame night.</h2>\n    <button class=\"button\" ui-sref=\"signup\">GET STARTED</button>\n  </div>\n  <div class=\"panel-container\">\n    <div class=\"panel sub second\">\n      <h3>Track your game collection.</h3>\n      <div class=\"img-box1\"></div>\n    </div>\n    <div class=\"panel sub third\">\n      <h3>Invite your friends to gamenights.</h3>\n      <div class=\"img-box2\"></div>\n    </div>\n    <div class=\"panel sub fourth\">\n      <h3>See your friends' available games and make requests.</h3>\n      <div class=\"img-box3\"></div>\n    </div>\n  </div>\n</section>";
+
+/***/ }),
+/* 123 */
 /***/ (function(module, exports) {
 
 // shim for using process in browser
@@ -44385,7 +44565,7 @@ process.umask = function() { return 0; };
 
 
 /***/ }),
-/* 121 */
+/* 124 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -44405,7 +44585,7 @@ __export(__webpack_require__(8));
 //# sourceMappingURL=index.js.map
 
 /***/ }),
-/* 122 */
+/* 125 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -44466,7 +44646,7 @@ exports.registerOnEnterHook = function (transitionService) {
 //# sourceMappingURL=onEnterExitRetain.js.map
 
 /***/ }),
-/* 123 */
+/* 126 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -44508,7 +44688,7 @@ exports.registerRedirectToHook = function (transitionService) {
 //# sourceMappingURL=redirectTo.js.map
 
 /***/ }),
-/* 124 */
+/* 127 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -44555,7 +44735,7 @@ exports.registerLazyResolveState = function (transitionService) {
 //# sourceMappingURL=resolve.js.map
 
 /***/ }),
-/* 125 */
+/* 128 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -44585,7 +44765,7 @@ exports.registerUpdateUrl = function (transitionService) {
 //# sourceMappingURL=url.js.map
 
 /***/ }),
-/* 126 */
+/* 129 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -44637,7 +44817,7 @@ exports.registerActivateViews = function (transitionService) {
 //# sourceMappingURL=views.js.map
 
 /***/ }),
-/* 127 */
+/* 130 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -44662,7 +44842,7 @@ exports.UIRouterPluginBase = UIRouterPluginBase;
 //# sourceMappingURL=interface.js.map
 
 /***/ }),
-/* 128 */
+/* 131 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -44677,7 +44857,7 @@ __export(__webpack_require__(23));
 //# sourceMappingURL=index.js.map
 
 /***/ }),
-/* 129 */
+/* 132 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -44691,7 +44871,7 @@ __export(__webpack_require__(17));
 //# sourceMappingURL=index.js.map
 
 /***/ }),
-/* 130 */
+/* 133 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -44706,7 +44886,7 @@ __export(__webpack_require__(18));
 //# sourceMappingURL=index.js.map
 
 /***/ }),
-/* 131 */
+/* 134 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -44724,7 +44904,7 @@ __export(__webpack_require__(6));
 //# sourceMappingURL=index.js.map
 
 /***/ }),
-/* 132 */
+/* 135 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -44755,7 +44935,7 @@ __export(__webpack_require__(27));
 //# sourceMappingURL=index.js.map
 
 /***/ }),
-/* 133 */
+/* 136 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -44771,7 +44951,7 @@ __export(__webpack_require__(47));
 //# sourceMappingURL=index.js.map
 
 /***/ }),
-/* 134 */
+/* 137 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -44783,7 +44963,7 @@ __export(__webpack_require__(48));
 //# sourceMappingURL=index.js.map
 
 /***/ }),
-/* 135 */
+/* 138 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var map = {
@@ -44793,17 +44973,18 @@ var map = {
 	"./app-header/app-header.js": 69,
 	"./app/app.js": 70,
 	"./game/game.js": 71,
-	"./home/collection/add-game/add-game.js": 72,
-	"./home/collection/collection.js": 73,
-	"./home/friends/add-friend/add-friend.js": 74,
-	"./home/friends/friends.js": 75,
-	"./home/gamenights/add-gamenight/add-gamenight.js": 76,
-	"./home/gamenights/gamenights.js": 77,
-	"./home/home.js": 78,
-	"./user/user-collection/user-collection.js": 79,
-	"./user/user-friends/user-friends.js": 80,
-	"./user/user.js": 81,
-	"./welcome/welcome.js": 82
+	"./gamenight/gamenight.js": 72,
+	"./home/collection/add-game/add-game.js": 73,
+	"./home/collection/collection.js": 74,
+	"./home/friends/add-friend/add-friend.js": 75,
+	"./home/friends/friends.js": 76,
+	"./home/gamenights/add-gamenight/add-gamenight.js": 77,
+	"./home/gamenights/gamenights.js": 78,
+	"./home/home.js": 79,
+	"./user/user-collection/user-collection.js": 80,
+	"./user/user-friends/user-friends.js": 81,
+	"./user/user.js": 82,
+	"./welcome/welcome.js": 83
 };
 function webpackContext(req) {
 	return __webpack_require__(webpackContextResolve(req));
@@ -44819,18 +45000,18 @@ webpackContext.keys = function webpackContextKeys() {
 };
 webpackContext.resolve = webpackContextResolve;
 module.exports = webpackContext;
-webpackContext.id = 135;
+webpackContext.id = 138;
 
 
 /***/ }),
-/* 136 */
+/* 139 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var map = {
-	"./game-service.js": 83,
-	"./gamenight-service.js": 84,
-	"./token-service.js": 85,
-	"./user-service.js": 86
+	"./game-service.js": 84,
+	"./gamenight-service.js": 85,
+	"./token-service.js": 86,
+	"./user-service.js": 87
 };
 function webpackContext(req) {
 	return __webpack_require__(webpackContextResolve(req));
@@ -44846,11 +45027,11 @@ webpackContext.keys = function webpackContextKeys() {
 };
 webpackContext.resolve = webpackContextResolve;
 module.exports = webpackContext;
-webpackContext.id = 136;
+webpackContext.id = 139;
 
 
 /***/ }),
-/* 137 */
+/* 140 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";

@@ -38,6 +38,8 @@ function controller(gamenightService) {
     this.filter = friend => !this.invitedHash[friend._id];
 
     this.checkOwned();
+    this.removeDupes();
+    console.log(this.uniques);
   };
 
   this.checkOwned = () => {
@@ -45,6 +47,12 @@ function controller(gamenightService) {
       if(this.myGameHash[curr._id]) acc[curr._id] = true;
       return acc;
     }, {});
+  };
+
+  this.removeDupes = () => {
+    this.uniques = this.allGames.filter((obj, pos, arr) => {
+      return arr.map(mapObj => mapObj._id).indexOf(obj._id) === pos;
+    });
   };
 
   this.toggle = () => {
