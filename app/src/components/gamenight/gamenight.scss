@@ -1,7 +1,7 @@
 @import 'colors';
 
 :local(.gamenight) {
-  width: 85%;
+  width: 90%;
   max-width: 500px;
   margin: 1em auto;
 
@@ -11,7 +11,7 @@
     font-weight: 700;
   }
 
-  h3 {
+  .dateheader {
     color: $green;
     font-size: 14px;
     font-weight: 500;

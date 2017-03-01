@@ -6,7 +6,8 @@ export default {
   bindings: {
     current: '<',
     gamenight: '<',
-    host: '<'
+    host: '<',
+    allGames: '<'
   },
   controller
 };
@@ -20,14 +21,31 @@ function controller(gamenightService) {
 
   this.$onInit = () => {
     console.log('full night:', this.gamenight);
+    console.log('allgames: ', this.allGames);
+
     this.datestring = new Date(this.gamenight.date).toDateString();
+
+    this.myGameHash = this.current.gameCollection.reduce((acc, curr) => {
+      acc[curr._id] = true;
+      return acc;
+    }, {});
+
     this.invitedHash = this.gamenight.invites.reduce((acc, curr) => {
       acc[curr._id] = true;
       return acc;
     }, {});
+
     this.filter = friend => !this.invitedHash[friend._id];
+
+    this.checkOwned();
   };
 
+  this.checkOwned = () => {
+    this.ownedHash = this.allGames.reduce((acc, curr) => {
+      if(this.myGameHash[curr._id]) acc[curr._id] = true;
+      return acc;
+    }, {});
+  };
 
   this.toggle = () => {
     this.showFriends = !this.showFriends;

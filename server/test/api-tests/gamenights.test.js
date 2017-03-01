@@ -32,7 +32,7 @@ describe('Gamenights CRUD routes', () => {
         .send(gamenightUser),
       request
         .post('/api/auth/signup')
-        .send(gamenightUser2),
+        .send(gamenightUser2)
     ])
       .then(res => {
         gamenightUser.token = res[0].body.token;

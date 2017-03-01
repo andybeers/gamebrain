@@ -30,7 +30,6 @@ function controller() {
       if(this.myGameHash[curr._id]) acc[curr._id] = true;
       return acc;
     }, {});
-
   };
 
 }

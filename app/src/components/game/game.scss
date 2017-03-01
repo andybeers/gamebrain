@@ -66,6 +66,37 @@
     }
   }
 
+  .owned {
+    background-color: $light-green;
+
+    &:hover {
+      background-color: $greenish;
+    }
+  }
+
+  .flat-button {
+    font-size: 13px;
+    font-weight: 500;
+    height: 32px;
+    color: $accent;
+    padding: 0 16px;
+    border: none;
+    border-radius: 2px;
+    background-color: transparent;
+    outline: none;
+    cursor: pointer;
+
+    &:hover {
+      color: $green;
+    }
+  }
+
+  .buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
   @media screen and (min-width: 550px) {
     h3 {
       font-size: 15px;
@@ -95,6 +126,11 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+    }
+
+    .flat-button {
+      font-size: 14px;
+      height: 36px;
     }
   }
 

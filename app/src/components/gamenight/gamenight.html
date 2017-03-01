@@ -1,7 +1,7 @@
 <app-header current="$ctrl.current" tab="$ctrl.tab"></app-header>
 <section ng-class="$ctrl.styles.gamenight">
   <h1>{{$ctrl.gamenight.name}}</h1>
-  <h3>{{$ctrl.datestring}}</h3>
+  <h3 class="dateheader">{{$ctrl.datestring}}</h3>
   <p>{{$ctrl.gamenight.description}}</p>
   <div class="hostbox">
     <h4>Host:</h4>
@@ -19,4 +19,6 @@
   <ul class="invites">
     <li ng-repeat="user in $ctrl.gamenight.invites">{{user.username}}</li>
   </ul>
+  <h4>Available games:</h4>
+  <game owned="$ctrl.ownedHash" game="game" buttons="true" ng-repeat="game in $ctrl.allGames | orderBy: 'title'"></game>
 </section>
