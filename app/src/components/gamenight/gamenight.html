@@ -12,13 +12,13 @@
   <button class="button" ng-click="$ctrl.toggle()" ng-if="$ctrl.host">INVITE <span ng-hide="$ctrl.showFriends">&#9654;</span><span ng-show="$ctrl.showFriends">&#9660;</span></button>
   <div ng-show="$ctrl.showFriends">
     <ul class="friends">
-      <li ng-repeat="friend in $ctrl.current.friends | filter:$ctrl.filter"><a ng-click=$ctrl.invite(friend._id)>{{friend.username}}</a></li>
+      <li ng-repeat="friend in $ctrl.current.friends | filter:$ctrl.filter track by friend._id"><a ng-click=$ctrl.invite(friend._id)>{{friend.username}}</a></li>
     </ul>
   </div>
   <h4>Invited:</h4>
   <ul class="invites">
-    <li ng-repeat="user in $ctrl.gamenight.invites">{{user.username}}</li>
+    <li ng-repeat="user in $ctrl.gamenight.invites track by user._id">{{user.username}}</li>
   </ul>
   <h4>Available games:</h4>
-  <game owned="$ctrl.ownedHash" game="game" buttons="true" ng-repeat="game in $ctrl.uniques | orderBy: 'title'"></game>
+  <game owned="$ctrl.ownedHash" game="game" buttons="true" ng-repeat="game in $ctrl.uniques | orderBy: 'title' track by game._id"></game>
 </section>

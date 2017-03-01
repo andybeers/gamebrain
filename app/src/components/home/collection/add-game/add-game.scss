@@ -89,6 +89,10 @@
     color: $text;
   }
 
+  .bggsearch-heading {
+    text-align: center;
+  }
+
   @media screen and (min-width: 550px) {
     .search-button {
       font-size: 14px;

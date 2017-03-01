@@ -4,7 +4,7 @@
     <h1>My Friends</h1>
     <button class="button" ui-sref="home.add-friend">ADD FRIEND</button>
   </div>
-  <div class="friend-container" ng-repeat="friend in $ctrl.current.friends">
+  <div class="friend-container" ng-repeat="friend in $ctrl.current.friends track by friend._id">
     <h3><a ui-sref="user.collection({id: friend._id})">{{friend.username}}</a></h3>
     <button type="button" class="flat-button" ng-click="$ctrl.remove(friend._id)">REMOVE</button>
   </div>

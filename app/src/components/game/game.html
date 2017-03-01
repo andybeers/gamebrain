@@ -8,7 +8,8 @@
         <li class="minutes" ng-hide="$ctrl.search">{{$ctrl.game.playtimeMinutes}} minutes</li>
         <li class="expansion" ng-if="$ctrl.game.expansion">Expansion</li>
       </ul>
-      <button class="flat-button text" ng-if="$ctrl.search">ADD</button>
+      <button class="flat-button text" ng-if="$ctrl.search && !$ctrl.bgg" ng-click="$ctrl.addGame($ctrl.game._id)">ADD</button>
+      <button class="flat-button text" ng-if="$ctrl.bgg" ng-click="$ctrl.addBggGame($ctrl.game.bggId)">ADD</button>
     </div>
   </div>
   <div class="game-content" ng-show="$ctrl.expand">

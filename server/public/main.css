@@ -219,6 +219,11 @@
   ._3ME1LT96UM66-W3UCjjf5g .game-stats {
     margin: 0 0 .5em;
     display: flex; }
+  ._3ME1LT96UM66-W3UCjjf5g .resultsbox {
+    display: flex;
+    align-items: center; }
+    ._3ME1LT96UM66-W3UCjjf5g .resultsbox .game-stats {
+      margin: 0; }
   ._3ME1LT96UM66-W3UCjjf5g .players, ._3ME1LT96UM66-W3UCjjf5g .minutes {
     padding: .3em;
     color: #7986CB;
@@ -255,6 +260,11 @@
     outline: none; }
     ._3ME1LT96UM66-W3UCjjf5g .flat-button:hover {
       box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5); }
+  ._3ME1LT96UM66-W3UCjjf5g .text {
+    box-shadow: none;
+    background-color: transparent; }
+    ._3ME1LT96UM66-W3UCjjf5g .text:hover {
+      box-shadow: none; }
   ._3ME1LT96UM66-W3UCjjf5g .buttons {
     display: flex;
     justify-content: center;
@@ -356,6 +366,11 @@
     margin: 1em;
     color: #5C6BC0;
     text-align: center; }
+  ._2ElIazXfSVUX5_GKJClQoX h2 {
+    text-align: center;
+    font-size: 16px;
+    font-weight: 500;
+    color: #424242; }
   ._2ElIazXfSVUX5_GKJClQoX h3 {
     margin: .5em; }
   ._2ElIazXfSVUX5_GKJClQoX input {
@@ -367,6 +382,8 @@
     border-radius: 2px;
     padding: 0 8px;
     color: #4d4d4d; }
+  ._2ElIazXfSVUX5_GKJClQoX .results {
+    margin: 1em 0; }
   ._2ElIazXfSVUX5_GKJClQoX .flat-button {
     font-size: 13px;
     font-weight: 500;
@@ -395,17 +412,17 @@
     cursor: pointer; }
     ._2ElIazXfSVUX5_GKJClQoX .search-button:hover {
       box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5); }
-  ._2ElIazXfSVUX5_GKJClQoX .search, ._2ElIazXfSVUX5_GKJClQoX .results {
+  ._2ElIazXfSVUX5_GKJClQoX .search {
     display: flex;
     align-items: center;
     justify-content: center; }
-  ._2ElIazXfSVUX5_GKJClQoX .results {
-    margin-top: 1.5em; }
   ._2ElIazXfSVUX5_GKJClQoX .back {
     text-align: right;
     margin: 1em; }
   ._2ElIazXfSVUX5_GKJClQoX .back-button:hover {
     color: #4d4d4d; }
+  ._2ElIazXfSVUX5_GKJClQoX .bggsearch-heading {
+    text-align: center; }
   @media screen and (min-width: 550px) {
     ._2ElIazXfSVUX5_GKJClQoX .search-button {
       font-size: 14px;

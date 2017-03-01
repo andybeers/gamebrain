@@ -6,6 +6,10 @@ export default function gameService($http, apiUrl) {
       return $http.get(`${apiUrl}/games/${game}`)
         .then(res => res.data);
     },
+    getByBgg(bggId) {
+      return $http.get(`${apiUrl}/games?bggId=${bggId}`)
+        .then(res => res.data);
+    },
     search(query) {
       return $http.get(`${apiUrl}/games?search=${query}`)
         .then(res => res.data);

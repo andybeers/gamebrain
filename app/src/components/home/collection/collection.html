@@ -4,5 +4,5 @@
     <h1>My Collection</h1>
     <button type="submit" ui-sref="home.add-game">ADD GAME</button>
   </div>
-  <game game="game" ng-repeat="game in $ctrl.current.gameCollection | limitTo: 25 | orderBy: 'title'"></game>
+  <game game="game" ng-repeat="game in $ctrl.current.gameCollection | orderBy: 'title'  track by game._id"></game>
 </section>
