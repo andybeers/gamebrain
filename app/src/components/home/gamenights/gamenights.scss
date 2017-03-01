@@ -16,7 +16,7 @@
     color: $header;
     font-size: 14px;
     font-weight: 500;
-    margin-bottom: .25em;
+    margin: .5em;
   }
 
   h3 {
@@ -26,7 +26,7 @@
   }
 
   h4 {
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 400;
     color: $green;
     margin: 0;
@@ -69,13 +69,25 @@
     border-bottom: 1px solid $light-blue;
   }
 
+  .nightbox {
+    margin: 1em 0;
+  }
+
   @media screen and (min-width: 550px) {
     h1 {
       font-size: 18px;
     }
 
-    h4 {
+    h2 {
+      font-size: 16px;
+    }
+
+    h3 {
       font-size: 15px;
+    }
+
+    h4 {
+      font-size: 14px;
     }
 
     button {

@@ -6,8 +6,7 @@ export default {
   bindings: {
     current: '<',
     gamenight: '<',
-    host: '<',
-    allGames: '<'
+    host: '<'
   },
   controller
 };
@@ -20,8 +19,8 @@ function controller(gamenightService) {
   this.showFriends = false;
 
   this.$onInit = () => {
-    console.log('full night:', this.gamenight);
-    console.log('allgames: ', this.allGames);
+    this.gatherGames();
+    this.removeDupes();
 
     this.datestring = new Date(this.gamenight.date).toDateString();
 
@@ -38,8 +37,14 @@ function controller(gamenightService) {
     this.filter = friend => !this.invitedHash[friend._id];
 
     this.checkOwned();
-    this.removeDupes();
-    console.log(this.uniques);
+  };
+
+  this.gatherGames = () => {
+    const invitedGames = this.gamenight.invites.reduce((acc, curr) => {
+      if(curr.gameCollection.length > 0) return acc.concat(curr.gameCollection);
+      return acc;
+    }, []);
+    this.allGames = this.gamenight.host.gameCollection.length > 0 ? invitedGames.concat(this.gamenight.host.gameCollection) : invitedGames;
   };
 
   this.checkOwned = () => {
@@ -64,6 +69,8 @@ function controller(gamenightService) {
       .then(gamenight => {
         this.invitedHash[friend._id] = true;
         this.gamenight.invites = gamenight.invites;
+        this.gatherGames();
+        this.removeDupes();
       })
       .catch(err => {
         console.log(err);

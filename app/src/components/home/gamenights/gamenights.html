@@ -4,14 +4,18 @@
     <h1>My Gamenights</h1>
     <button type="submit" ui-sref="home.add-gamenight">CREATE</button>
   </div>
-  <h2>Hosting:</h2> 
-  <div class="night-container" ng-repeat="hosting in $ctrl.hosted track by hosting._id">
-    <a ui-sref="gamenight({id: hosting._id})"><h3>{{hosting.name}}</h3></a>
-    <h4>{{hosting.datestring}}</h4>
+  <div class="nightbox">
+    <h2>Hosting:</h2> 
+    <div class="night-container" ng-repeat="hosting in $ctrl.hosted | orderBy: 'date' track by hosting._id">
+      <a ui-sref="gamenight({id: hosting._id})"><h3>{{hosting.name}}</h3></a>
+      <h4>{{hosting.datestring}}</h4>
+    </div>
   </div>
-  <h2>Invited:</h2> 
-  <div class="night-container" ng-repeat="invited in $ctrl.invited track by invited._id">
-    <a ui-sref="gamenight({id: invited._id})"><h3>{{invited.name}}</h3></a>
-    <h4>{{invited.datestring}}</h4>
+  <div class="nightbox">
+    <h2>Invited:</h2>
+    <div class="night-container" ng-repeat="invited in $ctrl.invited | orderBy: 'date' track by invited._id">
+      <a ui-sref="gamenight({id: invited._id})"><h3>{{invited.name}}</h3></a>
+      <h4>{{invited.datestring}}</h4>
+    </div>
   </div>
 </section>
