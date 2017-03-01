@@ -41,6 +41,10 @@ export default function userService($http, apiUrl, $state, tokenService) {
       return $http.put(`${apiUrl}/users/${user}`, data)
         .then(res => res.data);
     },
+    // unfriend(user, friend) {
+    //   return $http.put(`${apiUrl}/users/${user}?unfriend`, friend)
+    //     .then(res => res.data);
+    // },
     logout() {
       tokenService.remove();
     },

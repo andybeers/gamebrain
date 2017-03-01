@@ -12,5 +12,5 @@
       </label>
     </form>
   </div>
-  <game owned="$ctrl.ownedHash" game="game" ng-repeat="game in $ctrl.user.gameCollection | filter:$ctrl.filter | limitTo: 25 | orderBy: 'title'"></game>
+  <game owned="$ctrl.ownedHash" game="game" ng-repeat="game in $ctrl.user.gameCollection | filter:$ctrl.filter | orderBy: 'title'"></game>
 </section>

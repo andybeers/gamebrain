@@ -9,6 +9,7 @@ router
   .get('/', (req, res, next) => {
     const query = {};
     if (req.query.search) query.$text = {$search: req.query.search};
+    if (req.query.bggId) query.bggId = req.query.bggId;
     Game.find(query)
       .lean()
       .then(games => res.send(games))

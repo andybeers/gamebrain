@@ -43308,15 +43308,20 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 exports.default = {
   template: _game2.default,
   bindings: {
+    current: '<',
     game: '<',
     owned: '<',
-    buttons: '<'
+    buttons: '<',
+    search: '<',
+    bgg: '<'
   },
   controller: controller
 };
 
 
-function controller() {
+controller.$inject = ['userService', 'gameService', '$state'];
+
+function controller(userService, gameService, $state) {
   var _this = this;
 
   this.styles = _game4.default;
@@ -43325,6 +43330,28 @@ function controller() {
 
   this.$onInit = function () {
     if (_this.owned) _this.overlap = _this.owned[_this.game._id] ? true : false;
+  };
+
+  this.addGame = function (gameId) {
+    userService.update(_this.current._id, { $addToSet: { gameCollection: gameId } }).then(function (user) {
+      _this.current.gameCollection = user.gameCollection;
+      $state.go('home.collection');
+    }).catch(function (err) {
+      console.log(err);
+    });
+  };
+
+  this.addBggGame = function (bggId) {
+    gameService.getByBgg(bggId).then(function (results) {
+      if (results.length !== 0) throw { gameId: results[0]._id };
+      return gameService.add(bggId);
+    }).then(function (game) {
+      _this.addGame(game._id);
+      $state.go('home.collection');
+    }).catch(function (err) {
+      if (err.gameId) _this.addGame(err.gameId);
+      $state.go('home.collection');
+    });
   };
 }
 
@@ -43454,9 +43481,9 @@ exports.default = {
 };
 
 
-controller.$inject = ['userService', 'gameService', '$state'];
+controller.$inject = ['userService', 'gameService'];
 
-function controller(userService, gameService, $state) {
+function controller(userService, gameService) {
   var _this = this;
 
   this.styles = _addGame4.default;
@@ -43477,28 +43504,10 @@ function controller(userService, gameService, $state) {
     });
   };
 
-  this.addGame = function (gameId) {
-    userService.update(_this.current._id, { $addToSet: { gameCollection: gameId } }).then(function (user) {
-      _this.current.gameCollection = user.gameCollection;
-      $state.go('home.collection');
-    }).catch(function (err) {
-      console.log(err);
-    });
-  };
-
   this.bggSearch = function () {
     var query = _this.searchInput;
     gameService.searchBgg(query).then(function (results) {
       _this.bggResults = results;
-    }).catch(function (err) {
-      console.log(err);
-    });
-  };
-
-  this.addBggGame = function (bggId) {
-    gameService.add(bggId).then(function (game) {
-      _this.addGame(game._id);
-      $state.go('home.collection');
     }).catch(function (err) {
       console.log(err);
     });
@@ -43654,9 +43663,21 @@ exports.default = {
 };
 
 
-function controller() {
+controller.$inject = ['userService'];
+
+function controller(userService) {
+  var _this = this;
+
   this.styles = _friends4.default;
   this.tab = 'friends';
+
+  this.remove = function (friend) {
+    userService.update(_this.current._id, { $pull: { friends: friend } }).then(function (updated) {
+      _this.current.friends = updated.friends;
+    }).catch(function (err) {
+      console.log(err);
+    });
+  };
 }
 
 /***/ }),
@@ -43999,6 +44020,11 @@ function gameService($http, apiUrl) {
         return res.data;
       });
     },
+    getByBgg: function getByBgg(bggId) {
+      return $http.get(apiUrl + '/games?bggId=' + bggId).then(function (res) {
+        return res.data;
+      });
+    },
     search: function search(query) {
       return $http.get(apiUrl + '/games?search=' + query).then(function (res) {
         return res.data;
@@ -44145,6 +44171,11 @@ function userService($http, apiUrl, $state, tokenService) {
         return res.data;
       });
     },
+
+    // unfriend(user, friend) {
+    //   return $http.put(`${apiUrl}/users/${user}?unfriend`, friend)
+    //     .then(res => res.data);
+    // },
     logout: function logout() {
       tokenService.remove();
     },
@@ -44304,25 +44335,25 @@ module.exports = "<ui-view></ui-view>\n";
 /* 110 */
 /***/ (function(module, exports) {
 
-module.exports = "<div ng-class=\"$ctrl.styles.game\">\n  <div ng-class=\"{owned: $ctrl.overlap}\" class=\"game-header\" ng-click=\"$ctrl.expand = !$ctrl.expand\">\n    <h3>{{$ctrl.game.title}}</h3>\n    <ul class=\"game-stats\">\n      <li class=\"players\">{{$ctrl.game.minPlayers}} - {{$ctrl.game.maxPlayers}} players</li>\n      <li class=\"minutes\">{{$ctrl.game.playtimeMinutes}} minutes</li>\n      <li class=\"expansion\" ng-if=\"$ctrl.game.expansion\">Expansion</li>\n    </ul>\n  </div>\n  <div class=\"game-content\" ng-show=\"$ctrl.expand\">\n    <div class=\"buttons\" ng-if=\"$ctrl.buttons\">\n      <button class=\"flat-button\">BRING</button>\n      <button class=\"flat-button\">REQUEST</button>\n    </div>\n    <img ng-if=\"$ctrl.game.thumbnail\" ng-src=\"https://{{$ctrl.game.thumbnail}}\">\n    <p><i>{{$ctrl.game.yearPub}} - {{$ctrl.game.publisher}}</i></p>\n    <p class=\"description\">{{$ctrl.game.description}}</p> \n  </div>\n</div>";
+module.exports = "<div ng-class=\"$ctrl.styles.game\">\n  <div ng-class=\"{owned: $ctrl.overlap}\" class=\"game-header\" ng-click=\"$ctrl.expand = !$ctrl.expand\">\n    <h3>{{$ctrl.game.title}}</h3>\n    <div ng-class=\"{resultsbox: $ctrl.search}\">\n      <ul class=\"game-stats\">\n        <li class=\"players\" ng-if=\"$ctrl.search\">{{$ctrl.game.yearPub}}</li>\n        <li class=\"players\" ng-hide=\"$ctrl.search\">{{$ctrl.game.minPlayers}} - {{$ctrl.game.maxPlayers}} players</li>\n        <li class=\"minutes\" ng-hide=\"$ctrl.search\">{{$ctrl.game.playtimeMinutes}} minutes</li>\n        <li class=\"expansion\" ng-if=\"$ctrl.game.expansion\">Expansion</li>\n      </ul>\n      <button class=\"flat-button text\" ng-if=\"$ctrl.search && !$ctrl.bgg\" ng-click=\"$ctrl.addGame($ctrl.game._id)\">ADD</button>\n      <button class=\"flat-button text\" ng-if=\"$ctrl.bgg\" ng-click=\"$ctrl.addBggGame($ctrl.game.bggId)\">ADD</button>\n    </div>\n  </div>\n  <div class=\"game-content\" ng-show=\"$ctrl.expand\">\n    <div class=\"buttons\" ng-if=\"$ctrl.buttons\">\n      <button class=\"flat-button\">BRING</button>\n      <button class=\"flat-button\">REQUEST</button>\n    </div>\n    <img ng-if=\"$ctrl.game.thumbnail\" ng-src=\"https://{{$ctrl.game.thumbnail}}\">\n    <p><i>{{$ctrl.game.yearPub}} - {{$ctrl.game.publisher}}</i></p>\n    <p class=\"description\">{{$ctrl.game.description}}</p> \n  </div>\n</div>";
 
 /***/ }),
 /* 111 */
 /***/ (function(module, exports) {
 
-module.exports = "<app-header current=\"$ctrl.current\" tab=\"$ctrl.tab\"></app-header>\n<section ng-class=\"$ctrl.styles.gamenight\">\n  <h1>{{$ctrl.gamenight.name}}</h1>\n  <h3 class=\"dateheader\">{{$ctrl.datestring}}</h3>\n  <p>{{$ctrl.gamenight.description}}</p>\n  <div class=\"hostbox\">\n    <h4>Host:</h4>\n    <ul class=\"invites host\">\n      <li>{{$ctrl.gamenight.host.username}}</li>  \n    </ul>\n  </div>\n  <button class=\"button\" ng-click=\"$ctrl.toggle()\" ng-if=\"$ctrl.host\">INVITE <span ng-hide=\"$ctrl.showFriends\">&#9654;</span><span ng-show=\"$ctrl.showFriends\">&#9660;</span></button>\n  <div ng-show=\"$ctrl.showFriends\">\n    <ul class=\"friends\">\n      <li ng-repeat=\"friend in $ctrl.current.friends | filter:$ctrl.filter\"><a ng-click=$ctrl.invite(friend._id)>{{friend.username}}</a></li>\n    </ul>\n  </div>\n  <h4>Invited:</h4>\n  <ul class=\"invites\">\n    <li ng-repeat=\"user in $ctrl.gamenight.invites\">{{user.username}}</li>\n  </ul>\n  <h4>Available games:</h4>\n  <game owned=\"$ctrl.ownedHash\" game=\"game\" buttons=\"true\" ng-repeat=\"game in $ctrl.uniques | orderBy: 'title'\"></game>\n</section>";
+module.exports = "<app-header current=\"$ctrl.current\" tab=\"$ctrl.tab\"></app-header>\n<section ng-class=\"$ctrl.styles.gamenight\">\n  <h1>{{$ctrl.gamenight.name}}</h1>\n  <h3 class=\"dateheader\">{{$ctrl.datestring}}</h3>\n  <p>{{$ctrl.gamenight.description}}</p>\n  <div class=\"hostbox\">\n    <h4>Host:</h4>\n    <ul class=\"invites host\">\n      <li>{{$ctrl.gamenight.host.username}}</li>  \n    </ul>\n  </div>\n  <button class=\"button\" ng-click=\"$ctrl.toggle()\" ng-if=\"$ctrl.host\">INVITE <span ng-hide=\"$ctrl.showFriends\">&#9654;</span><span ng-show=\"$ctrl.showFriends\">&#9660;</span></button>\n  <div ng-show=\"$ctrl.showFriends\">\n    <ul class=\"friends\">\n      <li ng-repeat=\"friend in $ctrl.current.friends | filter:$ctrl.filter track by friend._id\"><a ng-click=$ctrl.invite(friend._id)>{{friend.username}}</a></li>\n    </ul>\n  </div>\n  <h4>Invited:</h4>\n  <ul class=\"invites\">\n    <li ng-repeat=\"user in $ctrl.gamenight.invites track by user._id\">{{user.username}}</li>\n  </ul>\n  <h4>Available games:</h4>\n  <game owned=\"$ctrl.ownedHash\" game=\"game\" buttons=\"true\" ng-repeat=\"game in $ctrl.uniques | orderBy: 'title' track by game._id\"></game>\n</section>";
 
 /***/ }),
 /* 112 */
 /***/ (function(module, exports) {
 
-module.exports = "<app-header current=\"$ctrl.current\" tab=\"$ctrl.tab\"></app-header>\n<section ng-class=\"$ctrl.styles.add\">\n  <h1>Add games to your collection</h1>\n  <form class=\"search\">\n    <input type=\"search\" placeholder=\"Search for games\" ng-model=\"$ctrl.searchInput\" required>\n    <button type=\"submit\" class=\"search-button\" ng-click=\"$ctrl.search()\">GO</button> \n  </form>\n  <ul ng-if=\"$ctrl.searchResults\">\n    <li>{{$ctrl.results.length}} results:</li>\n    <li ng-repeat=\"result in $ctrl.results\">\n      <h4>{{result.title}}</h4>\n      <p>{{result.yearPub}} -- {{result.publisher}} -- Expansion: {{result.expansion}}</p>\n      <p>{{result.thumbnail}}</p>\n      <img ng-src=\"https://{{result.thumbnail}}\">\n      <p>{{result.description}}</p>\n      <button ng-click=\"$ctrl.addGame(result._id)\">Add</button>\n    </li>\n  </ul>\n  <div ng-if=\"$ctrl.bggShow\">\n    <p>Not finding anything? You might be the first to add it! Either refine search parameters or</p>\n    <button ng-click=\"$ctrl.bggSearch()\">Search the Board Game Geek Database</button>\n    <li ng-repeat=\"bggResult in $ctrl.bggResults\">\n      <h4>{{bggResult.title}}</h4>\n      <p>{{bggResult.yearPub}} -- Expansion: {{bggResult.expansion}}</p>\n      <button ng-click=\"$ctrl.addBggGame(bggResult.bggId)\">Add</button>\n    </li>\n  </div>\n  <div class=\"back\">\n    <button type=\"button\" class=\"flat-button back-button\" ui-sref=\"home.collection\">BACK</button>\n  </div>\n</section>";
+module.exports = "<app-header current=\"$ctrl.current\" tab=\"$ctrl.tab\"></app-header>\n<section ng-class=\"$ctrl.styles.add\">\n  <h1>Add games to your collection</h1>\n  <form class=\"search\">\n    <input type=\"search\" placeholder=\"Search for games\" ng-model=\"$ctrl.searchInput\" required>\n    <button type=\"submit\" class=\"search-button\" ng-click=\"$ctrl.search()\">GO</button> \n  </form>\n  <div class=\"results\" ng-if=\"$ctrl.searchResults\">\n    <h2>{{$ctrl.results.length}} FOUND:</h2>  \n    <game current=\"$ctrl.current\" game=\"game\" search=\"true\" ng-repeat=\"game in $ctrl.results | orderBy: 'title'\"></game>\n  </div>\n  <div ng-if=\"$ctrl.bggShow\">\n    <div class=\"bggsearch-heading\">\n      <h2>Can't find your game?</h2>\n      <h3>Check the BoardGameGeek database:</h3>\n      <button class=\"search-button\" ng-click=\"$ctrl.bggSearch()\">GO</button>\n    </div>\n    <game ng-repeat=\"bggResult in $ctrl.bggResults\" current=\"$ctrl.current\" game=\"bggResult\" search=\"true\" bgg=\"true\"></game>\n  </div>\n  <div class=\"back\">\n    <button type=\"button\" class=\"flat-button back-button\" ui-sref=\"home.collection\">BACK</button>\n  </div>\n</section>";
 
 /***/ }),
 /* 113 */
 /***/ (function(module, exports) {
 
-module.exports = "<app-header current=\"$ctrl.current\" tab=\"$ctrl.tab\"></app-header>\n<section ng-class=\"$ctrl.styles.collection\">\n  <div class=\"heading\">\n    <h1>My Collection</h1>\n    <button type=\"submit\" ui-sref=\"home.add-game\">ADD GAME</button>\n  </div>\n  <game game=\"game\" ng-repeat=\"game in $ctrl.current.gameCollection | limitTo: 25 | orderBy: 'title'\"></game>\n</section>";
+module.exports = "<app-header current=\"$ctrl.current\" tab=\"$ctrl.tab\"></app-header>\n<section ng-class=\"$ctrl.styles.collection\">\n  <div class=\"heading\">\n    <h1>My Collection</h1>\n    <button type=\"submit\" ui-sref=\"home.add-game\">ADD GAME</button>\n  </div>\n  <game game=\"game\" ng-repeat=\"game in $ctrl.current.gameCollection | orderBy: 'title'  track by game._id\"></game>\n</section>";
 
 /***/ }),
 /* 114 */
@@ -44334,7 +44365,7 @@ module.exports = "<app-header current=\"$ctrl.current\" tab=\"$ctrl.tab\"></app-
 /* 115 */
 /***/ (function(module, exports) {
 
-module.exports = "<app-header current=\"$ctrl.current\" tab=\"$ctrl.tab\"></app-header>\n<section ng-class=\"$ctrl.styles.friends\">\n  <div class=\"heading\">\n    <h1>My Friends</h1>\n    <button class=\"button\" ui-sref=\"home.add-friend\">ADD FRIEND</button>\n  </div>\n  <div class=\"friend-container\" ng-repeat=\"friend in $ctrl.current.friends\">\n    <h3><a ui-sref=\"user.collection({id: friend._id})\">{{friend.username}}</a></h3>\n    <button type=\"button\" class=\"flat-button\" ng-click=\"$ctrl.remove(friend._id)\">REMOVE</button>\n  </div>\n</section>\n";
+module.exports = "<app-header current=\"$ctrl.current\" tab=\"$ctrl.tab\"></app-header>\n<section ng-class=\"$ctrl.styles.friends\">\n  <div class=\"heading\">\n    <h1>My Friends</h1>\n    <button class=\"button\" ui-sref=\"home.add-friend\">ADD FRIEND</button>\n  </div>\n  <div class=\"friend-container\" ng-repeat=\"friend in $ctrl.current.friends track by friend._id\">\n    <h3><a ui-sref=\"user.collection({id: friend._id})\">{{friend.username}}</a></h3>\n    <button type=\"button\" class=\"flat-button\" ng-click=\"$ctrl.remove(friend._id)\">REMOVE</button>\n  </div>\n</section>\n";
 
 /***/ }),
 /* 116 */
@@ -44346,7 +44377,7 @@ module.exports = "<app-header current=\"$ctrl.current\" tab=\"$ctrl.tab\"></app-
 /* 117 */
 /***/ (function(module, exports) {
 
-module.exports = "<app-header current=\"$ctrl.current\" tab=\"$ctrl.tab\"></app-header>\n<section ng-class=\"$ctrl.styles.nights\">\n  <div class=\"heading\">\n    <h1>My Gamenights</h1>\n    <button type=\"submit\" ui-sref=\"home.add-gamenight\">CREATE</button>\n  </div>\n  <h2>Hosting:</h2> \n  <div class=\"night-container\" ng-repeat=\"hosting in $ctrl.hosted\">\n    <a ui-sref=\"gamenight({id: hosting._id})\"><h3>{{hosting.name}}</h3></a>\n    <h4>{{hosting.datestring}}</h4>\n  </div>\n  <h2>Invited:</h2> \n  <div class=\"night-container\" ng-repeat=\"invited in $ctrl.invited\">\n    <a ui-sref=\"gamenight({id: invited._id})\"><h3>{{invited.name}}</h3></a>\n    <h4>{{invited.datestring}}</h4>\n  </div>\n</section>";
+module.exports = "<app-header current=\"$ctrl.current\" tab=\"$ctrl.tab\"></app-header>\n<section ng-class=\"$ctrl.styles.nights\">\n  <div class=\"heading\">\n    <h1>My Gamenights</h1>\n    <button type=\"submit\" ui-sref=\"home.add-gamenight\">CREATE</button>\n  </div>\n  <h2>Hosting:</h2> \n  <div class=\"night-container\" ng-repeat=\"hosting in $ctrl.hosted track by hosting._id\">\n    <a ui-sref=\"gamenight({id: hosting._id})\"><h3>{{hosting.name}}</h3></a>\n    <h4>{{hosting.datestring}}</h4>\n  </div>\n  <h2>Invited:</h2> \n  <div class=\"night-container\" ng-repeat=\"invited in $ctrl.invited track by invited._id\">\n    <a ui-sref=\"gamenight({id: invited._id})\"><h3>{{invited.name}}</h3></a>\n    <h4>{{invited.datestring}}</h4>\n  </div>\n</section>";
 
 /***/ }),
 /* 118 */
@@ -44358,7 +44389,7 @@ module.exports = "<ui-view></ui-view>";
 /* 119 */
 /***/ (function(module, exports) {
 
-module.exports = "<section ng-class=\"$ctrl.styles.collection\">\n  <div class=\"heading\">\n    <h2>{{$ctrl.user.username}}'s collection</h2>\n    <button ng-hide=\"$ctrl.myself || $ctrl.friended\" class=\"flat-button\" ng-click=\"$ctrl.add(result._id)\">ADD FRIEND</button>\n    <h4 ng-show=\"$ctrl.myself\">MYSELF</h4>\n    <h4 ng-show=\"$ctrl.friended && !$ctrl.myself\">FRIENDS</h4>\n  </div>\n  <div class=\"controls\">\n    <form>\n      <label>Show games I also own:\n        <input type=\"checkbox\" ng-model=\"$ctrl.toggleFilter\" ng-change=\"$ctrl.setFilter()\">\n      </label>\n    </form>\n  </div>\n  <game owned=\"$ctrl.ownedHash\" game=\"game\" ng-repeat=\"game in $ctrl.user.gameCollection | filter:$ctrl.filter | limitTo: 25 | orderBy: 'title'\"></game>\n</section>";
+module.exports = "<section ng-class=\"$ctrl.styles.collection\">\n  <div class=\"heading\">\n    <h2>{{$ctrl.user.username}}'s collection</h2>\n    <button ng-hide=\"$ctrl.myself || $ctrl.friended\" class=\"flat-button\" ng-click=\"$ctrl.add(result._id)\">ADD FRIEND</button>\n    <h4 ng-show=\"$ctrl.myself\">MYSELF</h4>\n    <h4 ng-show=\"$ctrl.friended && !$ctrl.myself\">FRIENDS</h4>\n  </div>\n  <div class=\"controls\">\n    <form>\n      <label>Show games I also own:\n        <input type=\"checkbox\" ng-model=\"$ctrl.toggleFilter\" ng-change=\"$ctrl.setFilter()\">\n      </label>\n    </form>\n  </div>\n  <game owned=\"$ctrl.ownedHash\" game=\"game\" ng-repeat=\"game in $ctrl.user.gameCollection | filter:$ctrl.filter | orderBy: 'title'\"></game>\n</section>";
 
 /***/ }),
 /* 120 */

@@ -1,11 +1,16 @@
 <div ng-class="$ctrl.styles.game">
   <div ng-class="{owned: $ctrl.overlap}" class="game-header" ng-click="$ctrl.expand = !$ctrl.expand">
     <h3>{{$ctrl.game.title}}</h3>
-    <ul class="game-stats">
-      <li class="players">{{$ctrl.game.minPlayers}} - {{$ctrl.game.maxPlayers}} players</li>
-      <li class="minutes">{{$ctrl.game.playtimeMinutes}} minutes</li>
-      <li class="expansion" ng-if="$ctrl.game.expansion">Expansion</li>
-    </ul>
+    <div ng-class="{resultsbox: $ctrl.search}">
+      <ul class="game-stats">
+        <li class="players" ng-if="$ctrl.search">{{$ctrl.game.yearPub}}</li>
+        <li class="players" ng-hide="$ctrl.search">{{$ctrl.game.minPlayers}} - {{$ctrl.game.maxPlayers}} players</li>
+        <li class="minutes" ng-hide="$ctrl.search">{{$ctrl.game.playtimeMinutes}} minutes</li>
+        <li class="expansion" ng-if="$ctrl.game.expansion">Expansion</li>
+      </ul>
+      <button class="flat-button text" ng-if="$ctrl.search && !$ctrl.bgg" ng-click="$ctrl.addGame($ctrl.game._id)">ADD</button>
+      <button class="flat-button text" ng-if="$ctrl.bgg" ng-click="$ctrl.addBggGame($ctrl.game.bggId)">ADD</button>
+    </div>
   </div>
   <div class="game-content" ng-show="$ctrl.expand">
     <div class="buttons" ng-if="$ctrl.buttons">

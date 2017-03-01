@@ -5,25 +5,17 @@
     <input type="search" placeholder="Search for games" ng-model="$ctrl.searchInput" required>
     <button type="submit" class="search-button" ng-click="$ctrl.search()">GO</button> 
   </form>
-  <ul ng-if="$ctrl.searchResults">
-    <li>{{$ctrl.results.length}} results:</li>
-    <li ng-repeat="result in $ctrl.results">
-      <h4>{{result.title}}</h4>
-      <p>{{result.yearPub}} -- {{result.publisher}} -- Expansion: {{result.expansion}}</p>
-      <p>{{result.thumbnail}}</p>
-      <img ng-src="https://{{result.thumbnail}}">
-      <p>{{result.description}}</p>
-      <button ng-click="$ctrl.addGame(result._id)">Add</button>
-    </li>
-  </ul>
+  <div class="results" ng-if="$ctrl.searchResults">
+    <h2>{{$ctrl.results.length}} FOUND:</h2>  
+    <game current="$ctrl.current" game="game" search="true" ng-repeat="game in $ctrl.results | orderBy: 'title'"></game>
+  </div>
   <div ng-if="$ctrl.bggShow">
-    <p>Not finding anything? You might be the first to add it! Either refine search parameters or</p>
-    <button ng-click="$ctrl.bggSearch()">Search the Board Game Geek Database</button>
-    <li ng-repeat="bggResult in $ctrl.bggResults">
-      <h4>{{bggResult.title}}</h4>
-      <p>{{bggResult.yearPub}} -- Expansion: {{bggResult.expansion}}</p>
-      <button ng-click="$ctrl.addBggGame(bggResult.bggId)">Add</button>
-    </li>
+    <div class="bggsearch-heading">
+      <h2>Can't find your game?</h2>
+      <h3>Check the BoardGameGeek database:</h3>
+      <button class="search-button" ng-click="$ctrl.bggSearch()">GO</button>
+    </div>
+    <game ng-repeat="bggResult in $ctrl.bggResults" current="$ctrl.current" game="bggResult" search="true" bgg="true"></game>
   </div>
   <div class="back">
     <button type="button" class="flat-button back-button" ui-sref="home.collection">BACK</button>

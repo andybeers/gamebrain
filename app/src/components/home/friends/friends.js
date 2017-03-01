@@ -9,7 +9,20 @@ export default {
   controller
 };
 
-function controller() {
+controller.$inject = ['userService'];
+
+function controller(userService) {
   this.styles = styles;
   this.tab = 'friends';
+
+  this.remove = friend => {
+    userService.update(this.current._id, {$pull: {friends: friend}})
+      .then(updated => {
+        this.current.friends = updated.friends;
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
 }
