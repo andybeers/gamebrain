@@ -6,7 +6,8 @@ export default {
   bindings: {
     game: '<',
     owned: '<',
-    buttons: '<'
+    buttons: '<',
+    search: '<'
   },
   controller
 };

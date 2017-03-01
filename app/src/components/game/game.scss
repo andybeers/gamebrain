@@ -40,6 +40,15 @@
     display: flex;
   }
 
+  .resultsbox {
+    display: flex;
+    align-items: center;
+
+    .game-stats {
+      margin: 0;
+    }
+  }
+
   .players, .minutes {
     padding: .3em;
     color: $medium-blue;
@@ -91,6 +100,15 @@
 
     &:hover {
       box-shadow: 0 2px 6px rgba(0,0,0,.5);
+    }
+  }
+
+  .text {
+    box-shadow: none;
+    background-color: transparent;
+
+    &:hover {
+      box-shadow: none;
     }
   }
 

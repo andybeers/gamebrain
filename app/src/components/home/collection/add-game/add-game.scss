@@ -12,6 +12,13 @@
     text-align: center;
   }
 
+  h2 {
+    text-align: center;
+    font-size: 16px;
+    font-weight: 500;
+    color: $gray;
+  }
+
   h3 {
     margin: .5em;
   }
@@ -25,6 +32,10 @@
     border-radius: 2px;
     padding: 0 8px;
     color: $text;
+  }
+
+  .results {
+    margin: 1em 0;
   }
 
   .flat-button {
@@ -63,14 +74,10 @@
     }
   }
 
-  .search, .results {
+  .search {
     display: flex;
     align-items: center;
     justify-content: center;
-  }
-
-  .results {
-    margin-top: 1.5em;
   }
 
   .back {

@@ -5,8 +5,11 @@
     <input type="search" placeholder="Search for games" ng-model="$ctrl.searchInput" required>
     <button type="submit" class="search-button" ng-click="$ctrl.search()">GO</button> 
   </form>
-  <ul ng-if="$ctrl.searchResults">
-    <li>{{$ctrl.results.length}} results:</li>
+  <div class="results" ng-if="$ctrl.searchResults">
+    <h2>{{$ctrl.results.length}} FOUND:</h2>  
+    <game game="game" search="true" ng-repeat="game in $ctrl.results | orderBy: 'title'"></game>
+  </div>
+  <!--<ul ng-if="$ctrl.searchResults">
     <li ng-repeat="result in $ctrl.results">
       <h4>{{result.title}}</h4>
       <p>{{result.yearPub}} -- {{result.publisher}} -- Expansion: {{result.expansion}}</p>
@@ -15,7 +18,7 @@
       <p>{{result.description}}</p>
       <button ng-click="$ctrl.addGame(result._id)">Add</button>
     </li>
-  </ul>
+  </ul>-->
   <div ng-if="$ctrl.bggShow">
     <p>Not finding anything? You might be the first to add it! Either refine search parameters or</p>
     <button ng-click="$ctrl.bggSearch()">Search the Board Game Geek Database</button>
