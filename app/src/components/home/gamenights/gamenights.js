@@ -17,6 +17,7 @@ function controller() {
 
   this.$onInit = () => {
     console.log('invited: ', this.invited);
+    console.log('hosted', this.hosted);
 
     this.hosted.forEach(night => {
       night.datestring = new Date(night.date).toDateString();

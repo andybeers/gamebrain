@@ -45,14 +45,6 @@
     align-items: center;
   }
 
-  .owned {
-    background-color: $light-green;
-
-    &:hover {
-      background-color: $greenish;
-    }
-  }
-
   .controls {
     margin: 1em .25em;
   }

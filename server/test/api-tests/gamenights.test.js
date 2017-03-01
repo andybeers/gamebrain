@@ -21,8 +21,8 @@ describe('Gamenights CRUD routes', () => {
     description: 'test test test',
     date: testDate,
     invites: [],
-    rsvps: [{ gameId: '1274y4645', userId: '48284746162' }, { gameId: '1274y4645', userId: '48284746162' }],
-    requests: ['123u23ugy', '92hfhhg838892']
+    rsvps: [{ game: { prop1: '1274y4645' }, userId: '48284746162' }, { game: { prop1: '41242jasdfkjh' }, userId: '48284746162' }],
+    requests: [{ prop3: '127fdasf4y4645' }, { prop3: 'oiqwihglskdjg' }]
   };
 
   before('Logs in test users', done => {
@@ -32,7 +32,7 @@ describe('Gamenights CRUD routes', () => {
         .send(gamenightUser),
       request
         .post('/api/auth/signup')
-        .send(gamenightUser2),
+        .send(gamenightUser2)
     ])
       .then(res => {
         gamenightUser.token = res[0].body.token;

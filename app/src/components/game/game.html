@@ -8,6 +8,10 @@
     </ul>
   </div>
   <div class="game-content" ng-show="$ctrl.expand">
+    <div class="buttons" ng-if="$ctrl.buttons">
+      <button class="flat-button">BRING</button>
+      <button class="flat-button">REQUEST</button>
+    </div>
     <img ng-if="$ctrl.game.thumbnail" ng-src="https://{{$ctrl.game.thumbnail}}">
     <p><i>{{$ctrl.game.yearPub}} - {{$ctrl.game.publisher}}</i></p>
     <p class="description">{{$ctrl.game.description}}</p> 

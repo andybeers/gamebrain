@@ -127,7 +127,19 @@ export default function routes($stateProvider, $urlRouterProvider) {
       }],
       gamenight: ['gamenightService', '$transition$', (gamenightService, t) => {
         return gamenightService.getById(t.params().id);
+      }],
+      host: ['current', 'gamenight', (current, gamenight) => {
+        return current._id === gamenight.host._id ? true : false;
+      }],
+      allGames: ['gamenight', gamenight => {
+        const invitedGames = gamenight.invites.reduce((acc, curr) => {
+          if(curr.gameCollection.length > 0) return acc.concat(curr.gameCollection);
+          return acc;
+        }, []);
+        const plusHostGames = gamenight.host.gameCollection.length > 0 ? invitedGames.concat(gamenight.host.gameCollection) : invitedGames;
+        return plusHostGames;
       }]
+      //   const uniques = Array.from(new Set(allIds));
     },
     component: 'gamenight'
   });

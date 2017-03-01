@@ -26,6 +26,7 @@ function controller(gamenightService) {
 
     gamenightService.add(gamenight)
       .then(res => {
+        console.log('add: ', res);
         this.gamenight1 = res;
       })
       .catch(err => {
