@@ -9,9 +9,9 @@ export default {
   controller
 };
 
-controller.$inject = ['gamenightService'];
+controller.$inject = ['gamenightService', '$state'];
 
-function controller(gamenightService) {
+function controller(gamenightService, $state) {
   this.styles = styles;
   this.tab = 'gamenights';
   this.today = new Date();
@@ -26,8 +26,7 @@ function controller(gamenightService) {
 
     gamenightService.add(gamenight)
       .then(res => {
-        console.log('add: ', res);
-        this.gamenight1 = res;
+        $state.go('gamenight', {id: res._id});
       })
       .catch(err => {
         console.log(err);
@@ -92,6 +91,6 @@ function controller(gamenightService) {
   ];
 
   this.month = this.months[this.today.getMonth()];
-  this.day = this.days[this.today.getDate()];
+  this.day = (this.days[this.today.getDate()] - 1);
   this.year = this.years[0];
 }
