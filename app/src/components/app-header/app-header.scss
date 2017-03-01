@@ -24,7 +24,7 @@
   p {
     color: white;
     font-size: 12px;
-    margin: 0 .5em;
+    margin: 0;
     padding: 0 .3em
   }
 
@@ -86,6 +86,23 @@
     }
   }
 
+  .flat-button {
+    font-size: 12px;
+    font-weight: 500;
+    height: 32px;
+    color: $light-gray;
+    padding: 0 16px;
+    border: none;
+    border-radius: 2px;
+    background-color: $dark-blue;
+    outline: none;
+    cursor: pointer;
+
+    &:hover {
+      color: $accent;
+    }
+  }
+
   @media screen and (min-width: 600px) {
     header {
       font-size: 16px;
@@ -97,6 +114,11 @@
 
     #under-nav {
       display: none;
+    }
+
+    p {
+      font-size: 16px;
+      font-weight: 500px;
     }
 
   }

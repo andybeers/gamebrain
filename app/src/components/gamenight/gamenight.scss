@@ -50,15 +50,6 @@
     }
   }
 
-  .host {
-    margin: 0;
-  }
-
-  .hostbox {
-    display: flex;
-    align-items: center;
-  }
-
   .friends li {
     cursor: pointer;
 
@@ -68,8 +59,17 @@
     }
   }
 
+  .available {
+    margin: .5em 0;
+
+    h4 {
+      color: $header;
+      margin: 1em 0;
+    }
+  }
+
   .button {
-    margin: .25em;
+    margin: .25em 0 1.25em;
     border: none;
     min-width: 64px;
     padding: 0 16px;
@@ -89,6 +89,14 @@
   }
 
   @media screen and (min-width: 550px) {
+    h1 {
+      font-size: 18px;
+    }
+
+    .dateheader, h4 {
+      font-size: 16px;
+    }
+
     .button {
       font-size: 14px;
       height: 36px;
@@ -96,6 +104,12 @@
 
     .invites li, .friends li {
       padding: .5em;
+    }
+
+    .heading {
+      display: flex;
+      justify-content: space-between;
+      align-content: center;
     }
   }
 

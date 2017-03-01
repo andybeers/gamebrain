@@ -4,23 +4,39 @@ import styles from './gamenights.scss';
 export default {
   template,
   bindings: {
-    current: '<',
-    hosted: '<',
-    invited: '<'
+    current: '<'
   },
   controller
 };
 
-function controller() {
+controller.$inject = ['gamenightService'];
+
+function controller(gamenightService) {
   this.styles = styles;
   this.tab = 'gamenights';
 
   this.$onInit = () => {
-    console.log('invited: ', this.invited);
-    console.log('hosted', this.hosted);
+    gamenightService.hosted()
+      .then(res => {
+        this.hosted = res;
+        this.hosted.forEach(night => {
+          night.datestring = new Date(night.date).toDateString();
+        });
+      })
+      .catch(err => {
+        console.log(err);
+      });
 
-    this.hosted.forEach(night => {
-      night.datestring = new Date(night.date).toDateString();
-    });
+    gamenightService.invited()
+      .then(res => {
+        this.invited = res;
+        this.invited.forEach(night => {
+          night.datestring = new Date(night.date).toDateString();
+        });
+      })
+      .catch(err => {
+        console.log(err);
+      });
   };
+  
 }
