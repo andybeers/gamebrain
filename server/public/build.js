@@ -44005,8 +44005,14 @@ exports.default = {
 };
 
 
-function controller() {
+controller.$inject = ['userService', '$state'];
+
+function controller(userService, $state) {
   this.styles = _welcome4.default;
+
+  this.$onInit = function () {
+    if (userService.isAuthenticated()) $state.go('home.collection');
+  };
 }
 
 /***/ }),
