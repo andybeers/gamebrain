@@ -43535,8 +43535,14 @@ exports.default = {
 
 
 function controller() {
+  var _this = this;
+
   this.styles = _collection4.default;
   this.tab = 'collection';
+
+  this.$onInit = function () {
+    if (_this.current.gameCollection.length === 0) _this.emptyGames = true;
+  };
 }
 
 /***/ }),
@@ -43660,6 +43666,10 @@ function controller(userService) {
 
   this.styles = _friends4.default;
   this.tab = 'friends';
+
+  this.$onInit = function () {
+    if (_this.current.friends.length === 0) _this.emptyFriends = true;
+  };
 
   this.remove = function (friend) {
     userService.update(_this.current._id, { $pull: { friends: friend } }).then(function (updated) {
@@ -44352,7 +44362,7 @@ module.exports = "<app-header current=\"$ctrl.current\" tab=\"$ctrl.tab\"></app-
 /* 113 */
 /***/ (function(module, exports) {
 
-module.exports = "<app-header current=\"$ctrl.current\" tab=\"$ctrl.tab\"></app-header>\n<section ng-class=\"$ctrl.styles.collection\">\n  <div class=\"heading\">\n    <h1>My Collection</h1>\n    <button type=\"submit\" ui-sref=\"home.add-game\">ADD GAME</button>\n  </div>\n  <game game=\"game\" ng-repeat=\"game in $ctrl.current.gameCollection | orderBy: 'title'  track by game._id\"></game>\n</section>";
+module.exports = "<app-header current=\"$ctrl.current\" tab=\"$ctrl.tab\"></app-header>\n<section ng-class=\"$ctrl.styles.collection\">\n  <div class=\"heading\">\n    <h1>My Collection</h1>\n    <button type=\"submit\" ui-sref=\"home.add-game\">ADD GAME</button>\n  </div>\n  <game game=\"game\" ng-repeat=\"game in $ctrl.current.gameCollection | orderBy: 'title'  track by game._id\"></game>\n  <div class=\"placeholder\" ng-if=\"$ctrl.emptyGames\">\n    <p>You haven't added any games yet!</p>\n  </div>\n</section>";
 
 /***/ }),
 /* 114 */
@@ -44364,7 +44374,7 @@ module.exports = "<app-header current=\"$ctrl.current\" tab=\"$ctrl.tab\"></app-
 /* 115 */
 /***/ (function(module, exports) {
 
-module.exports = "<app-header current=\"$ctrl.current\" tab=\"$ctrl.tab\"></app-header>\n<section ng-class=\"$ctrl.styles.friends\">\n  <div class=\"heading\">\n    <h1>My Friends</h1>\n    <button class=\"button\" ui-sref=\"home.add-friend\">ADD FRIEND</button>\n  </div>\n  <div class=\"friend-container\" ng-repeat=\"friend in $ctrl.current.friends track by friend._id\">\n    <h3><a ui-sref=\"user.collection({id: friend._id})\">{{friend.username}}</a></h3>\n    <button type=\"button\" class=\"flat-button\" ng-click=\"$ctrl.remove(friend._id)\">REMOVE</button>\n  </div>\n</section>\n";
+module.exports = "<app-header current=\"$ctrl.current\" tab=\"$ctrl.tab\"></app-header>\n<section ng-class=\"$ctrl.styles.friends\">\n  <div class=\"heading\">\n    <h1>My Friends</h1>\n    <button class=\"button\" ui-sref=\"home.add-friend\">ADD FRIEND</button>\n  </div>\n  <div class=\"friend-container\" ng-repeat=\"friend in $ctrl.current.friends track by friend._id\">\n    <h3><a ui-sref=\"user.collection({id: friend._id})\">{{friend.username}}</a></h3>\n    <button type=\"button\" class=\"flat-button\" ng-click=\"$ctrl.remove(friend._id)\">REMOVE</button>\n  </div>\n  <div class=\"placeholder\" ng-if=\"$ctrl.emptyFriends\">\n    <p>You haven't added any friends yet!</p>\n  </div>\n</section>\n";
 
 /***/ }),
 /* 116 */
@@ -44376,7 +44386,7 @@ module.exports = "<app-header current=\"$ctrl.current\" tab=\"$ctrl.tab\"></app-
 /* 117 */
 /***/ (function(module, exports) {
 
-module.exports = "<app-header current=\"$ctrl.current\" tab=\"$ctrl.tab\"></app-header>\n<section ng-class=\"$ctrl.styles.nights\">\n  <div class=\"heading\">\n    <h1>My Gamenights</h1>\n    <button type=\"submit\" ui-sref=\"home.add-gamenight\">CREATE</button>\n  </div>\n  <div class=\"nightbox\">\n    <h2>Hosting:</h2> \n    <div class=\"night-container\" ng-repeat=\"hosting in $ctrl.hosted | orderBy: 'date' track by hosting._id\">\n      <a ui-sref=\"gamenight({id: hosting._id})\"><h3>{{hosting.name}}</h3></a>\n      <h4>{{hosting.datestring}}</h4>\n    </div>\n    <div ng-if=\"$ctrl.emptyHost\">You're not hosting any gamenights yet.</div>\n  </div>\n  <div class=\"nightbox\">\n    <h2>Invited:</h2>\n    <div class=\"night-container\" ng-repeat=\"invited in $ctrl.invited | orderBy: 'date' track by invited._id\">\n      <a ui-sref=\"gamenight({id: invited._id})\"><h3>{{invited.name}}</h3></a>\n      <h4>{{invited.datestring}}</h4>\n    </div>\n    <div ng-if=\"$ctrl.emptyInvite\">No current gamenights.</div>\n  </div>\n</section>";
+module.exports = "<app-header current=\"$ctrl.current\" tab=\"$ctrl.tab\"></app-header>\n<section ng-class=\"$ctrl.styles.nights\">\n  <div class=\"heading\">\n    <h1>My Gamenights</h1>\n    <button type=\"submit\" ui-sref=\"home.add-gamenight\">CREATE</button>\n  </div>\n  <div class=\"nightbox\">\n    <h2>Hosting:</h2> \n    <div class=\"night-container\" ng-repeat=\"hosting in $ctrl.hosted | orderBy: 'date' track by hosting._id\">\n      <a ui-sref=\"gamenight({id: hosting._id})\"><h3>{{hosting.name}}</h3></a>\n      <h4>{{hosting.datestring}}</h4>\n    </div>\n    <div ng-if=\"$ctrl.emptyHost\" class=\"placeholder\">\n      <p><i>No hosted gamenights.</i></p>\n    </div>\n  </div>\n  <div class=\"nightbox\">\n    <h2>Invited:</h2>\n    <div class=\"night-container\" ng-repeat=\"invited in $ctrl.invited | orderBy: 'date' track by invited._id\">\n      <a ui-sref=\"gamenight({id: invited._id})\"><h3>{{invited.name}}</h3></a>\n      <h4>{{invited.datestring}}</h4>\n    </div>\n    <div class=\"placeholder\" ng-if=\"$ctrl.emptyInvite\">\n      <p><i>No current gamenights.</i></p>\n    </div>\n  </div>\n</section>";
 
 /***/ }),
 /* 118 */

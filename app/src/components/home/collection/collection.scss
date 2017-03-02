@@ -37,6 +37,12 @@
     align-items: center;
   }
 
+  .placeholder {
+    text-align: center;
+    color: gray;
+    font-size: 14px;
+  }
+
   @media screen and (min-width: 550px) {
     h1 {
       font-size: 18px;

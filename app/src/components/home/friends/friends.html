@@ -8,4 +8,7 @@
     <h3><a ui-sref="user.collection({id: friend._id})">{{friend.username}}</a></h3>
     <button type="button" class="flat-button" ng-click="$ctrl.remove(friend._id)">REMOVE</button>
   </div>
+  <div class="placeholder" ng-if="$ctrl.emptyFriends">
+    <p>You haven't added any friends yet!</p>
+  </div>
 </section>

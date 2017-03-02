@@ -10,7 +10,9 @@
       <a ui-sref="gamenight({id: hosting._id})"><h3>{{hosting.name}}</h3></a>
       <h4>{{hosting.datestring}}</h4>
     </div>
-    <div ng-if="$ctrl.emptyHost">You're not hosting any gamenights yet.</div>
+    <div ng-if="$ctrl.emptyHost" class="placeholder">
+      <p><i>No hosted gamenights.</i></p>
+    </div>
   </div>
   <div class="nightbox">
     <h2>Invited:</h2>
@@ -18,6 +20,8 @@
       <a ui-sref="gamenight({id: invited._id})"><h3>{{invited.name}}</h3></a>
       <h4>{{invited.datestring}}</h4>
     </div>
-    <div ng-if="$ctrl.emptyInvite">No current gamenights.</div>
+    <div class="placeholder" ng-if="$ctrl.emptyInvite">
+      <p><i>No current gamenights.</i></p>
+    </div>
   </div>
 </section>

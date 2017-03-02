@@ -5,4 +5,7 @@
     <button type="submit" ui-sref="home.add-game">ADD GAME</button>
   </div>
   <game game="game" ng-repeat="game in $ctrl.current.gameCollection | orderBy: 'title'  track by game._id"></game>
+  <div class="placeholder" ng-if="$ctrl.emptyGames">
+    <p>You haven't added any games yet!</p>
+  </div>
 </section>

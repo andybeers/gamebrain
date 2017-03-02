@@ -70,7 +70,13 @@
   }
 
   .nightbox {
-    margin: 1em 0;
+    margin: 1.25em 0;
+  }
+
+  .placeholder {
+    text-align: center;
+    color: gray;
+    font-size: 14px;
   }
 
   @media screen and (min-width: 550px) {
