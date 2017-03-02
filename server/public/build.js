@@ -43734,7 +43734,8 @@ function controller(gamenightService, $state) {
   this.years = [{ name: this.currentYear, value: this.currentYear }, { name: this.nextYear, value: this.nextYear }];
 
   this.month = this.months[this.today.getMonth()];
-  this.day = this.days[this.today.getDate()] - 1;
+  this.day = this.days[this.today.getDate() - 1];
+  console.log(this.day);
   this.year = this.years[0];
 }
 
@@ -43775,10 +43776,13 @@ function controller(gamenightService) {
 
   this.styles = _gamenights4.default;
   this.tab = 'gamenights';
+  this.emptyHost = false;
+  this.emptyInvite = false;
 
   this.$onInit = function () {
     gamenightService.hosted().then(function (res) {
       _this.hosted = res;
+      if (_this.hosted.length === 0) _this.emptyHost = true;
       _this.hosted.forEach(function (night) {
         night.datestring = new Date(night.date).toDateString();
       });
@@ -43788,6 +43792,7 @@ function controller(gamenightService) {
 
     gamenightService.invited().then(function (res) {
       _this.invited = res;
+      if (_this.invited.length === 0) _this.emptyInvite = true;
       _this.invited.forEach(function (night) {
         night.datestring = new Date(night.date).toDateString();
       });
@@ -44371,7 +44376,7 @@ module.exports = "<app-header current=\"$ctrl.current\" tab=\"$ctrl.tab\"></app-
 /* 117 */
 /***/ (function(module, exports) {
 
-module.exports = "<app-header current=\"$ctrl.current\" tab=\"$ctrl.tab\"></app-header>\n<section ng-class=\"$ctrl.styles.nights\">\n  <div class=\"heading\">\n    <h1>My Gamenights</h1>\n    <button type=\"submit\" ui-sref=\"home.add-gamenight\">CREATE</button>\n  </div>\n  <div class=\"nightbox\">\n    <h2>Hosting:</h2> \n    <div class=\"night-container\" ng-repeat=\"hosting in $ctrl.hosted | orderBy: 'date' track by hosting._id\">\n      <a ui-sref=\"gamenight({id: hosting._id})\"><h3>{{hosting.name}}</h3></a>\n      <h4>{{hosting.datestring}}</h4>\n    </div>\n  </div>\n  <div class=\"nightbox\">\n    <h2>Invited:</h2>\n    <div class=\"night-container\" ng-repeat=\"invited in $ctrl.invited | orderBy: 'date' track by invited._id\">\n      <a ui-sref=\"gamenight({id: invited._id})\"><h3>{{invited.name}}</h3></a>\n      <h4>{{invited.datestring}}</h4>\n    </div>\n  </div>\n</section>";
+module.exports = "<app-header current=\"$ctrl.current\" tab=\"$ctrl.tab\"></app-header>\n<section ng-class=\"$ctrl.styles.nights\">\n  <div class=\"heading\">\n    <h1>My Gamenights</h1>\n    <button type=\"submit\" ui-sref=\"home.add-gamenight\">CREATE</button>\n  </div>\n  <div class=\"nightbox\">\n    <h2>Hosting:</h2> \n    <div class=\"night-container\" ng-repeat=\"hosting in $ctrl.hosted | orderBy: 'date' track by hosting._id\">\n      <a ui-sref=\"gamenight({id: hosting._id})\"><h3>{{hosting.name}}</h3></a>\n      <h4>{{hosting.datestring}}</h4>\n    </div>\n    <div ng-if=\"$ctrl.emptyHost\">You're not hosting any gamenights yet.</div>\n  </div>\n  <div class=\"nightbox\">\n    <h2>Invited:</h2>\n    <div class=\"night-container\" ng-repeat=\"invited in $ctrl.invited | orderBy: 'date' track by invited._id\">\n      <a ui-sref=\"gamenight({id: invited._id})\"><h3>{{invited.name}}</h3></a>\n      <h4>{{invited.datestring}}</h4>\n    </div>\n    <div ng-if=\"$ctrl.emptyInvite\">No current gamenights.</div>\n  </div>\n</section>";
 
 /***/ }),
 /* 118 */
@@ -44401,7 +44406,7 @@ module.exports = "<app-header current=\"$ctrl.current\" tab=\"$ctrl.tab\"></app-
 /* 122 */
 /***/ (function(module, exports) {
 
-module.exports = "<section ng-class=\"$ctrl.styles.welcome\">\n  <div class=\"wrapper\">\n    <div class=\"heading\">\n      <h1>GAMEBRAIN</h1>\n      <button class=\"flat-button\" ui-sref=\"login\">SIGN IN</button>\n    </div>\n  </div>\n  <div class=\"panel first\">\n    <h2>Plan your friends' favorite boardgame night.</h2>\n    <button class=\"button\" ui-sref=\"signup\">GET STARTED</button>\n  </div>\n  <div class=\"panel-container\">\n    <div class=\"panel sub second\">\n      <h3>Track your game collection.</h3>\n      <div class=\"img-box1\"></div>\n    </div>\n    <div class=\"panel sub third\">\n      <h3>Invite your friends to gamenights.</h3>\n      <div class=\"img-box2\"></div>\n    </div>\n    <div class=\"panel sub fourth\">\n      <h3>See your friends' available games and make requests.</h3>\n      <div class=\"img-box3\"></div>\n    </div>\n  </div>\n</section>";
+module.exports = "<section ng-class=\"$ctrl.styles.welcome\">\n  <div class=\"wrapper\">\n    <div class=\"heading\">\n      <h1>GAMEBRAIN</h1>\n      <button class=\"flat-button\" ui-sref=\"login\">SIGN IN</button>\n    </div>\n  </div>\n  <div class=\"panel first\">\n    <h2>Plan your friends' favorite boardgame night.</h2>\n    <button class=\"button\" ui-sref=\"signup\">GET STARTED</button>\n  </div>\n  <div class=\"panel-container\">\n    <div class=\"panel sub second\">\n      <h3>Track your game collection.</h3>\n      <div class=\"img-box1\"></div>\n    </div>\n    <div class=\"panel sub third\">\n      <h3>Invite your friends to gamenights.</h3>\n      <div class=\"img-box2\"></div>\n    </div>\n    <div class=\"panel sub fourth\">\n      <h3>Plan games</h3>\n      <div class=\"img-box3\"></div>\n    </div>\n  </div>\n</section>";
 
 /***/ }),
 /* 123 */

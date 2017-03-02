@@ -91,6 +91,7 @@ function controller(gamenightService, $state) {
   ];
 
   this.month = this.months[this.today.getMonth()];
-  this.day = (this.days[this.today.getDate()] - 1);
+  this.day = this.days[this.today.getDate() - 1];
+  console.log(this.day);
   this.year = this.years[0];
 }
