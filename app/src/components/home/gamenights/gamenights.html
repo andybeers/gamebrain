@@ -10,12 +10,18 @@
       <a ui-sref="gamenight({id: hosting._id})"><h3>{{hosting.name}}</h3></a>
       <h4>{{hosting.datestring}}</h4>
     </div>
+    <div ng-if="$ctrl.emptyHost" class="placeholder">
+      <p><i>No hosted gamenights.</i></p>
+    </div>
   </div>
   <div class="nightbox">
     <h2>Invited:</h2>
     <div class="night-container" ng-repeat="invited in $ctrl.invited | orderBy: 'date' track by invited._id">
       <a ui-sref="gamenight({id: invited._id})"><h3>{{invited.name}}</h3></a>
       <h4>{{invited.datestring}}</h4>
+    </div>
+    <div class="placeholder" ng-if="$ctrl.emptyInvite">
+      <p><i>No current gamenights.</i></p>
     </div>
   </div>
 </section>

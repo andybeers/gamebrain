@@ -8091,14 +8091,6 @@ function routes($stateProvider, $urlRouterProvider) {
   $stateProvider.state({
     name: 'home.gamenights',
     url: '/gamenights',
-    resolve: {
-      hosted: ['gamenightService', function (gamenightService) {
-        return gamenightService.hosted();
-      }],
-      invited: ['gamenightService', function (gamenightService) {
-        return gamenightService.invited();
-      }]
-    },
     component: 'gamenights'
   });
 
@@ -8155,16 +8147,7 @@ function routes($stateProvider, $urlRouterProvider) {
       }],
       host: ['current', 'gamenight', function (current, gamenight) {
         return current._id === gamenight.host._id ? true : false;
-      }],
-      allGames: ['gamenight', function (gamenight) {
-        var invitedGames = gamenight.invites.reduce(function (acc, curr) {
-          if (curr.gameCollection.length > 0) return acc.concat(curr.gameCollection);
-          return acc;
-        }, []);
-        var plusHostGames = gamenight.host.gameCollection.length > 0 ? invitedGames.concat(gamenight.host.gameCollection) : invitedGames;
-        return plusHostGames;
       }]
-      //   const uniques = Array.from(new Set(allIds));
     },
     component: 'gamenight'
   });
@@ -43381,8 +43364,7 @@ exports.default = {
   bindings: {
     current: '<',
     gamenight: '<',
-    host: '<',
-    allGames: '<'
+    host: '<'
   },
   controller: controller
 };
@@ -43398,8 +43380,8 @@ function controller(gamenightService) {
   this.showFriends = false;
 
   this.$onInit = function () {
-    console.log('full night:', _this.gamenight);
-    console.log('allgames: ', _this.allGames);
+    _this.gatherGames();
+    _this.removeDupes();
 
     _this.datestring = new Date(_this.gamenight.date).toDateString();
 
@@ -43418,8 +43400,14 @@ function controller(gamenightService) {
     };
 
     _this.checkOwned();
-    _this.removeDupes();
-    console.log(_this.uniques);
+  };
+
+  this.gatherGames = function () {
+    var invitedGames = _this.gamenight.invites.reduce(function (acc, curr) {
+      if (curr.gameCollection.length > 0) return acc.concat(curr.gameCollection);
+      return acc;
+    }, []);
+    _this.allGames = _this.gamenight.host.gameCollection.length > 0 ? invitedGames.concat(_this.gamenight.host.gameCollection) : invitedGames;
   };
 
   this.checkOwned = function () {
@@ -43445,6 +43433,8 @@ function controller(gamenightService) {
     gamenightService.update(_this.gamenight._id, { $addToSet: { invites: friend } }).then(function (gamenight) {
       _this.invitedHash[friend._id] = true;
       _this.gamenight.invites = gamenight.invites;
+      _this.gatherGames();
+      _this.removeDupes();
     }).catch(function (err) {
       console.log(err);
     });
@@ -43545,8 +43535,14 @@ exports.default = {
 
 
 function controller() {
+  var _this = this;
+
   this.styles = _collection4.default;
   this.tab = 'collection';
+
+  this.$onInit = function () {
+    if (_this.current.gameCollection.length === 0) _this.emptyGames = true;
+  };
 }
 
 /***/ }),
@@ -43671,6 +43667,10 @@ function controller(userService) {
   this.styles = _friends4.default;
   this.tab = 'friends';
 
+  this.$onInit = function () {
+    if (_this.current.friends.length === 0) _this.emptyFriends = true;
+  };
+
   this.remove = function (friend) {
     userService.update(_this.current._id, { $pull: { friends: friend } }).then(function (updated) {
       _this.current.friends = updated.friends;
@@ -43710,9 +43710,9 @@ exports.default = {
 };
 
 
-controller.$inject = ['gamenightService'];
+controller.$inject = ['gamenightService', '$state'];
 
-function controller(gamenightService) {
+function controller(gamenightService, $state) {
   var _this = this;
 
   this.styles = _addGamenight4.default;
@@ -43728,14 +43728,13 @@ function controller(gamenightService) {
     };
 
     gamenightService.add(gamenight).then(function (res) {
-      console.log('add: ', res);
-      _this.gamenight1 = res;
+      $state.go('gamenight', { id: res._id });
     }).catch(function (err) {
       console.log(err);
     });
   };
 
-  this.months = [{ name: 'January', value: '01' }, { name: 'February', value: '02' }, { name: 'March', value: '03' }, { name: 'April', value: '04' }, { name: 'May', value: '05' }, { name: 'June', value: '06' }, { name: 'July', value: '07' }, { name: 'August', value: '08' }, { name: 'September', value: '09' }, { name: 'October', value: '10' }, { name: 'November', value: '11' }, { name: 'December', value: '12' }];
+  this.months = [{ name: 'January', value: '0' }, { name: 'February', value: '01' }, { name: 'March', value: '02' }, { name: 'April', value: '03' }, { name: 'May', value: '04' }, { name: 'June', value: '05' }, { name: 'July', value: '06' }, { name: 'August', value: '07' }, { name: 'September', value: '08' }, { name: 'October', value: '09' }, { name: 'November', value: '10' }, { name: 'December', value: '11' }];
 
   this.days = [{ name: 1, value: '01' }, { name: 2, value: '02' }, { name: 3, value: '03' }, { name: 4, value: '04' }, { name: 5, value: '05' }, { name: 6, value: '06' }, { name: 7, value: '07' }, { name: 8, value: '08' }, { name: 9, value: '09' }, { name: 10, value: '10' }, { name: 11, value: '11' }, { name: 12, value: '12' }, { name: 13, value: '13' }, { name: 14, value: '14' }, { name: 15, value: '15' }, { name: 16, value: '16' }, { name: 17, value: '17' }, { name: 18, value: '18' }, { name: 19, value: '19' }, { name: 20, value: '20' }, { name: 21, value: '21' }, { name: 22, value: '22' }, { name: 23, value: '23' }, { name: 24, value: '24' }, { name: 25, value: '25' }, { name: 26, value: '26' }, { name: 27, value: '27' }, { name: 28, value: '28' }, { name: 29, value: '29' }, { name: 30, value: '30' }, { name: 31, value: '31' }];
 
@@ -43745,7 +43744,8 @@ function controller(gamenightService) {
   this.years = [{ name: this.currentYear, value: this.currentYear }, { name: this.nextYear, value: this.nextYear }];
 
   this.month = this.months[this.today.getMonth()];
-  this.day = this.days[this.today.getDate()];
+  var dayInt = this.today.getDate() - 1;
+  this.day = this.days[dayInt];
   this.year = this.years[0];
 }
 
@@ -43773,26 +43773,41 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 exports.default = {
   template: _gamenights2.default,
   bindings: {
-    current: '<',
-    hosted: '<',
-    invited: '<'
+    current: '<'
   },
   controller: controller
 };
 
 
-function controller() {
+controller.$inject = ['gamenightService'];
+
+function controller(gamenightService) {
   var _this = this;
 
   this.styles = _gamenights4.default;
   this.tab = 'gamenights';
+  this.emptyHost = false;
+  this.emptyInvite = false;
 
   this.$onInit = function () {
-    console.log('invited: ', _this.invited);
-    console.log('hosted', _this.hosted);
+    gamenightService.hosted().then(function (res) {
+      _this.hosted = res;
+      if (_this.hosted.length === 0) _this.emptyHost = true;
+      _this.hosted.forEach(function (night) {
+        night.datestring = new Date(night.date).toDateString();
+      });
+    }).catch(function (err) {
+      console.log(err);
+    });
 
-    _this.hosted.forEach(function (night) {
-      night.datestring = new Date(night.date).toDateString();
+    gamenightService.invited().then(function (res) {
+      _this.invited = res;
+      if (_this.invited.length === 0) _this.emptyInvite = true;
+      _this.invited.forEach(function (night) {
+        night.datestring = new Date(night.date).toDateString();
+      });
+    }).catch(function (err) {
+      console.log(err);
     });
   };
 }
@@ -43828,13 +43843,7 @@ exports.default = {
 
 
 function controller() {
-  var _this = this;
-
   this.styles = _home4.default;
-
-  this.$onInit = function () {
-    console.log('current: ', _this.current);
-  };
 }
 
 /***/ }),
@@ -43996,8 +44005,14 @@ exports.default = {
 };
 
 
-function controller() {
+controller.$inject = ['userService', '$state'];
+
+function controller(userService, $state) {
   this.styles = _welcome4.default;
+
+  this.$onInit = function () {
+    if (userService.isAuthenticated()) $state.go('home.collection');
+  };
 }
 
 /***/ }),
@@ -44323,7 +44338,7 @@ module.exports = "<footer ng-class=\"$ctrl.styles.footer\">\n  <p>&copy; Andy Be
 /* 108 */
 /***/ (function(module, exports) {
 
-module.exports = "<section ng-class=\"$ctrl.styles.header\">\n  <header>\n    <h1>GAMEBRAIN</h1>\n    <nav id=\"header-nav\">\n      <a ui-sref=\"home.collection\" ng-click=\"$ctrl.tab = 'collection'\" ng-class=\"{selected: $ctrl.tab === 'collection'}\"><li>MY GAMES</li></a>\n      <a ui-sref=\"home.friends\" ng-click=\"$ctrl.tab = 'friends'\" ng-class=\"{selected: $ctrl.tab === 'friends'}\"><li>FRIENDS</li></a>\n      <a ui-sref=\"home.gamenights\" ng-click=\"$ctrl.tab = 'gamenights'\" ng-class=\"{selected: $ctrl.tab === 'gamenights'}\"><li>GAMENIGHTS</li></a>\n    </nav>\n    <div id=\"user\">\n      <a ui-sref=\"user.collection({id: $ctrl.current._id})\"><p>{{$ctrl.current.username}}</p></a>\n      <button ng-click=\"$ctrl.logout()\">Logout</button>\n    </div>\n  </header>\n  <div id=\"under-nav\">\n    <nav>\n      <a ui-sref=\"home.collection\" ng-click=\"$ctrl.tab = 'collection'\" ng-class=\"{selected: $ctrl.tab === 'collection'}\"><li>MY GAMES</li></a>\n      <a ui-sref=\"home.friends\" ng-click=\"$ctrl.tab = 'friends'\" ng-class=\"{selected: $ctrl.tab === 'friends'}\"><li>FRIENDS</li></a>\n      <a ui-sref=\"home.gamenights\" ng-click=\"$ctrl.tab = 'gamenights'\" ng-class=\"{selected: $ctrl.tab === 'gamenights'}\"><li>GAMENIGHTS</li></a>\n    </nav>\n  </div>\n</section>";
+module.exports = "<section ng-class=\"$ctrl.styles.header\">\n  <header>\n    <h1>GAMEBRAIN</h1>\n    <nav id=\"header-nav\">\n      <a ui-sref=\"home.collection\" ng-click=\"$ctrl.tab = 'collection'\" ng-class=\"{selected: $ctrl.tab === 'collection'}\"><li>MY GAMES</li></a>\n      <a ui-sref=\"home.friends\" ng-click=\"$ctrl.tab = 'friends'\" ng-class=\"{selected: $ctrl.tab === 'friends'}\"><li>FRIENDS</li></a>\n      <a ui-sref=\"home.gamenights\" ng-click=\"$ctrl.tab = 'gamenights'\" ng-class=\"{selected: $ctrl.tab === 'gamenights'}\"><li>GAMENIGHTS</li></a>\n    </nav>\n    <div id=\"user\">\n      <p>{{$ctrl.current.username}}</p>\n      <button class=\"flat-button\" ng-click=\"$ctrl.logout()\">LOGOUT</button>\n    </div>\n  </header>\n  <div id=\"under-nav\">\n    <nav>\n      <a ui-sref=\"home.collection\" ng-click=\"$ctrl.tab = 'collection'\" ng-class=\"{selected: $ctrl.tab === 'collection'}\"><li>MY GAMES</li></a>\n      <a ui-sref=\"home.friends\" ng-click=\"$ctrl.tab = 'friends'\" ng-class=\"{selected: $ctrl.tab === 'friends'}\"><li>FRIENDS</li></a>\n      <a ui-sref=\"home.gamenights\" ng-click=\"$ctrl.tab = 'gamenights'\" ng-class=\"{selected: $ctrl.tab === 'gamenights'}\"><li>GAMENIGHTS</li></a>\n    </nav>\n  </div>\n</section>";
 
 /***/ }),
 /* 109 */
@@ -44341,7 +44356,7 @@ module.exports = "<div ng-class=\"$ctrl.styles.game\">\n  <div ng-class=\"{owned
 /* 111 */
 /***/ (function(module, exports) {
 
-module.exports = "<app-header current=\"$ctrl.current\" tab=\"$ctrl.tab\"></app-header>\n<section ng-class=\"$ctrl.styles.gamenight\">\n  <h1>{{$ctrl.gamenight.name}}</h1>\n  <h3 class=\"dateheader\">{{$ctrl.datestring}}</h3>\n  <p>{{$ctrl.gamenight.description}}</p>\n  <div class=\"hostbox\">\n    <h4>Host:</h4>\n    <ul class=\"invites host\">\n      <li>{{$ctrl.gamenight.host.username}}</li>  \n    </ul>\n  </div>\n  <button class=\"button\" ng-click=\"$ctrl.toggle()\" ng-if=\"$ctrl.host\">INVITE <span ng-hide=\"$ctrl.showFriends\">&#9654;</span><span ng-show=\"$ctrl.showFriends\">&#9660;</span></button>\n  <div ng-show=\"$ctrl.showFriends\">\n    <ul class=\"friends\">\n      <li ng-repeat=\"friend in $ctrl.current.friends | filter:$ctrl.filter track by friend._id\"><a ng-click=$ctrl.invite(friend._id)>{{friend.username}}</a></li>\n    </ul>\n  </div>\n  <h4>Invited:</h4>\n  <ul class=\"invites\">\n    <li ng-repeat=\"user in $ctrl.gamenight.invites track by user._id\">{{user.username}}</li>\n  </ul>\n  <h4>Available games:</h4>\n  <game owned=\"$ctrl.ownedHash\" game=\"game\" buttons=\"true\" ng-repeat=\"game in $ctrl.uniques | orderBy: 'title' track by game._id\"></game>\n</section>";
+module.exports = "<app-header current=\"$ctrl.current\" tab=\"$ctrl.tab\"></app-header>\n<section ng-class=\"$ctrl.styles.gamenight\">\n  <div class=\"heading\">\n    <h1>{{$ctrl.gamenight.name}}</h1>\n    <h3 class=\"dateheader\">{{$ctrl.datestring}}</h3>\n  </div>\n  <p>{{$ctrl.gamenight.description}}</p>\n  <h4>Host:</h4>\n  <ul class=\"invites host\">\n    <li>{{$ctrl.gamenight.host.username}}</li>  \n  </ul>\n  <h4>Invited:</h4>\n  <ul class=\"invites\">\n    <li ng-repeat=\"user in $ctrl.gamenight.invites track by user._id\">{{user.username}}</li>\n  </ul>\n  <button class=\"button\" ng-click=\"$ctrl.toggle()\" ng-if=\"$ctrl.host\">INVITE <span ng-hide=\"$ctrl.showFriends\">&#9654;</span><span ng-show=\"$ctrl.showFriends\">&#9660;</span></button>\n  <div ng-show=\"$ctrl.showFriends\">\n    <ul class=\"friends\">\n      <li ng-repeat=\"friend in $ctrl.current.friends | filter:$ctrl.filter track by friend._id\"><a ng-click=$ctrl.invite(friend._id)>{{friend.username}}</a></li>\n    </ul>\n  </div>\n  <div class=\"rsvp\">\n    <h4>Who's bringing what:</h4>\n  </div>  \n  <div class=\"requests\">\n    <h4>Requested:</h4>\n  </div>  \n  <div class=\"available\">\n    <h4>Available games:</h4>\n    <game owned=\"$ctrl.ownedHash\" game=\"game\" buttons=\"true\" ng-repeat=\"game in $ctrl.uniques | orderBy: 'title' track by game._id\"></game>\n  </div>\n</section>";
 
 /***/ }),
 /* 112 */
@@ -44353,7 +44368,7 @@ module.exports = "<app-header current=\"$ctrl.current\" tab=\"$ctrl.tab\"></app-
 /* 113 */
 /***/ (function(module, exports) {
 
-module.exports = "<app-header current=\"$ctrl.current\" tab=\"$ctrl.tab\"></app-header>\n<section ng-class=\"$ctrl.styles.collection\">\n  <div class=\"heading\">\n    <h1>My Collection</h1>\n    <button type=\"submit\" ui-sref=\"home.add-game\">ADD GAME</button>\n  </div>\n  <game game=\"game\" ng-repeat=\"game in $ctrl.current.gameCollection | orderBy: 'title'  track by game._id\"></game>\n</section>";
+module.exports = "<app-header current=\"$ctrl.current\" tab=\"$ctrl.tab\"></app-header>\n<section ng-class=\"$ctrl.styles.collection\">\n  <div class=\"heading\">\n    <h1>My Collection</h1>\n    <button type=\"submit\" ui-sref=\"home.add-game\">ADD GAME</button>\n  </div>\n  <game game=\"game\" ng-repeat=\"game in $ctrl.current.gameCollection | orderBy: 'title'  track by game._id\"></game>\n  <div class=\"placeholder\" ng-if=\"$ctrl.emptyGames\">\n    <p>You haven't added any games yet!</p>\n  </div>\n</section>";
 
 /***/ }),
 /* 114 */
@@ -44365,7 +44380,7 @@ module.exports = "<app-header current=\"$ctrl.current\" tab=\"$ctrl.tab\"></app-
 /* 115 */
 /***/ (function(module, exports) {
 
-module.exports = "<app-header current=\"$ctrl.current\" tab=\"$ctrl.tab\"></app-header>\n<section ng-class=\"$ctrl.styles.friends\">\n  <div class=\"heading\">\n    <h1>My Friends</h1>\n    <button class=\"button\" ui-sref=\"home.add-friend\">ADD FRIEND</button>\n  </div>\n  <div class=\"friend-container\" ng-repeat=\"friend in $ctrl.current.friends track by friend._id\">\n    <h3><a ui-sref=\"user.collection({id: friend._id})\">{{friend.username}}</a></h3>\n    <button type=\"button\" class=\"flat-button\" ng-click=\"$ctrl.remove(friend._id)\">REMOVE</button>\n  </div>\n</section>\n";
+module.exports = "<app-header current=\"$ctrl.current\" tab=\"$ctrl.tab\"></app-header>\n<section ng-class=\"$ctrl.styles.friends\">\n  <div class=\"heading\">\n    <h1>My Friends</h1>\n    <button class=\"button\" ui-sref=\"home.add-friend\">ADD FRIEND</button>\n  </div>\n  <div class=\"friend-container\" ng-repeat=\"friend in $ctrl.current.friends track by friend._id\">\n    <h3><a ui-sref=\"user.collection({id: friend._id})\">{{friend.username}}</a></h3>\n    <button type=\"button\" class=\"flat-button\" ng-click=\"$ctrl.remove(friend._id)\">REMOVE</button>\n  </div>\n  <div class=\"placeholder\" ng-if=\"$ctrl.emptyFriends\">\n    <p>You haven't added any friends yet!</p>\n  </div>\n</section>\n";
 
 /***/ }),
 /* 116 */
@@ -44377,7 +44392,7 @@ module.exports = "<app-header current=\"$ctrl.current\" tab=\"$ctrl.tab\"></app-
 /* 117 */
 /***/ (function(module, exports) {
 
-module.exports = "<app-header current=\"$ctrl.current\" tab=\"$ctrl.tab\"></app-header>\n<section ng-class=\"$ctrl.styles.nights\">\n  <div class=\"heading\">\n    <h1>My Gamenights</h1>\n    <button type=\"submit\" ui-sref=\"home.add-gamenight\">CREATE</button>\n  </div>\n  <h2>Hosting:</h2> \n  <div class=\"night-container\" ng-repeat=\"hosting in $ctrl.hosted track by hosting._id\">\n    <a ui-sref=\"gamenight({id: hosting._id})\"><h3>{{hosting.name}}</h3></a>\n    <h4>{{hosting.datestring}}</h4>\n  </div>\n  <h2>Invited:</h2> \n  <div class=\"night-container\" ng-repeat=\"invited in $ctrl.invited track by invited._id\">\n    <a ui-sref=\"gamenight({id: invited._id})\"><h3>{{invited.name}}</h3></a>\n    <h4>{{invited.datestring}}</h4>\n  </div>\n</section>";
+module.exports = "<app-header current=\"$ctrl.current\" tab=\"$ctrl.tab\"></app-header>\n<section ng-class=\"$ctrl.styles.nights\">\n  <div class=\"heading\">\n    <h1>My Gamenights</h1>\n    <button type=\"submit\" ui-sref=\"home.add-gamenight\">CREATE</button>\n  </div>\n  <div class=\"nightbox\">\n    <h2>Hosting:</h2> \n    <div class=\"night-container\" ng-repeat=\"hosting in $ctrl.hosted | orderBy: 'date' track by hosting._id\">\n      <a ui-sref=\"gamenight({id: hosting._id})\"><h3>{{hosting.name}}</h3></a>\n      <h4>{{hosting.datestring}}</h4>\n    </div>\n    <div ng-if=\"$ctrl.emptyHost\" class=\"placeholder\">\n      <p><i>No hosted gamenights.</i></p>\n    </div>\n  </div>\n  <div class=\"nightbox\">\n    <h2>Invited:</h2>\n    <div class=\"night-container\" ng-repeat=\"invited in $ctrl.invited | orderBy: 'date' track by invited._id\">\n      <a ui-sref=\"gamenight({id: invited._id})\"><h3>{{invited.name}}</h3></a>\n      <h4>{{invited.datestring}}</h4>\n    </div>\n    <div class=\"placeholder\" ng-if=\"$ctrl.emptyInvite\">\n      <p><i>No current gamenights.</i></p>\n    </div>\n  </div>\n</section>";
 
 /***/ }),
 /* 118 */
@@ -44407,7 +44422,7 @@ module.exports = "<app-header current=\"$ctrl.current\" tab=\"$ctrl.tab\"></app-
 /* 122 */
 /***/ (function(module, exports) {
 
-module.exports = "<section ng-class=\"$ctrl.styles.welcome\">\n  <div class=\"wrapper\">\n    <div class=\"heading\">\n      <h1>GAMEBRAIN</h1>\n      <button class=\"flat-button\" ui-sref=\"login\">SIGN IN</button>\n    </div>\n  </div>\n  <div class=\"panel first\">\n    <h2>Plan your friends' favorite boardgame night.</h2>\n    <button class=\"button\" ui-sref=\"signup\">GET STARTED</button>\n  </div>\n  <div class=\"panel-container\">\n    <div class=\"panel sub second\">\n      <h3>Track your game collection.</h3>\n      <div class=\"img-box1\"></div>\n    </div>\n    <div class=\"panel sub third\">\n      <h3>Invite your friends to gamenights.</h3>\n      <div class=\"img-box2\"></div>\n    </div>\n    <div class=\"panel sub fourth\">\n      <h3>See your friends' available games and make requests.</h3>\n      <div class=\"img-box3\"></div>\n    </div>\n  </div>\n</section>";
+module.exports = "<section ng-class=\"$ctrl.styles.welcome\">\n  <div class=\"wrapper\">\n    <div class=\"heading\">\n      <h1>GAMEBRAIN</h1>\n      <button class=\"flat-button\" ui-sref=\"login\">SIGN IN</button>\n    </div>\n  </div>\n  <div class=\"panel first\">\n    <h2>Plan your friends' favorite boardgame night.</h2>\n    <button class=\"button\" ui-sref=\"signup\">GET STARTED</button>\n  </div>\n  <div class=\"panel-container\">\n    <div class=\"panel sub second\">\n      <h3>Track your game collection.</h3>\n      <div class=\"img-box1\"></div>\n    </div>\n    <div class=\"panel sub third\">\n      <h3>Invite your friends to gamenights.</h3>\n      <div class=\"img-box2\"></div>\n    </div>\n    <div class=\"panel sub fourth\">\n      <h3>Plan games</h3>\n      <div class=\"img-box3\"></div>\n    </div>\n  </div>\n</section>";
 
 /***/ }),
 /* 123 */

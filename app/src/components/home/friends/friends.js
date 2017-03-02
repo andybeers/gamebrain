@@ -15,6 +15,10 @@ function controller(userService) {
   this.styles = styles;
   this.tab = 'friends';
 
+  this.$onInit = () => {
+    if (this.current.friends.length === 0) this.emptyFriends = true;
+  };
+
   this.remove = friend => {
     userService.update(this.current._id, {$pull: {friends: friend}})
       .then(updated => {

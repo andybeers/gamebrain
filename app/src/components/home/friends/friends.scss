@@ -75,6 +75,12 @@
     align-items: center;
     border-bottom: 1px solid $light-blue;
   }
+
+  .placeholder {
+    text-align: center;
+    color: gray;
+    font-size: 14px;
+  }
   
   @media screen and (min-width: 550px) {
     h1 {

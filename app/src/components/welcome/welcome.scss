@@ -34,11 +34,14 @@
     font-size: 20px;
   }
 
-
   .panel {
     text-align: center;
     height: 15em;
     padding: 0;
+  }
+
+  .first {
+    height: 60vh;
   }
 
   .sub {
@@ -49,7 +52,7 @@
   } 
 
   .second {
-    background-color: $highlight; 
+    background-color: $highlight;
   };
 
   .third {

@@ -6,6 +6,12 @@ export default {
   controller
 };
 
-function controller() {
+controller.$inject = ['userService', '$state'];
+
+function controller(userService, $state) {
   this.styles = styles;
+
+  this.$onInit = () => {
+    if(userService.isAuthenticated()) $state.go('home.collection');
+  };
 }
