@@ -34,18 +34,18 @@ function controller(gamenightService, $state) {
   };
 
   this.months = [
-    { name: 'January', value: '01' },
-    { name: 'February', value: '02' },
-    { name: 'March', value: '03' },
-    { name: 'April', value: '04' },
-    { name: 'May', value: '05' },
-    { name: 'June', value: '06' },
-    { name: 'July', value: '07' },
-    { name: 'August', value: '08' },
-    { name: 'September', value: '09' },
-    { name: 'October', value: '10' },
-    { name: 'November', value: '11' },
-    { name: 'December', value: '12' },
+    { name: 'January', value: '0' },
+    { name: 'February', value: '01' },
+    { name: 'March', value: '02' },
+    { name: 'April', value: '03' },
+    { name: 'May', value: '04' },
+    { name: 'June', value: '05' },
+    { name: 'July', value: '06' },
+    { name: 'August', value: '07' },
+    { name: 'September', value: '08' },
+    { name: 'October', value: '09' },
+    { name: 'November', value: '10' },
+    { name: 'December', value: '11' },
   ];
 
   this.days = [
@@ -91,7 +91,7 @@ function controller(gamenightService, $state) {
   ];
 
   this.month = this.months[this.today.getMonth()];
-  this.day = this.days[this.today.getDate() - 1];
-  console.log(this.day);
+  const dayInt = this.today.getDate() - 1;
+  this.day = this.days[dayInt];
   this.year = this.years[0];
 }
