@@ -9,9 +9,7 @@
 - RSVP and request games for a gamenight -- never worry about duplicates again
 - Fully responsive on mobile, tablet, and desktop
 
-<img alt="GAMEBRAIN screenshot" src="http://i.imgur.com/4ZLSduP.png?1" height="250px"> 
-
-![GAMEBRAIN mobile screenshot](http://i.imgur.com/0d81f8Y.png)
-
+<img alt="GAMEBRAIN screenshot" src="http://i.imgur.com/4ZLSduP.png?1" height="250px">
+<img alt="GAMEBRAIN mobile screenshot" src="http://i.imgur.com/0d81f8Y.png" height="300px">
 
 
