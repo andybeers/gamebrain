@@ -1,5 +1,5 @@
-GAMEBRAIN
-Plan your friends' favorite boardgame night
+#GAMEBRAIN
+##Plan your friends' favorite boardgame night
 
 [![Build Status](https://travis-ci.org/andybeers/gamebrain.svg?branch=master)](https://travis-ci.org/andybeers/gamebrain)
 
@@ -9,7 +9,8 @@ Plan your friends' favorite boardgame night
 - RSVP and request games for a gamenight -- never worry about duplicates again
 - Fully responsive on mobile, tablet, and desktop
 
-![GAMEBRAIN screenshot](http://i.imgur.com/4ZLSduP.png?1)
+<img alt="GAMEBRAIN screenshot" src="http://i.imgur.com/4ZLSduP.png?1" height="250px"> 
+
 ![GAMEBRAIN mobile screenshot](http://i.imgur.com/0d81f8Y.png)
 
 
