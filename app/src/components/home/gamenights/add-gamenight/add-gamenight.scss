@@ -32,7 +32,7 @@
 
   input {
     box-sizing: border-box;
-    font-size: 14px;
+    font-size: 16px;
     height: 32px;
     width: 100%;
     border: 1px solid $light-blue;
@@ -98,10 +98,6 @@
     }
 
     label {
-      font-size: 16px;
-    }
-
-    input: {
       font-size: 16px;
     }
   }
