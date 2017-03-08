@@ -14,11 +14,7 @@ const schema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'User'
   }],
-  rsvps: [{
-    _id: false,
-    game: { type: Object },
-    userId: { type: String }
-  }],
+  rsvps: { type: Array },
   requests: { type: Array }
 });
 

@@ -21,12 +21,14 @@
   </div>
   <div class="rsvp">
     <h4>Who's bringing what:</h4>
+    <game owned="$ctrl.ownedHash" game="game" buttons="true" ng-repeat="game in $ctrl.gamenight.rsvps | orderBy: 'title' track by game._id"></game>
   </div>  
   <div class="requests">
     <h4>Requested:</h4>
+    <game owned="$ctrl.ownedHash" game="game" buttons="true" ng-repeat="game in $ctrl.gamenight.requests | orderBy: 'title' track by game._id"></game>
   </div>  
   <div class="available">
     <h4>Available games:</h4>
-    <game owned="$ctrl.ownedHash" game="game" buttons="true" ng-repeat="game in $ctrl.uniques | orderBy: 'title' track by game._id"></game>
+    <game owned="$ctrl.ownedHash" gamenight="$ctrl.gamenight" game="game" buttons="true" ng-repeat="game in $ctrl.uniques | orderBy: 'title' track by game._id"></game>
   </div>
 </section>

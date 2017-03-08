@@ -9,19 +9,20 @@ export default {
     owned: '<',
     buttons: '<',
     search: '<',
-    bgg: '<'
+    bgg: '<',
+    gamenight: '='
   },
   controller
 };
 
-controller.$inject = ['userService', 'gameService', '$state'];
+controller.$inject = ['userService', 'gameService', 'gamenightService', '$state'];
 
-function controller(userService, gameService, $state) {
+function controller(userService, gameService, gamenightService, $state) {
   this.styles = styles;
   this.expand = false;
   this.overlap = false;
 
-  this.$onInit = () => {
+  this.$onInit = () => { 
     if(this.owned) this.overlap = this.owned[this.game._id] ? true : false;
   };
 
@@ -49,6 +50,26 @@ function controller(userService, gameService, $state) {
       .catch(err => {
         if (err.gameId) this.addGame(err.gameId);
         $state.go('home.collection');
+      });
+  };
+
+  this.rsvp = () => {
+    gamenightService.update(this.gamenight._id, {$push: {rsvps: this.game}})
+      .then(res => {
+        this.gamenight.rsvps = res.rsvps;
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
+  this.request = () => {
+    gamenightService.update(this.gamenight._id, {$push: {requests: this.game}})
+      .then(res => {
+        this.gamenight.requests = res.requests;
+      })
+      .catch(err => {
+        console.log(err);
       });
   };
 
