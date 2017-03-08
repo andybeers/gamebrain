@@ -344,9 +344,9 @@
     ._2Z2MNcjGAvce9F4ikrWbMt .friends li:hover {
       background-color: #7986CB;
       color: white; }
-  ._2Z2MNcjGAvce9F4ikrWbMt .available {
+  ._2Z2MNcjGAvce9F4ikrWbMt .available, ._2Z2MNcjGAvce9F4ikrWbMt .requests, ._2Z2MNcjGAvce9F4ikrWbMt .rsvp {
     margin: .5em 0; }
-    ._2Z2MNcjGAvce9F4ikrWbMt .available h4 {
+    ._2Z2MNcjGAvce9F4ikrWbMt .available h4, ._2Z2MNcjGAvce9F4ikrWbMt .requests h4, ._2Z2MNcjGAvce9F4ikrWbMt .rsvp h4 {
       color: #5C6BC0;
       margin: 1em 0; }
   ._2Z2MNcjGAvce9F4ikrWbMt .button {
