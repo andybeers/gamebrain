@@ -14,6 +14,8 @@ Get started at: https://gamebrain.herokuapp.com
 
 
 <img alt="GAMEBRAIN screenshot" src="http://i.imgur.com/4ZLSduP.png?1" height="250px">
+
+
 <img alt="GAMEBRAIN mobile screenshot" src="http://i.imgur.com/0d81f8Y.png" height="300px">
 
 
