@@ -14,8 +14,8 @@
   </div>
   <div class="game-content" ng-show="$ctrl.expand">
     <div class="buttons" ng-if="$ctrl.buttons">
-      <button class="flat-button">BRING</button>
-      <button class="flat-button">REQUEST</button>
+      <button class="flat-button" ng-click="$ctrl.rsvp()">BRING</button>
+      <button class="flat-button" ng-click="$ctrl.request()">REQUEST</button>
     </div>
     <img ng-if="$ctrl.game.thumbnail" ng-src="https://{{$ctrl.game.thumbnail}}">
     <p><i>{{$ctrl.game.yearPub}} - {{$ctrl.game.publisher}}</i></p>
