@@ -12,6 +12,7 @@ const ensureAuth = require('./auth/ensure-auth')();
 app.use(morgan('dev'));
 app.use(cors);
 
+//Force HTTPS in production
 if(process.env.NODE_ENV === 'production') {
   app.use((req, res, next) => {
     if(req.headers['x-forwarded-proto'] === 'https') next();
