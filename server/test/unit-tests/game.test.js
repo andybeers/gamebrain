@@ -38,4 +38,16 @@ describe('Game model', () => {
     });
   });
 
+  it('Requires game title', done => {
+    let badGame = new Game({
+      title: 'zombie blitz football adventures'
+    });
+
+    badGame.validate(err => {
+      if(!err) done('Should require bggId');
+      assert.isOk(err);
+      done();
+    });
+  });
+
 });

@@ -43296,15 +43296,16 @@ exports.default = {
     owned: '<',
     buttons: '<',
     search: '<',
-    bgg: '<'
+    bgg: '<',
+    gamenight: '='
   },
   controller: controller
 };
 
 
-controller.$inject = ['userService', 'gameService', '$state'];
+controller.$inject = ['userService', 'gameService', 'gamenightService', '$state'];
 
-function controller(userService, gameService, $state) {
+function controller(userService, gameService, gamenightService, $state) {
   var _this = this;
 
   this.styles = _game4.default;
@@ -43334,6 +43335,22 @@ function controller(userService, gameService, $state) {
     }).catch(function (err) {
       if (err.gameId) _this.addGame(err.gameId);
       $state.go('home.collection');
+    });
+  };
+
+  this.rsvp = function () {
+    gamenightService.update(_this.gamenight._id, { $push: { rsvps: _this.game } }).then(function (res) {
+      _this.gamenight.rsvps = res.rsvps;
+    }).catch(function (err) {
+      console.log(err);
+    });
+  };
+
+  this.request = function () {
+    gamenightService.update(_this.gamenight._id, { $push: { requests: _this.game } }).then(function (res) {
+      _this.gamenight.requests = res.requests;
+    }).catch(function (err) {
+      console.log(err);
     });
   };
 }
@@ -44350,13 +44367,13 @@ module.exports = "<ui-view></ui-view>\n";
 /* 110 */
 /***/ (function(module, exports) {
 
-module.exports = "<div ng-class=\"$ctrl.styles.game\">\n  <div ng-class=\"{owned: $ctrl.overlap}\" class=\"game-header\" ng-click=\"$ctrl.expand = !$ctrl.expand\">\n    <h3>{{$ctrl.game.title}}</h3>\n    <div ng-class=\"{resultsbox: $ctrl.search}\">\n      <ul class=\"game-stats\">\n        <li class=\"players\" ng-if=\"$ctrl.search\">{{$ctrl.game.yearPub}}</li>\n        <li class=\"players\" ng-hide=\"$ctrl.search\">{{$ctrl.game.minPlayers}} - {{$ctrl.game.maxPlayers}} players</li>\n        <li class=\"minutes\" ng-hide=\"$ctrl.search\">{{$ctrl.game.playtimeMinutes}} minutes</li>\n        <li class=\"expansion\" ng-if=\"$ctrl.game.expansion\">Expansion</li>\n      </ul>\n      <button class=\"flat-button text\" ng-if=\"$ctrl.search && !$ctrl.bgg\" ng-click=\"$ctrl.addGame($ctrl.game._id)\">ADD</button>\n      <button class=\"flat-button text\" ng-if=\"$ctrl.bgg\" ng-click=\"$ctrl.addBggGame($ctrl.game.bggId)\">ADD</button>\n    </div>\n  </div>\n  <div class=\"game-content\" ng-show=\"$ctrl.expand\">\n    <div class=\"buttons\" ng-if=\"$ctrl.buttons\">\n      <button class=\"flat-button\">BRING</button>\n      <button class=\"flat-button\">REQUEST</button>\n    </div>\n    <img ng-if=\"$ctrl.game.thumbnail\" ng-src=\"https://{{$ctrl.game.thumbnail}}\">\n    <p><i>{{$ctrl.game.yearPub}} - {{$ctrl.game.publisher}}</i></p>\n    <p class=\"description\">{{$ctrl.game.description}}</p> \n  </div>\n</div>";
+module.exports = "<div ng-class=\"$ctrl.styles.game\">\n  <div ng-class=\"{owned: $ctrl.overlap}\" class=\"game-header\" ng-click=\"$ctrl.expand = !$ctrl.expand\">\n    <h3>{{$ctrl.game.title}}</h3>\n    <div ng-class=\"{resultsbox: $ctrl.search}\">\n      <ul class=\"game-stats\">\n        <li class=\"players\" ng-if=\"$ctrl.search\">{{$ctrl.game.yearPub}}</li>\n        <li class=\"players\" ng-hide=\"$ctrl.search\">{{$ctrl.game.minPlayers}} - {{$ctrl.game.maxPlayers}} players</li>\n        <li class=\"minutes\" ng-hide=\"$ctrl.search\">{{$ctrl.game.playtimeMinutes}} minutes</li>\n        <li class=\"expansion\" ng-if=\"$ctrl.game.expansion\">Expansion</li>\n      </ul>\n      <button class=\"flat-button text\" ng-if=\"$ctrl.search && !$ctrl.bgg\" ng-click=\"$ctrl.addGame($ctrl.game._id)\">ADD</button>\n      <button class=\"flat-button text\" ng-if=\"$ctrl.bgg\" ng-click=\"$ctrl.addBggGame($ctrl.game.bggId)\">ADD</button>\n    </div>\n  </div>\n  <div class=\"game-content\" ng-show=\"$ctrl.expand\">\n    <div class=\"buttons\" ng-if=\"$ctrl.buttons\">\n      <button class=\"flat-button\" ng-click=\"$ctrl.rsvp()\">BRING</button>\n      <button class=\"flat-button\" ng-click=\"$ctrl.request()\">REQUEST</button>\n    </div>\n    <img ng-if=\"$ctrl.game.thumbnail\" ng-src=\"https://{{$ctrl.game.thumbnail}}\">\n    <p><i>{{$ctrl.game.yearPub}} - {{$ctrl.game.publisher}}</i></p>\n    <p class=\"description\">{{$ctrl.game.description}}</p> \n  </div>\n</div>";
 
 /***/ }),
 /* 111 */
 /***/ (function(module, exports) {
 
-module.exports = "<app-header current=\"$ctrl.current\" tab=\"$ctrl.tab\"></app-header>\n<section ng-class=\"$ctrl.styles.gamenight\">\n  <div class=\"heading\">\n    <h1>{{$ctrl.gamenight.name}}</h1>\n    <h3 class=\"dateheader\">{{$ctrl.datestring}}</h3>\n  </div>\n  <p>{{$ctrl.gamenight.description}}</p>\n  <h4>Host:</h4>\n  <ul class=\"invites host\">\n    <li>{{$ctrl.gamenight.host.username}}</li>  \n  </ul>\n  <h4>Invited:</h4>\n  <ul class=\"invites\">\n    <li ng-repeat=\"user in $ctrl.gamenight.invites track by user._id\">{{user.username}}</li>\n  </ul>\n  <button class=\"button\" ng-click=\"$ctrl.toggle()\" ng-if=\"$ctrl.host\">INVITE <span ng-hide=\"$ctrl.showFriends\">&#9654;</span><span ng-show=\"$ctrl.showFriends\">&#9660;</span></button>\n  <div ng-show=\"$ctrl.showFriends\">\n    <ul class=\"friends\">\n      <li ng-repeat=\"friend in $ctrl.current.friends | filter:$ctrl.filter track by friend._id\"><a ng-click=$ctrl.invite(friend._id)>{{friend.username}}</a></li>\n    </ul>\n  </div>\n  <div class=\"rsvp\">\n    <h4>Who's bringing what:</h4>\n  </div>  \n  <div class=\"requests\">\n    <h4>Requested:</h4>\n  </div>  \n  <div class=\"available\">\n    <h4>Available games:</h4>\n    <game owned=\"$ctrl.ownedHash\" game=\"game\" buttons=\"true\" ng-repeat=\"game in $ctrl.uniques | orderBy: 'title' track by game._id\"></game>\n  </div>\n</section>";
+module.exports = "<app-header current=\"$ctrl.current\" tab=\"$ctrl.tab\"></app-header>\n<section ng-class=\"$ctrl.styles.gamenight\">\n  <div class=\"heading\">\n    <h1>{{$ctrl.gamenight.name}}</h1>\n    <h3 class=\"dateheader\">{{$ctrl.datestring}}</h3>\n  </div>\n  <p>{{$ctrl.gamenight.description}}</p>\n  <h4>Host:</h4>\n  <ul class=\"invites host\">\n    <li>{{$ctrl.gamenight.host.username}}</li>  \n  </ul>\n  <h4>Invited:</h4>\n  <ul class=\"invites\">\n    <li ng-repeat=\"user in $ctrl.gamenight.invites track by user._id\">{{user.username}}</li>\n  </ul>\n  <button class=\"button\" ng-click=\"$ctrl.toggle()\" ng-if=\"$ctrl.host\">INVITE <span ng-hide=\"$ctrl.showFriends\">&#9654;</span><span ng-show=\"$ctrl.showFriends\">&#9660;</span></button>\n  <div ng-show=\"$ctrl.showFriends\">\n    <ul class=\"friends\">\n      <li ng-repeat=\"friend in $ctrl.current.friends | filter:$ctrl.filter track by friend._id\"><a ng-click=$ctrl.invite(friend._id)>{{friend.username}}</a></li>\n    </ul>\n  </div>\n  <div class=\"rsvp\">\n    <h4>Who's bringing what:</h4>\n    <game owned=\"$ctrl.ownedHash\" game=\"game\" buttons=\"true\" ng-repeat=\"game in $ctrl.gamenight.rsvps | orderBy: 'title' track by game._id\"></game>\n  </div>  \n  <div class=\"requests\">\n    <h4>Requested:</h4>\n    <game owned=\"$ctrl.ownedHash\" game=\"game\" buttons=\"true\" ng-repeat=\"game in $ctrl.gamenight.requests | orderBy: 'title' track by game._id\"></game>\n  </div>  \n  <div class=\"available\">\n    <h4>Available games:</h4>\n    <game owned=\"$ctrl.ownedHash\" gamenight=\"$ctrl.gamenight\" game=\"game\" buttons=\"true\" ng-repeat=\"game in $ctrl.uniques | orderBy: 'title' track by game._id\"></game>\n  </div>\n</section>";
 
 /***/ }),
 /* 112 */
