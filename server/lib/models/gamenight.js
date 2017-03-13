@@ -9,7 +9,7 @@ const schema = new Schema({
     required: true
   },
   description: { type: String },
-  date: { type: Date, required: true },
+  date: { type: Date },
   invites: [{
     type: Schema.Types.ObjectId,
     ref: 'User'

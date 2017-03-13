@@ -1,31 +1,29 @@
-// const chai = require('chai');
-// const chaiHttp = require('chai-http');
-// const assert = chai.assert;
-// chai.use(chaiHttp);
-// const app = require('../../lib/app');
-// const request = chai.request(app);
+const chai = require('chai');
+const chaiHttp = require('chai-http');
+const assert = chai.assert;
+chai.use(chaiHttp);
+const app = require('../../lib/app');
+const request = chai.request(app);
 
 describe('Games CRUD routes', () => {
 
-  it('does nothing', () => {});
+  const gamesUser = {
+    username: 'gamesUser',
+    password: 'hunter2'
+  };
 
-  // const gamesUser = {
-  //   username: 'gamesUser',
-  //   password: 'hunter2'
-  // };
-
-  // const testGame = {
-  //   title: 'Test',
-  //   bggId: '2067',
-  //   thumbnail: 'imgur.svg',
-  //   image: 'bigimgur.svg',
-  //   yearPub: 2017,
-  //   minPlayers: 2,
-  //   maxPlayers: 15,
-  //   playtimeMinutes: 322,
-  //   publisher: 'blippo games',
-  //   expansion: false
-  // };
+  const testGame = {
+    title: 'Test',
+    bggId: '2067',
+    thumbnail: 'imgur.svg',
+    image: 'bigimgur.svg',
+    yearPub: 2017,
+    minPlayers: 2,
+    maxPlayers: 15,
+    playtimeMinutes: 322,
+    publisher: 'blippo games',
+    expansion: false
+  };
 
   // before('Create games user', done => {
   //   request

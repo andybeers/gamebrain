@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 const schema = new Schema({
   title: { type: String, required: true },
-  bggId: { type: String },
+  bggId: { type: String, required: true },
   thumbnail: { type: String },
   image: { type: String },
   description: { type: String },

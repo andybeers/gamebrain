@@ -6,14 +6,16 @@ mongoose.Promise = Promise;
 describe('Gamenight model', () => {
 
   const testHost = new mongoose.Types.ObjectId();
+  const testInvite = new mongoose.Types.ObjectId();
   const testDate = new Date();
   const testGamenight = new Gamenight({
     name: 'testing',
     host: testHost,
     description: 'test test test',
     date: testDate,
-    rsvps: [{ gameId: '1274y4645', userId: '48284746162' }, { gameId: '1274y4645', userId: '48284746162' }],
-    requests: ['123u23ugy', '92hfhhg838892']
+    invites: [testInvite],
+    rsvps: [{ bggId: '1274y4645', title: 'zombie dog party' }, { bggId: '1274y4645', title: 'newspaper simulator' }],
+    requests: [{ bggId: '23123124', title: 'pirate chow' }, { bggId: '9082309757', title: 'bridge builder' }]
   });
 
   it('Validates game model', done => {
@@ -51,18 +53,16 @@ describe('Gamenight model', () => {
     });
   });
 
-  it('Requires date', done => {
+  it('Enforces date type', done => {
     let badNight = new Gamenight({
-      name: 'bad date',
+      name: 'bad date2',
       description: 'blip blip',
-      host: testHost
+      host: testHost,
+      date: 'jan 5th, 1987'
     });
 
-    badNight.validate(err => {
-      if(!err) done('Should require date');
-      assert.isOk(err);
-      done();
-    });
+    assert.isNotOk(badNight.date);
+    done();
   });
 
 });

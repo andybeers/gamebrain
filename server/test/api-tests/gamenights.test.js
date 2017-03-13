@@ -21,8 +21,8 @@ describe('Gamenights CRUD routes', () => {
     description: 'test test test',
     date: testDate,
     invites: [],
-    rsvps: [{ game: { prop1: '1274y4645' }, userId: '48284746162' }, { game: { prop1: '41242jasdfkjh' }, userId: '48284746162' }],
-    requests: [{ prop3: '127fdasf4y4645' }, { prop3: 'oiqwihglskdjg' }]
+    requests: [],
+    rsvps: []
   };
 
   before('Logs in test users', done => {
@@ -61,28 +61,31 @@ describe('Gamenights CRUD routes', () => {
       .set({ 'authorization': gamenightUser.token })
       .send(testGamenight)
       .then(res => {
-        console.log('post reply:', res.body);
         testGamenight._id = res.body._id;
         testGamenight.__v = res.body.__v;
         testGamenight.host = res.body.host;
         testGamenight.date = res.body.date;
-        testGamenight.invites = res.body.invites;
         assert.deepEqual(res.body, testGamenight);
         done();
       })
       .catch(done);
   });
 
-  // it('GETs gamenight by id', done => {
-  //   request
-  //     .get(`/api/gamenights/${testGamenight._id}`)
-  //     .set({ 'authorization': gamenightUser.token })
-  //     .then(res => {
-  //       assert.deepEqual(res.body, testGamenight);
-  //       done();
-  //     })
-  //     .catch(done);
-  // });
+  it('GETs gamenight by id', done => {
+    request
+      .get(`/api/gamenights/${testGamenight._id}`)
+      .set({ 'authorization': gamenightUser.token })
+      .then(res => {
+        testGamenight.host = {
+          _id: res.body.host._id,
+          username: 'gamenightUser',
+          gameCollection: []
+        };
+        assert.deepEqual(res.body, testGamenight);
+        done();
+      })
+      .catch(done);
+  });
 
   it('Prevents non-hosts from deleting gamenight', done => {
     request
@@ -103,6 +106,7 @@ describe('Gamenights CRUD routes', () => {
       .delete(`/api/gamenights/${testGamenight._id}`)
       .set({ 'authorization': gamenightUser.token })
       .then(res => {
+        testGamenight.host = res.body.host;
         assert.deepEqual(res.body, testGamenight);
         done();
       })
