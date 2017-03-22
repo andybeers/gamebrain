@@ -1,8 +1,8 @@
-#GAMEBRAIN
+# GAMEBRAIN
 [![Build Status](https://travis-ci.org/andybeers/gamebrain.svg?branch=master)](https://travis-ci.org/andybeers/gamebrain)
 
 
-###Plan your friends' favorite boardgame night
+### Plan your friends' favorite boardgame night
 - Track, store, and sort your board game collection
 - Connects to the BoardGameGeek API -- find any boardgame imaginable
 - Compare game collections with your friends
