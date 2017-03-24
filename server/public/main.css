@@ -444,7 +444,9 @@
   ._2ElIazXfSVUX5_GKJClQoX .back-button:hover {
     color: #4d4d4d; }
   ._2ElIazXfSVUX5_GKJClQoX .bggsearch-heading {
-    text-align: center; }
+    display: flex;
+    justify-content: center;
+    align-items: center; }
   @media screen and (min-width: 550px) {
     ._2ElIazXfSVUX5_GKJClQoX .search-button {
       font-size: 14px;
