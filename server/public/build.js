@@ -43496,6 +43496,7 @@ function controller(userService, gameService) {
   this.styles = _addGame4.default;
   this.searchResults = false;
   this.bggShow = false;
+  this.emptyBgg = false;
   this.tab = 'collection';
 
   this.search = function () {
@@ -43512,8 +43513,11 @@ function controller(userService, gameService) {
   };
 
   this.bggSearch = function () {
+    _this.searchResults = false;
+    _this.emptyBgg = false;
     var query = _this.searchInput;
     gameService.searchBgg(query).then(function (results) {
+      if (!results.length) _this.emptyBgg = true;
       _this.bggResults = results;
     }).catch(function (err) {
       console.log(err);
@@ -44379,7 +44383,7 @@ module.exports = "<app-header current=\"$ctrl.current\" tab=\"$ctrl.tab\"></app-
 /* 112 */
 /***/ (function(module, exports) {
 
-module.exports = "<app-header current=\"$ctrl.current\" tab=\"$ctrl.tab\"></app-header>\n<section ng-class=\"$ctrl.styles.add\">\n  <h1>Add games to your collection</h1>\n  <form class=\"search\">\n    <input type=\"search\" placeholder=\"Search for games\" ng-model=\"$ctrl.searchInput\" required>\n    <button type=\"submit\" class=\"search-button\" ng-click=\"$ctrl.search()\">GO</button> \n  </form>\n  <div class=\"results\" ng-if=\"$ctrl.searchResults\">\n    <h2>{{$ctrl.results.length}} FOUND:</h2>  \n    <game current=\"$ctrl.current\" game=\"game\" search=\"true\" ng-repeat=\"game in $ctrl.results | orderBy: 'title'\"></game>\n  </div>\n  <div ng-if=\"$ctrl.bggShow\">\n    <div class=\"bggsearch-heading\">\n      <h2>Can't find your game?</h2>\n      <h3>Check the BoardGameGeek database:</h3>\n      <button class=\"search-button\" ng-click=\"$ctrl.bggSearch()\">GO</button>\n    </div>\n    <game ng-repeat=\"bggResult in $ctrl.bggResults\" current=\"$ctrl.current\" game=\"bggResult\" search=\"true\" bgg=\"true\"></game>\n  </div>\n  <div class=\"back\">\n    <button type=\"button\" class=\"flat-button back-button\" ui-sref=\"home.collection\">BACK</button>\n  </div>\n</section>";
+module.exports = "<app-header current=\"$ctrl.current\" tab=\"$ctrl.tab\"></app-header>\n<section ng-class=\"$ctrl.styles.add\">\n  <h1>Add games to your collection</h1>\n  <form class=\"search\">\n    <input type=\"search\" placeholder=\"Search for games\" ng-model=\"$ctrl.searchInput\" required>\n    <button type=\"submit\" class=\"search-button\" ng-click=\"$ctrl.search()\">GO</button> \n  </form>\n  <div class=\"results\" ng-if=\"$ctrl.searchResults\">\n    <h2>{{$ctrl.results.length}} results</h2>  \n    <game current=\"$ctrl.current\" game=\"game\" search=\"true\" ng-repeat=\"game in $ctrl.results | orderBy: 'title'\"></game>\n  </div>\n  <div ng-if=\"$ctrl.bggShow\">\n    <div class=\"bggsearch-heading\">\n      <h2>Click to check the BoardGameGeek database:</h2>\n      <button class=\"search-button\" ng-click=\"$ctrl.bggSearch()\">GO</button>\n    </div>\n    <game ng-repeat=\"bggResult in $ctrl.bggResults\" current=\"$ctrl.current\" game=\"bggResult\" search=\"true\" bgg=\"true\"></game>\n    <h2 ng-if=\"$ctrl.emptyBgg\">0 results from BoardGameGeek</h2>\n  </div>\n  <div class=\"back\">\n    <button type=\"button\" class=\"flat-button back-button\" ui-sref=\"home.collection\">BACK</button>\n  </div>\n</section>";
 
 /***/ }),
 /* 113 */

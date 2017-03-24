@@ -6,16 +6,16 @@
     <button type="submit" class="search-button" ng-click="$ctrl.search()">GO</button> 
   </form>
   <div class="results" ng-if="$ctrl.searchResults">
-    <h2>{{$ctrl.results.length}} FOUND:</h2>  
+    <h2>{{$ctrl.results.length}} results</h2>  
     <game current="$ctrl.current" game="game" search="true" ng-repeat="game in $ctrl.results | orderBy: 'title'"></game>
   </div>
   <div ng-if="$ctrl.bggShow">
     <div class="bggsearch-heading">
-      <h2>Can't find your game?</h2>
-      <h3>Check the BoardGameGeek database:</h3>
+      <h2>Click to check the BoardGameGeek database:</h2>
       <button class="search-button" ng-click="$ctrl.bggSearch()">GO</button>
     </div>
     <game ng-repeat="bggResult in $ctrl.bggResults" current="$ctrl.current" game="bggResult" search="true" bgg="true"></game>
+    <h2 ng-if="$ctrl.emptyBgg">0 results from BoardGameGeek</h2>
   </div>
   <div class="back">
     <button type="button" class="flat-button back-button" ui-sref="home.collection">BACK</button>

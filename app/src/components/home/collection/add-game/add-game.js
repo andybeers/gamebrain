@@ -15,6 +15,7 @@ function controller(userService, gameService) {
   this.styles = styles;
   this.searchResults = false;
   this.bggShow = false;
+  this.emptyBgg = false;
   this.tab = 'collection';
 
   this.search = () => {
@@ -33,9 +34,12 @@ function controller(userService, gameService) {
   };
 
   this.bggSearch = () => {
+    this.searchResults = false;
+    this.emptyBgg = false;
     const query = this.searchInput;
     gameService.searchBgg(query)
       .then(results => {
+        if (!results.length) this.emptyBgg = true;
         this.bggResults = results;
       })
       .catch(err => {

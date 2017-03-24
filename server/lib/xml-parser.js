@@ -43,7 +43,7 @@ const xmlParser = {
 
   //Format raw BGG API search response to limit nesting
   formatBggSearch(bggSearch) {
-    if (bggSearch.items.$.total === 0) return [];
+    if (bggSearch.items.$.total === '0') return [];
     return bggSearch.items.item.map(result => {
       const game = {};
       game.bggId = result.$.id;
