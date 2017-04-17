@@ -8,9 +8,7 @@ const ensureAuth = require('../auth/ensure-auth')();
 router
   .get('/validate', ensureAuth, (req, res) => {
     res.send({ valid: true });
-  });
-
-router
+  })
   .post('/signup', bodyParser, (req, res, next) => {
     const { username, password } = req.body;
     delete req.body.password;
@@ -33,9 +31,7 @@ router
       .then(user => token.sign(user))
       .then(token => res.send({ token }))
       .catch(next);
-  });
-
-router
+  })
   .post('/signin', bodyParser, (req, res, next) => {
     const { username, password } = req.body;
     delete req.body.password;
