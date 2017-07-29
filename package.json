@@ -8,12 +8,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/andybeers/gameshelf.git"
+    "url": "git+https://github.com/andybeers/gamebrain.git"
   },
   "author": "Andy Beers",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/andybeers/gameshelf/issues"
+    "url": "https://github.com/andybeers/gamebrain/issues"
   },
-  "homepage": "https://github.com/andybeers/gameshelf#readme"
+  "homepage": "https://github.com/andybeers/gamebrain#readme"
 }
