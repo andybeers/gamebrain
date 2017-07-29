@@ -1,6 +1,7 @@
 {
   "name": "gameshelf",
   "version": "1.0.0",
+  "engines": {"node": "8.2.1"},
   "description": "Games on games",
   "scripts": {
     "start": "cd server && npm i && npm start",

@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "engines": {"node": "8.2.1"},
   "dependencies": {
     "bcryptjs": "^2.4.0",
     "body-parser": "^1.16.0",
